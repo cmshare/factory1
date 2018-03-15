@@ -1,0 +1,72 @@
+﻿<HTML>
+<HEAD>
+<TITLE>添加商品到购物车</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<STYLE TYPE="text/css">
+ td {font-size: 10pt}
+</STYLE>
+<SCRIPT language="JavaScript" src="includes/mg_comm.js" type="text/javascript"></SCRIPT>
+<SCRIPT LANGUAGE=JavaScript>
+function Init() {
+  var selcount=htmRequest("count");
+  if (selcount && !isNaN(selcount)) document.getElementById("ProductCount").innerText=selcount;
+  else alert("参数错误！");
+  var CartToAdd=getCookie("CartToAdd");
+  var myform=document.forms[0];
+  if(CartToAdd){
+    myform.username.value=CartToAdd;
+    myform.remark.focus();
+  }
+  else{
+    myform.username.focus();
+  }
+}
+function Submit_AddToCart(myform){
+  var amount,username,ret=Array(3);//ret=[];
+  amount=myform.amount.value.trim();
+  if(!amount || isNaN(amount)){
+    alert("无效的单件商品数量！");
+    myform.amount.focus();
+    return false;
+  }
+  username=myform.username.value.trim();
+  if(!username){
+    alert("请输入购物车用户名！");
+    myform.username.focus();
+    return false;
+  }
+  setCookie("CartToAdd",username);
+  ret[0]=username;
+  ret[1]=amount;
+  ret[2]=myform.remark.value.trim();
+  parent.closeDialog(ret);
+  return false;
+}
+</script> 
+
+</HEAD>
+<BODY  bgcolor="#DFDFDF" topmargin=0 leftmargin=0 onload="Init()">
+<TABLE width="100%" height="100%" align="center" bordercolor="#FF6600" bgcolor="#FF6600" border="1" cellpadding="4" cellspacing="1" bgcolor="#FFFFFF">
+<TR><form onsubmit="return Submit_AddToCart(this);">
+ 	 <TD width="100%" height="30"><font color="#FFFFFF"><strong>将选定的 <font id="ProductCount" size=3 color="#00FFAA">1</font> 件商品更新至<input name="username" type="text" value="" style="width:80px;border:0px;text-align:center;margin-left:5px;margin-right:5px">的购物车:</strong></font></TD>
+</TR>
+<TR bgcolor="#f7f7f7" >
+	<TD width="100%" valign="top">
+	  <TABLE width="100%" height="100%" cellpadding="0" cellspacing="0" border="0">
+		<TR height="35"><TD width="70" nowrap><strong>单品数量：</strong></TD>
+			  <TD><input name="amount" id="amount" value="1" style="width:60px;text-align:center;" maxlength="4" onkeyup="if(isNaN(value))execCommand('undo');"> &nbsp;<font color=#FF0000 size=3>*</font><font size=2>单件商品的数量</font></TD>
+	  </TR>	
+	  <TR>
+    <TR><td><strong>商品备注：</strong></TD>
+    	<TD><textarea name="remark" rows="1" cols="20" wrap="VIRTUAL" style="width:100%;height:98%; font-size: 9pt; border: 1 solid #808080;margin-right:7px;"></textarea>
+    </TR>  
+    </TABLE>
+  </TD>  
+</TR>
+<TR bgcolor="#f7f7f7" >
+	<TD height="30" align="right" bgcolor="#FFCC00"><input  type="submit"  value=" 提交 ">&nbsp;</TD>
+</TR></form>
+</TABLE>
+
+</BODY>   
+</HTML>

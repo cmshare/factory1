@@ -1,0 +1,79 @@
+﻿A{TEXT-DECORATION: none;}
+A:link,A:visited{COLOR:#666666; TEXT-DECORATION: none}
+A:hover   {COLOR: #FF0000; TEXT-DECORATION: underline;position: relative; right: 0px; top: 1px}
+A.menu:link {COLOR:#000000; TEXT-DECORATION: none}
+A.menu:visited {COLOR:#000000; TEXT-DECORATION: none}
+A.menu:hover {font-weight:bold;COLOR:#FFFFFF; TEXT-DECORATION: none}
+BODY{margin:0px;FONT-SIZE:12px;COLOR:#666666;background-color:#000000;background-image:url(../images/pagebg.jpg);BACKGROUND-POSITION:center top;BACKGROUND-REPEAT: no-repeat;}
+
+TD{FONT-FAMILY:宋体;FONT-SIZE:12px;COLOR:#666666;line-height:150%;}
+
+#flashsale{background:url(../images/tejia_label.gif) no-repeat;margin-top:15px;}
+#loginfo DIV{WIDTH:550px;height:20px;OVERFLOW:hidden;}
+#loginfo2 DIV{WIDTH:200px;height:20px;OVERFLOW:hidden;} 
+.NavBotTable{border: 1px solid #dfdfdf;background-image:url(../images/bot_bg.gif);height:50px;}
+
+.menu_bar{BACKGROUND-IMAGE:url(../images/bar1.gif);height: 23;}
+.DesktopClip TH {background:url(../images/clip5.gif); BACKGROUND-POSITION: center top; BACKGROUND-REPEAT: no-repeat}
+
+.ProductShow TD{vertical-align:top;padding-left:16px;padding-top:7px;padding-bottom:10px;BACKGROUND-IMAGE:url(../images/pic_border.gif); BACKGROUND-POSITION: 8px 0px; BACKGROUND-REPEAT: no-repeat;}
+.ProductShow TD DIV{width:139px;padding-top:8px;color:#E26217;font-weight:bold;cursor:pointer}
+.ProductShow TD IMG{cursor:pointer;border:0px;}
+
+.WareShow TD{width:195px;vertical-align:top;padding-left:8px;padding-bottom:15px;BACKGROUND-IMAGE:url(../images/pic_bd.gif); BACKGROUND-POSITION: 8px 0px; BACKGROUND-REPEAT: no-repeat;}
+.WareShow TD .pimg{width:160px;height:160px;margin:10px;}
+.WareShow TD .pbox{position:relative;padding-left:5px;width:180px;color:#0066ff;}
+.WareShow TD .pbox .price3{position:absolute;top:-18px;left:5px;color:#c90c53;background-color:#FFFFFF;font-weight:bold;line-height:100%}
+.WareShow TD .pbox .price1{position:absolute;top:-18px;left:80px;text-decoration:line-through;color:#999999;line-height:100%}
+.WareShow TD .pbox .pbuy{position:absolute;top:-18px;right:6px;}
+.WareShow TD .pbox A:link,.WareShow TD .pbox A:visited{color:#0063DC;}
+.WareShow TD .pbox img{cursor:pointer;}
+
+.FloatingCode {z-index:1000;height:20px;position:relative;margin-top:-140px;margin-left:3px;color:#FFFFFF;filter:glow(color=#948c7b,strength=8);}
+.BrandDescription{width:755px;line-height: normal;valign:bottom;margin:5px;vertical-align:bottom;}
+.gMenuOpen  SPAN{display:block;width:100%;height:24px;BACKGROUND-IMAGE:url(../images/guidefold1.gif); BACKGROUND-POSITION:0px 2px; BACKGROUND-REPEAT: no-repeat;CURSOR:pointer;}
+.gMenuClose SPAN{display:block;width:100%;height:24px;BACKGROUND-IMAGE:url(../images/guidefold0.gif); BACKGROUND-POSITION:0px 2px; BACKGROUND-REPEAT: no-repeat;CURSOR:pointer;}
+.gMenuEmpty SPAN{display:block;width:100%;height:24px;BACKGROUND-IMAGE:url(../images/guidefold.gif); BACKGROUND-POSITION:0px 2px; BACKGROUND-REPEAT: no-repeat;CURSOR:pointer;}
+.gMenuOpen  DIV{margin-left:10px;padding-left:15px;display:block;BACKGROUND-IMAGE:url(../images/bclass2.gif); BACKGROUND-REPEAT: repeat-y;}
+.gMenuClose DIV{display:none;}
+.gMenuOpen  DIV A,.gMenuOpen DIV A:visited{display:block;height:20px;color:#0066ff;}
+.gMenuBar{padding-left:25px;}
+.gMenuBar A,.gMenuBar A:visited{color:GREEN;line-height:24px;letter-spacing:1px;FONT-SIZE:12px;}
+
+.gMenu2 {BACKGROUND-IMAGE:url(../images/bclass2.gif); BACKGROUND-REPEAT: no-repeat;BACKGROUND-POSITION: 10 50%; padding-left:25px}
+.gMenu2 A,.gMenu2 A:visited{color:0066ff;line-height:20px;letter-spacing:1px;FONT-SIZE:12px;}
+.BottomAdLinks{color:#333333;;height:20px;border-top:1px solid #888888;OVERFLOW:hidden}
+
+.loginfo2 {width:225;height:16;overflow: hidden;text-overflow:ellipsis;color:#FF6666}
+.loginfo2 A:link,.loginfo2  A:visited{color:#FF6666;}
+
+.LinkSortGuider{width:410px;height:16px;overflow: hidden;text-overflow:ellipsis;color:#222222}
+
+TABLE.newsbox TD A:link,TABLE.newsbox TD A:visited {color:#F0F0F0}
+TABLE.newsbox TD A:hover {color:#FFFFFF;TEXT-DECORATION: underline}
+#MainMenuTable TD A {blr:expression(this.onFocus=this.blur());}
+#MainMenuTable TD A:link,#MainMenuTable TD A:visited {color:#ffffff;font-weight:bold;}
+#MainMenuTable TD A:hover{Filter:glow(color=#dfdfdf,strength=2); height:16px;color:#ffffff;}
+TD.topmenu1 A:link,td.topmenu1 A:visited{color:#AAAAAA;TEXT-DECORATION: none}
+TD.topmenu1 A:hover{color:#FF0000;TEXT-DECORATION: underline} 
+
+TD.pageguider {color:#FF6600;font-weight:bold;}
+TD.pageguider A:link,TD.pageguider A:visited{color:#FF6600;font-weight:bold;TEXT-DECORATION: none}
+TD.pageguider A:hover{color:#FF0000;font-weight:bold;TEXT-DECORATION: underline}
+
+TD.producttitle{background-color:#f7f7f7;color:#FF0000;font-size:12pt;font-weight:bold;background-image:url(../images/productlistbg.gif);BACKGROUND-POSITION: center bottom; BACKGROUND-REPEAT: repeat-x;}
+
+TABLE.NavigationClient{BACKGROUND-POSITION: 50% top; BACKGROUND-REPEAT: repeat-x;background-image:url(../images/search_bg.gif);BORDER-COLLAPSE: collapse;border: 1px solid #cccccc;}
+
+.searchpanel {BACKGROUND-COLOR:#f27b04;border-radius: 3px 3px 3px 3px;}
+.searchpanel .searchkey{width:168px;height:23px;border:0px;padding-top:4px;padding-left:5px;}
+.searchpanel .m1 {BACKGROUND:url(../images/searchpanel.png) no-repeat;BACKGROUND-POSITION: 0px -25px;}
+.searchpanel .m2 {BACKGROUND:url(../images/searchpanel.png) no-repeat;BACKGROUND-POSITION: 0px -50px;}
+.searchpanel .m3 {BACKGROUND:url(../images/searchpanel.png) no-repeat;BACKGROUND-POSITION: 0px -75px;}
+
+.imgslider {overflow:hidden;border:0px;background-color:#000000;position:relative;}
+.imgslider .sliderbtn{position:absolute; z-index:1000; right:0px; bottom:2px; font-size:13px; font-weight:bold; font-family:Arial, Helvetica, sans-serif;}
+.imgslider ul{display:none;}
+.imgslider a img{FILTER:revealTrans(duration=2,transition=20)}
+.imgslider_b1,.imgslider_b2{background-color:#666666;display:block;float:left;padding:2px 6px;margin-right:3px;color:#FFFFFF;text-decoration:none;cursor:pointer;}
+.imgslider_b2{color:#FFCC33;background-color:#FF6633;}

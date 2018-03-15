@@ -1,0 +1,58 @@
+A{TEXT-DECORATION: none;}
+A:link,A:visited{COLOR: #666666; TEXT-DECORATION: none}
+A:hover   {COLOR: #FF0000; TEXT-DECORATION: underline}
+A.menu:link {COLOR:#000000; TEXT-DECORATION: none}
+A.menu:visited {COLOR:#000000; TEXT-DECORATION: none}
+A.menu:hover {font-weight:bold;COLOR:#FFFFFF; TEXT-DECORATION: none}
+BODY{margin:0px;font-size:12px;color:#666666;background-color:#FFFFFF;background-image:url(/images/bg_plus.gif);background-attachment: fixed}
+BODY.safebody {margin:0px;overflow:hidden;}
+TD{FONT-FAMILY:宋体;FONT-SIZE:12px;color:#666666;line-height:150%;}
+IMG{border:0px;}
+div.topframe{width:100%;height:5px;background-color:#e0e0e0;overflow:hidden;}
+div.topframe iframe{width:100%; height:10%;filter:chroma(color=#ffffff);}
+
+#loginfo DIV{WIDTH:520px;height:20px;OVERFLOW:hidden;}
+#ContentBox {padding-top:8px;padding-bottom:20px;BORDER-COLLAPSE: collapse; border-left:1px solid #cccccc;border-right:1px solid #cccccc;border-bottom:1px solid #cccccc;BACKGROUND-POSITION: left bottom; BACKGROUND-IMAGE:url(/images/clientbot.jpg); BACKGROUND-REPEAT: repeat-x;}
+.NavBotTable{border: 1px solid #dfdfdf}
+.menu_bar{BACKGROUND-IMAGE:url(/images/bar1.gif);height:23px;}
+
+#mainmenu {margin:0px;padding:0px}
+#mainmenu li{list-style:none;float:left;height:30px;width:88px;line-height:30px;TEXT-ALIGN:CENTER;cursor:pointer;background-image:url(/images/menu_tp.gif);BACKGROUND-POSITION: right top;*width:expression(this.previousSibling==null?"99px":"88px");}
+#mainmenu li:first-child{width:99px;}
+#mainmenu .hoverlink{BACKGROUND-POSITION: right bottom;}
+#mainmenu li A:link,#mainmenu li A:visited{COLOR:#666666; TEXT-DECORATION: none}
+#mainmenu li A:hover,#mainmenu .hoverlink a:link,#mainmenu .hoverlink a:visited{font-weight:bold;COLOR:#FFFFFF;}
+
+#tpbanner2 {height:45px;BACKGROUND-IMAGE:url(/images/advs/advs_bar.jpg);BACKGROUND-POSITION:0px 0px;BACKGROUND-REPEAT:no-repeat;}	
+#tpbanner2 table{position:relative;top:-19px;}
+#tpbanner2 TH {background:url(/images/clip5.gif);BACKGROUND-POSITION:center top;BACKGROUND-REPEAT:no-repeat}
+#tpbanner2 object {position:relative;top:16px;left:125px}
+
+.WareShow TD{width:195px;vertical-align:top;padding-left:8px;padding-bottom:15px;BACKGROUND-IMAGE:url(/images/pic_bd.gif); BACKGROUND-POSITION: 8px 0px; BACKGROUND-REPEAT: no-repeat;}
+.WareShow TD .pimg{width:160px;height:160px;margin:10px;}
+.WareShow TD .pbox{position:relative;padding-left:5px;width:180px;color:#0066ff;}
+.WareShow TD .pbox .price3{position:absolute;top:-18px;left:5px;color:#c90c53;background-color:#FFFFFF;font-weight:bold;line-height:100%}
+.WareShow TD .pbox .price1{position:absolute;top:-18px;left:80px;text-decoration:line-through;color:#999999;line-height:100%}
+.WareShow TD .pbox .pbuy{position:absolute;top:-18px;right:6px;}
+.WareShow TD .pbox A:link,.WareShow TD .pbox A:visited{color:#0063DC;}
+.WareShow TD .pbox img{cursor:pointer;}
+
+.ProductShow TD{vertical-align:top;padding-left:16px;padding-top:7px;padding-bottom:10px;BACKGROUND-IMAGE:url(/market/images/pic_border.gif); BACKGROUND-POSITION: 8px 0px; BACKGROUND-REPEAT: no-repeat;}
+.ProductShow TD DIV{width:139px;padding-top:8px;color:#E26217;font-weight:bold;cursor:pointer}
+.ProductShow TD IMG{cursor:pointer;border:0px;}
+
+
+.FloatingCode {z-index:1000;height:20px;position:relative;margin-top:-140px;margin-left:3px;color:#FFFFFF;filter:glow(color=#948c7b,strength=8);}
+.BrandDescription{width:755px;line-height: normal;valign:bottom;margin:5px;vertical-align:bottom;}
+.gMenuOpen  SPAN{display:block;width:100%;height:24px;BACKGROUND-IMAGE:url(/images/guidefold1.gif); BACKGROUND-POSITION:0px 2px; BACKGROUND-REPEAT: no-repeat;CURSOR:pointer;}
+.gMenuClose SPAN{display:block;width:100%;height:24px;BACKGROUND-IMAGE:url(/images/guidefold0.gif); BACKGROUND-POSITION:0px 2px; BACKGROUND-REPEAT: no-repeat;CURSOR:pointer;}
+.gMenuEmpty SPAN{display:block;width:100%;height:24px;BACKGROUND-IMAGE:url(/images/guidefold.gif); BACKGROUND-POSITION:0px 2px; BACKGROUND-REPEAT: no-repeat;CURSOR:pointer;}
+.gMenuOpen  DIV{margin-left:10px;padding-left:15px;display:block;BACKGROUND-IMAGE:url(/images/bclass2.gif); BACKGROUND-REPEAT: repeat-y;}
+.gMenuClose DIV{display:none;}
+.gMenuOpen  DIV A,.gMenuOpen DIV A:visited{display:block;height:20px;color:#0066ff;background-image:url(/images/bg_plus.gif);}
+.gMenuBar{padding-left:25px;}
+.gMenuBar A,.gMenuBar A:visited{color:GREEN;line-height:24px;letter-spacing:1px;font-size:12px;}
+
+.gMenu2 {BACKGROUND-IMAGE:url(/images/bclass2.gif); BACKGROUND-REPEAT: no-repeat;BACKGROUND-POSITION: 10 50%; padding-left:25px}
+.gMenu2 A,.gMenu2 A:visited{color:0066ff;line-height:20px;letter-spacing:1px;font-size:12px;}
+.BottomAdLinks{color:#333333;;height:20px;border-top:1px solid #888888;OVERFLOW:hidden}

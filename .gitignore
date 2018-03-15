@@ -1,0 +1,17 @@
+#.gitignore
+/uploadfiles
+/images
+/temp
+*conn.php
+*.jpg
+*.gif
+*.png
+*.fla
+*.txt
+*.mp3
+*.asp
+*.psd
+*.htm
+*.swf
+*.rar
+*.zip

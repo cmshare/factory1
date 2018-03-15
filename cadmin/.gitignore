@@ -1,0 +1,6 @@
+#.gitignore  
+/admin
+/includes/dbconn.php
+*.zip
+*.rar
+*.gz

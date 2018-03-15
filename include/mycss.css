@@ -1,0 +1,87 @@
+﻿A{TEXT-DECORATION:none;}
+A:link,A:visited{COLOR:#666666; TEXT-DECORATION:none}
+A:hover{COLOR:#FF0000; TEXT-DECORATION:underline}
+BODY{margin:0px;padding:0px; font-size:12px;color:#666666;font-family:"微软雅黑","黑体","宋体";background:url(/images/bg_top.gif) repeat-x;}
+BODY.safebody {margin:0px;overflow:hidden;}
+TD{FONT-FAMILY:宋体;FONT-SIZE:12px;color:#666666;line-height:150%;}
+IMG{border:0px;}
+div.topframe{width:100%;height:5px;background-color:#e0e0e0;overflow:hidden;}
+div.topframe iframe{width:100%; height:10%;filter:chroma(color=#ffffff);}
+#loginfo DIV{WIDTH:520px;height:20px;OVERFLOW:hidden;}
+#ContentBox,#userbox {BORDER-COLLAPSE:collapse; border-right:1px solid #cccccc;BACKGROUND-POSITION:left bottom; BACKGROUND-IMAGE:url(/images/clientbot.jpg); BACKGROUND-REPEAT:repeat-x;}
+.promotion {background:url(/images/promotion.png) no-repeat;}
+.promotion .qiangou A{font-size:13pt;font-weight:bold;color:#FF6600;}
+.promotion .price_tj{color:#FFFFFF;font-size:16pt;font-weight:bold;width:115px; height:20px; overflow:hidden;}
+.promotion .name_tj{position:relative;top:-30px;width:375px;height:20px;overflow:hidden;text-overflow:ellipsis;}
+.promotion .name_tj A{font-weight:bold;}
+
+.topnews {width:250px;height:330px;overflow:hidden;BACKGROUND:url(/images/newsbg.gif) no-repeat;}
+.topnews .t_bulletin{height:94px;width:230px;overflow:hidden;margin-left:10px;margin-top:33px;line-height:20px;}
+.topnews .tab_title{margin-left:5px;margin-top:10px;width:230px;height:27px;}
+.topnews .tab_title ul{margin:0px;padding:0px;}
+.topnews .tab_title ul li{list-style:none;float:left;height:27px;width:80px;line-height:27px;text-align:center;}
+.topnews .tab_title ul .selected{display:block;font-weight:bold;line-height:27px;height:27px;background-color:#FBF7EE;}
+.topnews .tab_content .nonselected{display:none}
+.topnews .tab_content{margin-left:10px;width:228px;}
+.topnews .news_title{background:url(/images/brokenline.gif) repeat-x;} 
+.topnews .news_title div{width:185px; height:18px; overflow:hidden; text-overflow:ellipsis} 
+
+#MyPageBottom {background:url(/images/bg_bot.gif) repeat-x;}
+#MyPageBottom .menu_bar{BACKGROUND-IMAGE:url(/images/bar1.gif);height:23px;}
+
+#mainmenu {margin:0px;padding:0px}
+#mainmenu li{list-style:none;float:left;height:30px;width:88px;line-height:30px;TEXT-ALIGN:CENTER;cursor:pointer;background-image:url(/images/menu_tp.gif);BACKGROUND-POSITION:right top;*width:expression(this.previousSibling==null?"99px":"88px");}
+#mainmenu li:first-child{width:99px;}
+#mainmenu .hoverlink{BACKGROUND-POSITION:right bottom;}
+#mainmenu li A:link,#mainmenu li A:visited{COLOR:#666666; TEXT-DECORATION:none}
+#mainmenu li A:hover,#mainmenu .hoverlink a:link,#mainmenu .hoverlink a:visited{font-weight:bold;COLOR:#FFFFFF;}
+ 
+.WareShow TD{width:195px;vertical-align:top;padding-left:8px;padding-bottom:15px;BACKGROUND-IMAGE:url(/images/pic_bd.gif); BACKGROUND-POSITION:8px 0px; BACKGROUND-REPEAT:no-repeat;}
+.WareShow TD .pimg{width:160px;height:160px;margin:10px;}
+.WareShow TD .pbox{position:relative;padding-left:5px;width:180px;color:#0066ff;}
+.WareShow TD .pbox .price3{position:absolute;top:-18px;left:5px;color:#c90c53;background-color:#FFFFFF;font-weight:bold;line-height:100%}
+.WareShow TD .pbox .price1{position:absolute;top:-18px;left:80px;text-decoration:line-through;color:#999999;line-height:100%}
+.WareShow TD .pbox .pbuy{position:absolute;top:-18px;right:6px;}
+.WareShow TD .pbox A:link,.WareShow TD .pbox A:visited{color:#0063DC;}
+.WareShow TD .pbox img{cursor:pointer;}
+
+#tpbanner2 {height:54px;BACKGROUND-IMAGE:url(/images/advs/advs_bar.jpg);BACKGROUND-POSITION:0px 10px;BACKGROUND-REPEAT:no-repeat;}	
+#tpbanner2 table{position:relative;top:-15px;}
+#tpbanner2 TH {background:url(/images/clip5.gif);BACKGROUND-POSITION:center top;BACKGROUND-REPEAT:no-repeat}
+#tpbanner2 object {position:relative;top:18px;left:125px}
+
+.ProductShow TD{vertical-align:top;padding-left:16px;padding-top:7px;padding-bottom:10px;BACKGROUND-IMAGE:url(/market/images/pic_border.gif); BACKGROUND-POSITION:8px 0px; BACKGROUND-REPEAT:no-repeat;}
+.ProductShow TD DIV{width:139px;padding-top:8px;color:#E26217;font-weight:bold;cursor:pointer}
+.ProductShow TD IMG{cursor:pointer;border:0px;}
+
+#imgslider {width:750px;height:330px;overflow:hidden;border:0px;background-color:#000000;position:relative;}
+#imgslider .sliderbtn{position:absolute; z-index:1000; right:0px; bottom:2px; font-size:13px; font-weight:bold; font-family:Arial, Helvetica, sans-serif;}
+#imgslider ul{display:none;}
+#imgslider a img{FILTER:revealTrans(duration=2,transition=20)}
+.imgslider_b1,.imgslider_b2{background-color:#666666;display:block;float:left;padding:2px 6px;margin-right:3px;color:#FFFFFF;text-decoration:none;cursor:pointer;}
+.imgslider_b2{color:#FFCC33;background-color:#FF6633;}
+
+.buyaction {background:url(/images/changeamount.png) no-repeat;cursor:pointer;}
+.buyaction input{border:none;width:50px;height:21px;text-align:center;}
+
+.FloatingCode {z-index:1000;height:20px;position:relative;margin-top:-140px;margin-left:3px;color:#FFFFFF;filter:glow(color=#948c7b,strength=8);}
+.BrandDescription{width:755px;line-height:normal;valign:bottom;margin:5px;vertical-align:bottom;}
+.gMenuOpen  SPAN{display:block;width:100%;height:24px;BACKGROUND-IMAGE:url(/images/guidefold1.gif); BACKGROUND-POSITION:0px 2px; BACKGROUND-REPEAT:no-repeat;CURSOR:pointer;}
+.gMenuClose SPAN{display:block;width:100%;height:24px;BACKGROUND-IMAGE:url(/images/guidefold0.gif); BACKGROUND-POSITION:0px 2px; BACKGROUND-REPEAT:no-repeat;CURSOR:pointer;}
+.gMenuEmpty SPAN{display:block;width:100%;height:24px;BACKGROUND-IMAGE:url(/images/guidefold.gif); BACKGROUND-POSITION:0px 2px; BACKGROUND-REPEAT:no-repeat;CURSOR:pointer;}
+.gMenuOpen  DIV{margin-left:10px;padding-left:15px;display:block;BACKGROUND-IMAGE:url(/images/bclass2.gif); BACKGROUND-REPEAT:repeat-y;}
+.gMenuClose DIV{display:none;}
+.gMenuOpen  DIV A,.gMenuOpen DIV A:visited{display:block;height:20px;color:#0066ff;}
+.gMenuBar{padding-left:25px;}
+.gMenuBar A,.gMenuBar A:visited{color:GREEN;line-height:24px;letter-spacing:1px;font-size:12px;}
+
+.gMenu2 {BACKGROUND-IMAGE:url(/images/bclass2.gif); BACKGROUND-REPEAT:no-repeat;BACKGROUND-POSITION:10 50%; padding-left:25px}
+.gMenu2 A,.gMenu2 A:visited{color:0066ff;line-height:20px;letter-spacing:1px;font-size:12px;}
+
+.onlineservice div{height:20px;width:550px;OVERFLOW:hidden;}
+
+TD.producttitle{background-color:#f7f7f7;color:#FF0000;font-size:12pt;font-weight:bold;background-image:url(/images/productlistbg.gif);BACKGROUND-POSITION:center bottom; BACKGROUND-REPEAT:repeat-x;}
+
+/* 过渡样式 */
+
+#dummyframe2{position:absolute;left:0;top:0;width:100%; height:4000;z-index:2000}
