@@ -8,26 +8,18 @@ if(@$_POST['action']=='get'){
 }
    
 function ShowPresent(){
+  global $page,$total_pages,$total_records;
   $page_size=15;
-  $sql_count='from `mg_product` inner join `mg_present` on `mg_product`.id=`mg_present`.productid';
-  $sql_query='select `mg_product`.id,`mg_product`.name,`mg_product`.stock0,`mg_present`.available,`mg_present`.score,`mg_present`.remarks '.$sql_count.' order by `mg_present`.addtime desc';
-  $total_records=$GLOBALS['conn']->query('select count(*) '.$sql_count,PDO::FETCH_NUM)->fetchColumn(0); 
+  $res=page_query('select `mg_product`.id,`mg_product`.name,`mg_product`.stock0,`mg_present`.available,`mg_present`.score,`mg_present`.remark','from `mg_product` inner join `mg_present` on `mg_product`.id=`mg_present`.productid','','order by `mg_present`.addtime desc',$page_size);
   if(empty($total_records)){
      echo '<br><p align="center">没有相关记录！</p>'; 
      return false;
   }
-  $total_pages=(int)(($total_records+$page_size-1)/$page_size);
-  $page=@$_GET['page'];
-  if(is_numeric($page)){
-    if($page<1)$page=1;
-    else if($page>$total_pages)$page=$total_pages;
-  }else $page=1;
-  $res=$GLOBALS['conn']->query($sql_query.' limit '.($page_size*($page-1)).','.$page_size,PDO::FETCH_ASSOC); 
   echo '<TABLE cellSpacing=0 cellPadding=0 width="96%" align="center" border="0"><tr>';
   $jishu=0;
-  if($res) foreach($res as $row){
-    if($row['available']>$row['stock0']) $PresentAvailable=$row['stock0']; else $PresentAvailable=$row['available'];
-    if($jishu>0 && $jishu % 3==0) echo '</tr><tr><td height=15> </td></tr><tr>';?>
+  foreach($res as $row){
+     $PresentAvailable=($row['available']>$row['stock0'])?$row['stock0']:$row['available'];
+    if($jishu>0 && ($jishu%3==0)) echo '</tr><tr><td height=15> </td></tr><tr>';?>
       <td width="33%" valign="top">
       <table border=0 cellspacing=0 cellpadding=0 valign="middle">
       <tr>
@@ -47,7 +39,7 @@ function ShowPresent(){
                <td>&nbsp;【还剩下】 <b><font color=red><?php echo $PresentAvailable;?>件</font></b></td>
            </tr>
            <tr>
-               <td><div><nobr>&nbsp;【备&nbsp; 注】<?php echo ($row['remarks'])?$row['remarks']:'无';?></nobr></div></td>
+               <td><div><nobr>&nbsp;【备&nbsp; 注】<?php echo ($row['remark'])?$row['remark']:'无';?></nobr></div></td>
            </tr>
            </table> 
          </td>
@@ -86,7 +78,7 @@ include("include/page_head.php");?>
    <TD id="contentbox"><?php echo ShowPresent();?></TD>
 </TR>
 <TR>
-   <TD height="56" style="BACKGROUND-IMAGE:url(images/presentresume.gif); BACKGROUND-REPEAT: no-repeat;BACKGROUND-POSITION: center center%"></TD>
+   <TD height="56" style="BACKGROUND-IMAGE:url(images/presentresume.gif); BACKGROUND-REPEAT: no-repeat;BACKGROUND-POSITION: center center"></TD>
 </TR>
 <style> .presentshow div{width:176px; height:18px; overflow:hidden; text-overflow:ellipsis} </style>
 <TR>
@@ -95,16 +87,16 @@ include("include/page_head.php");?>
 </TABLE>
  
 <script>
-  function JumpToPage(page)
-  { AsyncPost("action=get","present.php?page="+page,"contentbox");	
+  function JumpToPage(page){
+    AsyncPost("action=get","present.php?page="+page,"contentbox");
   }
-  function JumpLinks(alink)
-  { AsyncPost("action=get",alink.href,"contentbox");	 
-  	return false;
+  function JumpLinks(alink) {
+    AsyncPost("action=get",alink.href,"contentbox");
+    return false;
   }
   var cur_page=htmRequest("page");
-  if(cur_page!="" && cur_page!="0" && cur_page!="1")
-  { JumpToPage(cur_page);
+  if(cur_page!="" && cur_page!="0" && cur_page!="1"){
+     JumpToPage(cur_page);
   }
 </script>
 <?php

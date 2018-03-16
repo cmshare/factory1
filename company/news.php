@@ -122,9 +122,7 @@ require('include/page_head.php');?>
 <script>
   function JumpToPage(page){
     var params="?id="+htmRequest("id")+"&property="+htmRequest("property")+"&page="+page;
-    AsyncPost("action=get","news.php"+params,function(ret){
-        document.getElementById("contentbox").innerHTML=ret;
-    });
+    AsyncPost("action=get","news.php"+params,"contentbox");
     document.body.scrollTop=0;	
   }
   JumpToPage(htmRequest("page"));
