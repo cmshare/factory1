@@ -26,8 +26,6 @@ else{
     $sql_condition=$news_limited;
     $property='0';
   }
-  $sql_count='from `mg_article` where '.$sql_condition;
-  $sql_query='select id,title,content,author,addtime '.$sql_count.' order by addtime desc';	
 }
 
 switch($newsproperty){
@@ -37,7 +35,7 @@ switch($newsproperty){
 }
 
 function ShowNews(){
-  global $conn,$id,$sql_count,$sql_query,$newsTitle,$newsAddTime,$newsContent;
+  global $conn,$id,$newsTitle,$newsAddTime,$sql_condition,$total_records,$total_pages,$page,$newsContent;
   if($id>0){?>
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr> 
@@ -66,20 +64,13 @@ function ShowNews(){
     <TD width="65%"><strong>文章主题</strong></TD>
     <TD width="35%"><strong>发布时间</strong></TD>
     </TR><?php
-      $page_size=20;
-      $total_records=$conn->query('select count(*) '.$sql_count,PDO::FETCH_NUM)->fetchColumn(0); 
-      if(empty($total_records)){
-        echo '<TR><TD ALIGN=center colspan=3>还没有文章!</TD></TR>';
-        return false;
-      }
-      $total_pages=(int)(($total_records+$page_size-1)/$page_size);
-      $page=@$_GET['page'];
-      if(is_numeric($page)){
-        if($page<1)$page=1;
-        else if($page>$total_pages)$page=$total_pages;
-      }else $page=1;
-      $res=$conn->query($sql_query." limit ".($page_size*($page-1)).",$page_size",PDO::FETCH_ASSOC); 
-      foreach($res as $row){?> 
+  $page_size=20;
+  $res=page_query('select id,title,content,author,addtime','from mg_article','where '.$sql_condition,'order by addtime desc',$page_size);
+  if(empty($total_records)){
+    echo '<TR><TD ALIGN=center colspan=3>还没有文章!</TD></TR>';
+    return false;
+  }
+  foreach($res as $row){?> 
      <TR bgcolor="#FFFFFF" height=25  onmouseover="this.style.backgroundColor='#f2f2f2'; this.style.color='#ff0000' " onmouseout="this.style.backgroundColor='';this.style.color=''">
        <TD> &nbsp; <a href="news.htm?id=<?php echo $row['id'];?>" target="_blank"><?php echo $row['title'];?></a></TD>
        <TD align="center"><?php echo date('Y-m-d H:i:s',$row['addtime']);?></TD>
@@ -131,7 +122,9 @@ require('include/page_head.php');?>
 <script>
   function JumpToPage(page){
     var params="?id="+htmRequest("id")+"&property="+htmRequest("property")+"&page="+page;
-    SyncPost("action=get","news.php"+params,"contentbox");
+    AsyncPost("action=get","news.php"+params,function(ret){
+        document.getElementById("contentbox").innerHTML=ret;
+    });
     document.body.scrollTop=0;	
   }
   JumpToPage(htmRequest("page"));
