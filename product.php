@@ -3,15 +3,15 @@ require('user/m_reviews.php');
 OpenDB();
 CheckLogin(0);
 
-$id=$_GET['id'];
+$id=@$_GET['id'];
 if(is_numeric($id) && $id>0){
   $PresentScore=0;
   $roware=$conn->query('select * from `mg_product` where id='.$id.' and recommend>=0',PDO::FETCH_ASSOC)->fetch();  
 }
 else{
-  $id=$_GET['pid'];
+  $id=@$_GET['pid'];
   if(is_numeric($id) && $id>0){
-    $roware=$conn->query('select score,available,remarks from `mg_present` where productid='.$id,PDO::FETCH_NUM)->fetch();
+    $roware=$conn->query('select score,available,remark from `mg_present` where productid='.$id,PDO::FETCH_NUM)->fetch();
     if($roware){
       $PresentScore=$roware[0];
       $PresentAvailable=$roware[1];
