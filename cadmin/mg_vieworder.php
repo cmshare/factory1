@@ -67,7 +67,7 @@ function PageShowDetail(){
       <td background="images/topbg.gif" nowrap>
        	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-    	   <td width="50%" nowrap><img src="images/pic17.gif" width="17" height="15" align="absmiddle" /><b>订单号</b>：<font color="#FF0000"><?php echo $OrderName;?></font> &nbsp; &nbsp; <img src="images/pic18.gif" width="17" height="15" align="absmiddle" /><b>下单用户</b>：<?php echo $orders['username'];?></a> &nbsp; &nbsp; &nbsp; <img src="images/pic19.gif" width="18" height="15" align="absmiddle" style=""/>客服：<font color="#FF6600"><?php echo $orders['operator'].'#'.$orders['support'];?></font></td>
+    	   <td width="50%" nowrap><img src="images/pic17.gif" width="17" height="15" align="absmiddle" /><b>订单号</b>：<a href="mg_checkorder.php?ordername=<?php echo $OrderName;?>"><font color="#FF0000"><?php echo $OrderName;?></font></a> &nbsp; &nbsp; <img src="images/pic18.gif" width="17" height="15" align="absmiddle" /><b>下单用户</b>：<?php echo $orders['username'];?></a> &nbsp; &nbsp; &nbsp; <img src="images/pic19.gif" width="18" height="15" align="absmiddle" style=""/>客服：<font color="#FF6600"><?php echo $orders['operator'].'#'.$orders['support'];?></font></td>
            <td width="30%" nowrap align="center"><img src="images/arrow3.gif" height="16" align="absmiddle"><b>订单流向</b>：<font color="#FF0000"><?php echo $Title_Exporter;?></font>→出货至→<font color="#FF0000"><?php echo $Title_Importer;?></font></td>
            <td width="20%" nowrap align="right">&nbsp; &nbsp;  <img src="images/pic21.gif" height="15" align="absmiddle"><b><font color="#FF6600">订单状态</font>： <?php echo OrderStateName($Order_State);?></b> &nbsp; </td>
     	</tr>
@@ -85,10 +85,10 @@ function PageShowDetail(){
        <td WIDTH="6%" height="25" align="center" background="images/topbg.gif"><strong>备 注</strong></td>
     </tr>
     <style type="text/css">.highlink, .highlink A:link, .highlink A:visited {color:#0000FF;font-weight:bold}</style><?php
-$HighLight=@$_GET['sel'];
 $TotalPrice=0;  //价格总计
 $TotalScore=0;
 $TotalProduct=0;   //商品总件数
+$HighLight=@$_GET['sel'];
 foreach($res as $row){ 
   $Amount=$row['amount'];
   $Price=$row['price'];
