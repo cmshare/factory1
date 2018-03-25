@@ -83,8 +83,8 @@ else if(strstr($DeliveryMethod,'圆通')){?>
   </FORM><script>JumpToSearch()</script><?php
 }
 else if(strstr($DeliveryMethod,'国通')){?>
-  <FORM method="POST" action="http://222.73.113.82:8085/query/index.asp">
-  <input type="hidden" name="track" value="<?php echo $DeliveryCode;?>">
+  <FORM method="POST" action="http://www.kiees.cn/gto365/">
+  <input type="hidden" name="wen" value="<?php echo $DeliveryCode;?>">
   </FORM><script>JumpToSearch()</script><?php
 }
 else if(strstr($DeliveryMethod,'中诚')){?>

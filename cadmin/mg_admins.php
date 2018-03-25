@@ -19,7 +19,7 @@ if(($mode=@$_GET["mode"])) {
     $popedom=FilterText(trim(@$_POST["popedom"]));
     if($username && $popedom){
       $row=$conn->query("select popedom from `mg_users` where username='$username'")->fetch(PDO::FETCH_NUM);
-      if(empty($row))PageReturn('改用户名尚未注册！');
+      if(empty($row))PageReturn('该用户名尚未注册！');
       else if($row[0]) pagereturn("该用户已经是管理员名，不能重复添加！",-1);
       else{
         if($conn->exec("update `mg_users` set popedom='$popedom' where username='$username'")){
