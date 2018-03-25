@@ -264,7 +264,13 @@ if($Order_State<5){
     echo  '<option value="'.$row['subject'].'"'.$selected.'>'.$row['subject'].'</option>';            	   	
   }
   echo '<option value="其他方式" >其他方式</option></select><input type="text" name="deliverycode" placeholder="货单号码" maxlength=16 savedvalue="'.$Order_DeliveryCode.'" value="'.$Order_DeliveryCode.'" style="width:130px;text-align:center"><input type="button" value="追踪" onclick="DeliveryTrack(this.form)">';
-} else echo ($Order_Weight_KG?'包裹重量<U>'.$Order_Weight_KG.'</U>Kg &nbsp; ':'').$Order_DeliveryMethod.($Order_DeliveryCode?'<U>'.$Order_DeliveryCode.'</U> <input type="button" value="追踪" onclick="DeliveryTrack(this.form)">':'');?></td>
+}
+else{
+   if($Order_Weight_KG) echo '包裹重量<U>'.$Order_Weight_KG.'</U>Kg &nbsp; ';
+   if($Order_DeliveryCode && strlen($Order_DeliveryCode)>10) echo '<input type="text" name="deliverymethod" readonly value="'.$Order_DeliveryMethod.'" style="width:80px;text-align:center"><input type="text" name="deliverycode"  value="'.$Order_DeliveryCode.'" readonly style="width:130px"> <input type="button" value="追踪" onclick="DeliveryTrack(this.form)">';
+}
+?></td>
+
       </tr> 
       <tr height="25" bgcolor="#F7F7F7"> 
           <td class="TitleCell"><strong>客服备注</strong></td>

@@ -1,6 +1,11 @@
-<?php require('../include/conn.php');
-$DeliveryMethod=$_GET['method'];
-$DeliveryCode=$_GET['code'];?>
+<?php 
+
+require('../include/conn.php');
+$DeliveryMethod=@$_GET['method'];
+$DeliveryCode=@$_GET['code'];
+?>
+
+
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <META http-equiv="Keywords" content="快递,物流,追踪,货单号,查询,化妆品运输,化妆品批发">
@@ -48,13 +53,13 @@ if(empty($DeliveryCode)){
   }
 }
 else if(strstr($DeliveryMethod,'申通')) {?>
-  <form action="http://q.sto.cn/track.aspx" method=get>
+  <form action="http://www.kiees.cn/sto/" method=post>
   <input name="wen" type="hidden" value="<?php echo $DeliveryCode;?>"> 
   </FORM><script>JumpToSearch()</script><?php 
 }
-else if(strstr($DeliveryMethod,'<中通')){?>  	
-  <FORM action="http://www.zto.cn/GuestService/Bill" method=post>
-  <input name="txtbill" id="txtbill" type="hidden" value="<?php echo $DeliveryCode;?>"> 
+else if(strstr($DeliveryMethod,'中通')){?>  	
+  <FORM action="http://www.kiees.cn/zto/" method=post>
+  <input name="wen" type="hidden" value="<?php echo $DeliveryCode;?>"> 
   </FORM><script>JumpToSearch()</script><?php
 }
 else if(strstr($DeliveryMethod,'全峰')){?>
@@ -63,7 +68,7 @@ else if(strstr($DeliveryMethod,'全峰')){?>
   </FORM><script>JumpToSearch()</script><?php
 }
 else if(strstr($DeliveryMethod,'韵达')){?>
-  <form action="http://ykjcx.yundasys.com/go.php" method="post">
+  <form action="http://www.kiees.cn/yd/" method="post">
   <INPUT name="wen" id="wen" type="hidden" value="<?php echo $DeliveryCode;?>"> 
   </FORM><script>JumpToSearch()</script><?php
 }
@@ -73,8 +78,8 @@ else if(strstr($DeliveryMethod,'韵_达')){?>
   </FORM><script>JumpToSearch()</script><?php
 }
 else if(strstr($DeliveryMethod,'圆通')){?>
- <FORM method="POST" action="http://www.kuaidiwo.cn/yto.asp">
-  <input name="no" type="hidden" value="<?php echo $DeliveryCode;?>">
+ <FORM method="POST" action="http://www.kiees.cn/yto/">
+  <input name="wen" type="hidden" value="<?php echo $DeliveryCode;?>">
   </FORM><script>JumpToSearch()</script><?php
 }
 else if(strstr($DeliveryMethod,'国通')){?>
@@ -87,16 +92,15 @@ else if(strstr($DeliveryMethod,'中诚')){?>
   <input name="JobNo" type="hidden" value="<?php echo $DeliveryCode;?>">
   </FORM><script>JumpToSearch()</script><?php
 }
-else if(strstr($DeliveryMethod,'ＥMS") or InStr(DeliveryMethod,"EMS") or InStr(DeliveryMethod,"ems") or InStr(DeliveryMethod,"邮宝')){?>  	  	
-  <form action="http://www.kiees.cn/ems.asp" method="post">
-  <INPUT name="No" type="hidden" value="<?php echo $DeliveryCode;?>"> 
+else if(strstr($DeliveryMethod,'邮政') or InStr(DeliveryMethod,'EMS')){?>  	  	
+  <form action="http://my.kiees.cn/ems/" method="post">
+  <INPUT name="wen" type="hidden" value="<?php echo $DeliveryCode;?>"> 
   </FORM><script>JumpToSearch()</script><?php
 }  
 else if(strstr($DeliveryMethod,'顺丰')){?>  
-  <FORM method="POST" action="http://www.sf-express.com/sfwebapp/track.jsp">
-  </FORM>
-  <script>JumpToSearch()</script>
-  <p 需要自己填写货单号以及验证码进行查询</p><?php
+  <FORM action="http://www.kiees.cn/sf/" method=post>
+  <input name="wen" type="hidden" value="<?php echo $DeliveryCode;?>"> 
+  </FORM><script>JumpToSearch()</script><?php
 }  
 else if(strstr($DeliveryMethod,'传志')){?>  
   <form action="http://www.chuanzhi.cn/ydcx_ok.asp" method="post">
