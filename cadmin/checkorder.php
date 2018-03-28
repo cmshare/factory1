@@ -167,11 +167,10 @@ function DeleteOrder(){
       $conn->beginTransaction();//事务开始
       $row=$conn->query('select id,username,operator,state from mg_orders where ordername=\''.$OrderName.'\' and (state=1 or state=-1) for update',PDO::FETCH_ASSOC)->fetch();
       if($row && ($row['operator']==$AdminUsername ||$row['username']==$AdminUsername || CheckPopedom('FINANCE'))){
-         if($conn->exec('update mg_ordergoods set ordername=null where ordername=\''.$OrderName.'\'')){
-           if($conn->exec('update mg_orders set state=0 where id='.$row['id'].' and state='.$row['state'])){
-             $conn->commit();//事务完成
-             echo '订单删除成功！<OK>';
-           }
+         $conn->exec('update mg_ordergoods set ordername=null where ordername=\''.$OrderName.'\'');
+         if($conn->exec('update mg_orders set state=0 where id='.$row['id'].' and state='.$row['state'])){
+           $conn->commit();//事务完成
+           echo '订单删除成功！<OK>';
          }
       } 
     }
