@@ -1,6 +1,6 @@
 <?php header("content-Type: text/html; charset=utf-8");
 date_default_timezone_set("PRC");
-InitUpload("cmupload||||||office2003|||/uploadfiles/|||550|||350|||rar|zip|pdf|doc|xls|ppt|chm|hlp|||swf|||gif|png|jpg|jpeg|bmp|||rm|mp3|wav|mid|midi|ra|avi|mpg|mpeg|asf|asx|wma|mov|||gif|png|jpg|bmp|||1024|||2048|||2048|||100|||2048|||1|||1|||EDIT|||1|||0|||0|||||||||1|||0|||V4.x版保留,standard550标配,office2003皮肤|||||||||1|||300|||120|||1|||涵若铭妆|||BBBBBB|||32|||simkai.ttf||||||0|||jpg|jpeg|||100|||888888|||1|||1|||bin|tar|gz|apk|||32768|||100|||5|||66|||17|||5|||5|||0|||100|||100|||5|||5|||5|||88|||31|||1|||0|||1|||1|||1|||1|||0|||");
+InitUpload("cmupload||||||office2003|||/uploadfiles/|||550|||350|||rar|zip|pdf|doc|xls|ppt|chm|hlp|||swf|||jpg|jpeg|||rm|mp3|wav|mid|midi|ra|avi|mpg|mpeg|asf|asx|wma|mov|||gif|png|jpg|bmp|||1024|||2048|||2048|||100|||2048|||1|||1|||EDIT|||1|||0|||0|||||||||1|||0|||V4.x版保留,standard550标配,office2003皮肤|||||||||1|||300|||120|||1|||涵若铭妆|||BBBBBB|||32|||simkai.ttf||||||0|||jpg|jpeg|||100|||888888|||1|||1|||bin|tar|gz|apk|||32768|||100|||5|||66|||17|||5|||5|||0|||100|||100|||5|||5|||5|||88|||31|||1|||0|||1|||1|||1|||1|||0|||");
 DoCreateNewDir();//创建分类子目录
 DoSave(); 
 
