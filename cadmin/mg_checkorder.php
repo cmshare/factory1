@@ -274,7 +274,7 @@ else{
       </tr> 
       <tr height="25" bgcolor="#F7F7F7"> 
           <td class="TitleCell"><strong>客服备注</strong></td>
-          <td><input type="text" name="adminremark" value="<?php echo $Order_AdminRemark;?>" style="width:98%"></td>
+          <td><textarea name="adminremark" rows=2 style="width:98%"><?php echo $Order_AdminRemark;?></textarea></td>
       </tr>               
       <tr height="25" bgcolor="#F7F7F7"> 
           <td class="TitleCell"><strong><?php echo (($Order_State<4)?'下单':'发货');?>时间</strong></td>
@@ -301,7 +301,7 @@ else{?>
       <?php if($own_popedomManage){?>
       <tr height="25" bgcolor="#F7F7F7">  
           <td class="TitleCell"><strong>附加说明</strong></td>
-          <td nowrap><form style="margin:0px" method="post" action="?mode=adminremark"><input type="hidden" name="ordername" value="<?php echo $OrderName;?>"><input type="text" name="adminremark" style="width:95%" value="<?php echo $Order_AdminRemark;?>"><input type="submit" value="保存"><br><font color=#FF0000>250字以内，仅管理员可见.</font></form>	
+          <td nowrap><form style="margin:0px" method="post" action="?mode=adminremark"><input type="hidden" name="ordername" value="<?php echo $OrderName;?>"><textarea  name="adminremark" rows=3 style="width:95%"><?php echo $Order_AdminRemark;?></textarea><input type="submit" value="保存"><br><font color=#FF0000>250字以内，仅管理员可见.</font></form>	
           </td>
       </tr><?php
       }?>               

@@ -371,7 +371,8 @@ function ChangeOrderState($batch_settlement){
       $DeliveryCode=$row['deliverycode'];
       if(empty($DeliveryCode) && $DeliveryCode!=='0')PageReturn('请先提交货单号！',-1);
       $sql2='update (mg_product inner join mg_ordergoods on mg_product.id=mg_ordergoods.productid) set mg_product.stock0=mg_product.stock0-mg_ordergoods.amount,mg_product.'.$OrderStockName.'=mg_product.'.$OrderStockName.'-mg_ordergoods.amount,mg_product.solded=mg_product.solded+mg_ordergoods.amount where mg_ordergoods.ordername=\''.$OrderName.'\''; 
-      if($conn->exec($sql2) && $conn->exec($sql_state)){
+      if($conn->exec($sql_state)){
+        $conn->exec($sql2); 
 	$conn->exec('update mg_ordergoods set ordername=null where amount=0 and ordername=\''.$OrderName.'\'');          
 	$conn->commit();//事务完成
 	PageReturn('订单状态修改成功！');
