@@ -39,7 +39,6 @@ if($row){
 else{
   PageReturn('<br><br><p align=center>该订单不存在或无效！</p>',0);
 }
-
 $DepotArray=array('其它单位');
 $res=$conn->query('select id,depotname from mg_depot where enabled',PDO::FETCH_NUM);
 foreach($res as $row)$DepotArray[$row[0]]=$row[1];
@@ -199,7 +198,7 @@ if($TotalRecord==0) echo '<tr><td colspan=7 height=50 align=center bgcolor="#FFF
       </table><?php
 }
 
-if($TotalPrice!=$OriginOrderTotalPrice || $TotalScore!=$OriginOrderTotalScore){ 
+if($TotalPrice!=$OriginOrderTotalPrice || $TotalScore!=$OriginOrderTotalScore|| is_null($OriginOrderTotalPrice) || is_null($OriginOrderTotalScore)){ 
   if($Order_State>-3 && $Order_State<5)$conn->exec("update mg_orders set totalprice=$TotalPrice,totalscore=$TotalScore where ordername='$OrderName' and state=$Order_State");
 }?>
 

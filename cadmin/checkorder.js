@@ -644,7 +644,7 @@ function InitOrderEditor(){
         obj.style.textDecoration="underline";
         if(typeof(origin)=='string' && origin!=GetInnerText(obj)){
           obj.style.color='#FF0000';
-          obj.title="原价"+origin+"元，点击修改,";
+          obj.title="原价"+origin+"元，点击修改";
         }
         else{
           obj.style.color='#000000';
