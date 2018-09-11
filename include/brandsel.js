@@ -83,7 +83,7 @@ GenOption1(201,"SkinFood/韩国",1);
 GenOption1(202,"眼部护理",2);
 GenOption1(203,"面部护理",2);
 GenOption1(230,"彩妆系列",2);
-GenOption1(327,"日韩当季流行产品",1);
+GenOption1(327,"日韩泰等国当季流行产品",1);
 GenOption1(328,"面部护理",2);
 GenOption1(265,"眼部护理",2);
 GenOption1(330,"身体护理",2);
