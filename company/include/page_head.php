@@ -30,7 +30,8 @@
                      <td width="225" valign="bottom" align="right">
                        <table border=0 cellSpacing=0 cellPadding="0" align="100%" height="64">
                        <tr><td height="32" align="right" valign="middle"><div class="loginfo2"><NOBR id="loginfo2"><a href="usrmgr.htm">南京铭悦日化用品有限公司欢迎您！</a></NOBR></div></td></tr>
-                       <tr><td style="color:#aaaaaa;font-weight:bold;padding-bottom:3px;padding-right:10px" class="topmenu1">| <a href="javascript:window.external.AddFavorite('http://<?php echo WEB_DOMAIN;?>/','铭悦(南京)日化有限公司')">加入收藏</a> | <a href="/#">涵若铭妆</a> | <a href="<?php echo WEB_ROOT;?>usrmgr.htm">管理中心</a></td></tr>
+                       <?php if(OWN_ICP){?>
+                       <tr><td style="color:#aaaaaa;font-weight:bold;padding-bottom:3px;padding-right:10px" class="topmenu1">| <a href="javascript:window.external.AddFavorite('http://<?php echo WEB_DOMAIN;?>/','铭悦(南京)日化有限公司')">加入收藏</a> | <a href="/#" target="_blank">涵若铭妆</a> | <a href="<?php echo WEB_ROOT;?>usrmgr.htm">管理中心</a></td></tr><?php }?>
                        </table>
                      </td>
                    </tr>

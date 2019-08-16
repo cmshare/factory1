@@ -11,7 +11,7 @@ $rs=$conn->query("select webname,weblogo,address,postcode,webemail,tel,fax,copyr
   <table border="0" cellpadding="1" cellspacing="1" width="1000" style="margin-top:5px;">
   <tr align="center" valign="middle">
     <td width="225" rowspan="2"><img src="/<?php echo $rs['weblogo'];?>" border=0></td>
-    <td width="550">Copyright <font face="Arial">&copy;</font> 2006~<?php echo date("Y")." ".$rs['copyright'];?>. All rights reserved. <?php echo $rs['icp'];?></td>
+    <td width="550"><font face="Arial">&copy;</font>2006~<?php echo date("Y")." ".$rs['copyright'];?> 版权所有 <a href="http://www.beian.miit.gov.cn" ><?php echo $rs['icp'];?></a> </td>
     <td width="225" rowspan="2"><img src="/images/servertel.png" width="190" height="36" alt="加盟服务热线"></td>
    </tr>
    <tr><td align="center" class="onlineservice"><div><a href="/sitemap.htm">化妆品批发网</a>|<a href="/articles/">南京化妆品批发网新闻</a>|<a href="/category/">品牌进口化妆品批发</a>|<a href="/sort.htm">南京韩国化妆品批发</a>|<a href="/onsale.htm">特价进口化妆品批发</a>|<a href="/hotsale.htm">热销品牌化妆品批发</a>|<?php echo WEB_NAME;?>~打造南京化妆品批发最低价</div></td></tr>

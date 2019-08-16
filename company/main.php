@@ -5,6 +5,7 @@ $PageTitle='南京铭悦日化用品有限公司';
 #理由2:本站不需要seo优化，只需要中性及好看的标题；
 OpenDB();
 require('include/page_head.php');?> 
+<base target="_top" />
 <TABLE border=0 cellSpacing=0 cellPadding=0 width="1000" height="300" align="center">
 <tr valign="top">
    <td width="750">
@@ -112,7 +113,7 @@ foreach($res as $row){
 		    <td background="images/index_bg.gif" height="85" align="center" id="loginfo">
 		    	<form onsubmit="return userlogin(this);" style="margin:0px"><table border="0" cellSpacing=0 cellPadding=0 width="230" height="75" align="center"><tr>
         	<td><table><tr><td height="25"><STRONG>账　号</STRONG> <INPUT type="text" maxLength=16 size=12 name="username" style="width:100px;height:21px;"></td></tr><tr><td height="25"><STRONG>密　码</STRONG> <INPUT maxLength=16 size=12 type="password" name="password" style="width:100px;height:21px;"></td></tr><tr><td height="25"><STRONG>验证码</STRONG> <INPUT type="text" maxLength=4 size=12 name="verifycode" style="width:100px;height:21px;"></td></tr></table></td>
-	        <td><table><tr><td><INPUT border=0 src="images/logon.gif" width=50 height=25 type="image"></td></tr><tr><td><a href="reg.php" target="_top"><img src="images/regist.gif" width=50 height=25 style="cursor:pointer" border="0"></a></td></tr><tr><td><IMG id="LoginCheckout" src="user/authcode.php" align="absMiddle"></td></tr></table></td>
+	        <td><table><tr><td><INPUT border=0 src="images/logon.gif" width=50 height=25 type="image"></td></tr><tr><td><a href="reg.php" target="_top"><img src="images/regist.gif" width=50 height=25 style="cursor:pointer" border="0"></a></td></tr><tr><td><IMG id="LoginCheckout" src="user/authcode.php" align="absMiddle" onclick="refresh_vcode()"></td></tr></table></td>
 	        </tr></table></form>	
 		    </td>
      </tr>
@@ -171,7 +172,7 @@ foreach($res as $row){
 </table><?php
 require('include/page_bottom.htm');
 CloseDB();?>
-<script type="text/javascript" src="include/QQService.js"></script><SCRIPT language="JavaScript">
+<script type="text/javascript" src="include/qqservice.js"></script><SCRIPT language="JavaScript">
 flashImage("imgslider1",5000,false);flashImage("imgslider2",8000,true);MarqueeInit();QQFloating();
 </SCRIPT><div style="display:none"><script type="text/javascript" src="http://js.users.51.la/2969614.js"></script></div>
 </BODY>

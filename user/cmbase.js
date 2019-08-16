@@ -172,7 +172,8 @@ function mid_detect() //检测是否是移动设备
 
 function CheckEnvironment()
 { if(getCookie("gdhzp")=="gdhzp")return;
-  else if(self.location.href.indexOf("#")>0 || document.referrer.indexOf("baidu.com")>0 || document.referrer.indexOf("so.com")>0)
+  else if(self.location.href.indexOf("#")>0)return;
+  else if(document.referrer.indexOf("baidu.com")>0 || document.referrer.indexOf("so.com")>0)
   { setCookie("gdhzp","gdhzp",new Date("2099/1/1"),"/");//永不过期
   }
   else
@@ -187,7 +188,14 @@ function CheckEnvironment()
     }else setCookie("gdhzp","gdhzp",new Date("2099/1/1"),"/");//永不过期
   }  
 }
-
+/* 
+function CheckEnvironment()
+{ Safemode=true;
+      document.body.className="safebody";
+      document.body.scroll="no";// no or auto
+      document.write('<iframe scrolling="auto" width="100%" height="100%" Frameborder="no" marginwidth="0" marginheight="0" src="company/" style="position:relative;left:0;top:0;width:100%; height:100%"></iframe>');
+}
+*/
 
 function CheckEnvironment_temp()
 { if(self.location.href.indexOf("#")>0 || document.referrer.indexOf("baidu.com")>0)

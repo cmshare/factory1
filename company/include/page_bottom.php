@@ -10,7 +10,7 @@
     <tr><td align="center" style="line-height:180%"><font color="#CCCCCC">
         南京地址：鼓楼区中山路81号16楼   电话传真：025-84730490<br>
         香港地址：九龍旺角道33號凱途發展9樓   電話傳真：00852-35902333<br>
-       	&copy;版权所有：2009~2012&nbsp;南京铭悦日化用品有限公司  &nbsp; &nbsp; 客服热线：400-6630-720 <br></font></td>
+       	&copy;2009~2019 南京铭悦日化用品有限公司  版权所有 <a href="http://www.beian.miit.gov.cn" style="color:#DDDDDD">苏ICP备11035386号</a><br></font></td>
     </tr>
     </table>
   </td>

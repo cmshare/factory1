@@ -100,6 +100,7 @@ function ShowProduct(){
                </tr>
                <tr><td colspan="4" height="10" bgcolor="#FFFFFF"></td>
                </tr>
+               <?php if(OWN_ICP){?>             
                <tr>
 	          <td height="30" bgcolor="#f7f7f7">【零 售 价】</td>
                   <td bgcolor="#FFFFFF" style="font-weight:bold;text-decoration:line-through">￥<?php echo round($rowware['price1'],2);?>元</td>
@@ -117,31 +118,33 @@ function ShowProduct(){
                   else echo '<font color=#888888>非等级查看</font>';?></td>
                <tr>
                </table>
-               <table width="490" border="0" cellpadding="0" cellspacing="0" id="">
+               <table width="490" border="0" cellpadding="0" cellspacing="0">
                	<?php if(($rowware['onsale']&0xf)>0 && time()<$rowware['onsale'] && ($LoginUserGrade==3 || $LoginUserGrade==4)) {?>
                <tr><td colspan="4" valign="bottom">
                	  <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0" id="flashsale">
                	  <tr><td width="19%"></td><td width="31%" style="font-weight:bold;font-size:12pt;color:#FFFFFF">￥<?php echo round($rowware['price0'],2);?>元</td><td width="19%"></td><td width="31%"><font id="life<?php echo $id;?>" deadline="<?php echo $rowware['onsale'];?>">正在载入中...</font></td></tr></table>
                	  </td></tr><?php
                 }?>
-               <tr valign="bottom" id="cart_panel" style="display:none">
+               <tr valign="bottom">
                	<td width="50%" height="55" ><div class="bdsharebuttonbox"><div id="qrcode"></div><a class="bds_more" href="#" data-cmd="more">分享到：</a><a class="bds_qzone" title="分享到QQ空间" href="#" data-cmd="qzone"></a><a class="bds_tsina" title="分享到新浪微博" href="#" data-cmd="tsina"></a><a class="bds_tqq" title="分享到腾讯微博" href="#" data-cmd="tqq"></a><a class="bds_renren" title="分享到人人网" href="#" data-cmd="renren"></a><a class="bds_weixin" title="分享到微信" href="#" data-cmd="weixin"></a></div></td>
                	<td width="50%"><a href="javascript:AddToCart(<?php echo $id;?>)"><img src="images/add2cart.gif" width="182" height="41" border="0"></a><a href="javascript:AddToFavor(<?php echo $id;?>)"><img src="images/add2fav.gif" width="55" height="22" border="0"></a></td>
-               </tr>
+               </tr><?php
+               }?>
                </table>
        
              </td>
            </tr>  
            </table>
+
   <TABLE cellSpacing=0 cellPadding=0 width="92%" align="center" border="0" style="color:#8f8f8f">
+  	
   <TR><td><b>1. 价格等级</b>：①本站所标识的零售价是指我司直营门店及加盟店的零售价；②VIP价为持我司专属VIP卡或其他合作联盟卡（如<font color="#FF0000">大众书局易购卡</font>等）的会员价；③代理/批发价是指我司加盟店或产品代理经销商的供货价格，具体招商及报价政策请咨询我司工作人员。</td>
   </TR>
   <!--TR><td><b>2. 团购说明</b>：我司已开通在线团购业务，团购尊受VIP价。团购流程为 [注册会员 -> 在线下单 -> 在线付款 -> 门店提货]。付款前，请联系客服确认订单。如需快递，运费自理。</td>
   </TR-->
   <TR><td><b>2. 销售地址</b>：零售客户请直接至各大直营/加盟店；代理加盟及购物卡兑购请至－南京市中山路81号华夏大厦16层（南京铭悦日化用品有限公司，电话025-83222007/84730490）。</td>
   </TR>		
-  </TABLE><?php
-   ?>                 
+  </TABLE>                  
 
   <table width="800" bgcolor="#FFFFFF" border="0" align="center" cellpadding="0" cellspacing="0" style="BORDER-COLLAPSE: collapse; BORDER-right:#CCCCCC 1px solid;border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;">
   <tr>   
@@ -174,7 +177,7 @@ function ShowProduct(){
      </table></form>       
      </td>
   </tr>
-  <!--tr><td height="80" style="BACKGROUND-IMAGE:url(images/buysteps.gif); BACKGROUND-REPEAT: no-repeat;BACKGROUND-POSITION: center bottom"></td></tr-->
+  <?php if(OWN_ICP) echo '<tr><td height="80" style="BACKGROUND-IMAGE:url(images/buysteps.gif); BACKGROUND-REPEAT: no-repeat;BACKGROUND-POSITION: center bottom"></td></tr>';?>
   </table>
  <!-------同类商品滚动栏 开始---------->
  <table width="800" bgcolor="#FFFFFF" border="0" align="center" cellpadding="0" cellspacing="0" style="BORDER-COLLAPSE: collapse; BORDER-right:#CCCCCC 1px solid;border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;">
@@ -190,7 +193,7 @@ function ShowProduct(){
                <TR><?php
 $res=$conn->query('select id,name,price1,price2 from mg_product where brand in ('.$CatList.') and recommend>0 and id<>'.$id.' order by recommend desc,addtime desc limit 12',PDO::FETCH_ASSOC);
 foreach($res as $row){                 
-  echo '<td><div class="pimg"><a href="product.htm?id='.$row['id'].'"><img width="160" height="160" alt="'.$row['name'].'" border="0" onmouseover="ProductTip(this)" src="'.product_pic($row['id'],0).'"></a></div><div class="pbox"><a href="product.htm?id='.$row['id'].'" class="plink">'.$row['name'].'</a><span class="price3">￥'.round($row['price2'],2).'元</span><span class="price1">￥'.round($row['price1'],2).'元</span><img class="pbuy" src="images/gobuy.gif" width="22" height="12" alt="将该商品放入购物车" onClick="AddToCart('.$row['id'].')"></div></td>';
+  echo '<td><div class="pimg"><a href="product.htm?id='.$row['id'].'"><img width="160" height="160" alt="'.$row['name'].'" border="0" onmouseover="ProductTip(this)" src="'.product_pic($row['id'],0).'"></a></div><div class="pbox"><a href="product.htm?id='.$row['id'].'" class="plink">'.$row['name'].'</a><!--span class="price3">￥'.round($row['price2'],2).'元</span><span class="price1">￥'.round($row['price1'],2).'元</span><img class="pbuy" src="images/gobuy.gif" width="22" height="12" alt="将该商品放入购物车" onClick="AddToCart('.$row['id'].')"--></div></td>';
 }?>
                   </tr>
                   </table>
@@ -242,9 +245,6 @@ require('include/page_head.php');?>
      if(obj)clock_lifetime2(lifeid,obj.getAttribute("deadline"));
    }
    else obj.innerHTML="<p align=center>服務器請求失敗，可能是您的網速太慢，請刷新重試!</p>";
-   if(OnlineUserID>0){
-     document.getElementById("cart_panel").style.display="";
-   } 
  }
 </SCRIPT><?php
 require('include/page_bottom.php');

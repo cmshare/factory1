@@ -2,36 +2,26 @@
 /**/ var OurQQs=new Array('8030','707166861','8031','1109727945','8050','503681900','8051','838402550','8060','1057924635','8061','271165451');
 /*********************************************************************************/
 function LoadQQService()
-{ var QQNick,qqNumber,OurQQLength,i,j,ServiceCode,randomoffet,obj,lineQQs,IsLocalIP;
+{ var QQNick,qqNumber,OurQQLength,i,ServiceCode,randomoffet,obj;
 	obj=document.getElementById("MyPageBottom");
-	if(!obj)return;else OurQQLength=OurQQs.length;
-	ServiceCode="<table cellSpacing=0 cellPadding=0 border=0 width=100% height=100%><tr><td width=15 height=49 background='images/QQface/OnlineSupport.gif' style='BACKGROUND-REPEAT: no-repeat;' >&nbsp;</td><td>";
+	if(!obj)return;
+	OurQQLength=OurQQs.length;
+	ServiceCode="";//<table cellSpacing=0 cellPadding=0 border=0 width=100% height=100%><tr><td width=15 height=49 background='/images/qqface/onlinesupport.gif' style='BACKGROUND-REPEAT: no-repeat;' >&nbsp;</td><td>";
 	randomoffet=Math.floor((OurQQLength>>1)*Math.random())<<1;
-  lineQQs=8;
-  for(i=j=0;i<OurQQLength;i+=2)
+    	
+  for(i=0;i<OurQQLength;i+=2)
   { if(randomoffet>=OurQQLength)randomoffet=0;
   	QQNick="涵妆"+OurQQs[randomoffet++];
-		qqNumber=OurQQs[randomoffet++];
-	  if(j%lineQQs==0 && j>0)ServiceCode+="<br>";
-		ServiceCode+="<A title='QQ在线客服:"+qqNumber+"' href='http://wpa.qq.com/msgrd?V=1&Uin="+qqNumber+"&Site=涵若铭妆&Menu=yes' target='_blank'><IMG src='http://wpa.qq.com/pa?p=1:"+qqNumber+":4' border=0>"+QQNick+"</A> &nbsp; ";
-	  j+=2;
+		qqNumber=OurQQs[randomoffet++];	 
+		ServiceCode+="<A title='QQ在线客服:"+qqNumber+"' href='http://wpa.qq.com/msgrd?V=1&uin="+qqNumber+"&Site=涵若铭妆&Menu=yes' target='_blank'><IMG src='http://wpa.qq.com/pa?p=1:"+qqNumber+":4' height=16 border=0>"+QQNick+"</A> ";
 	}
-  ServiceCode+="<A title='业务合作洽谈,若不在请留言,QQ号码787720462' href='http://wpa.qq.com/msgrd?V=1&Uin=787720462&Site=涵若铭妆&Menu=yes' target=blank><IMG src='http://wpa.qq.com/pa?p=1:787720462:4' border=0>业务合作</A> &nbsp; ";
-	ServiceCode+="<A title='在线处理投诉问题与建议,若不在请留言,QQ号码879391457' href='http://wpa.qq.com/msgrd?V=1&Uin=879391457&Site=涵若铭妆&Menu=yes' target=blank><IMG src='http://wpa.qq.com/pa?p=1:879391457:4' border=0>投诉建议</A>&nbsp;";
- 	ServiceCode+="</td></tr></table>";
- 
+  ServiceCode+="<A title='业务合作洽谈,若不在请留言,QQ号码787720462' href='http://wpa.qq.com/msgrd?V=1&uin=787720462&Site=涵若铭妆&Menu=yes' target=blank><IMG src='http://wpa.qq.com/pa?p=1:787720462:4' border=0>业务合作</A>";
+	//ServiceCode+="&nbsp;<A title='在线处理投诉问题与建议,若不在请留言,QQ号码879391457' href='http://wpa.qq.com/msgrd?V=1&uin=879391457&Site=涵若铭妆&Menu=yes' target=blank><IMG src='http://wpa.qq.com/pa?p=1:879391457:4' border=0>投诉建议</A>";
+ 	
 	obj=obj.getElementsByTagName("DIV");
-	if(obj && obj.length)
-	{ if(obj.length>1)
-		{	obj[1].innerHTML=obj[1].children[0].innerHTML;
-		  obj[1].style.border=0;
-		 	obj[1].style.paddingLeft=73;
-		}
-		obj[0].innerHTML=ServiceCode;
-	}
+	if(obj && obj.length)obj[0].innerHTML=ServiceCode;
 }	
 
-	
 LoadQQService();
 
 function QQ_FloatTopDiv()
@@ -85,12 +75,12 @@ function LoadFloatingQQs()
 	QQcode+='<div id="DivQQbox" style="right:3px;position:absolute">';
   QQcode+='<table cellSpacing="0" cellPadding="0" width="110" border="0" id="divQQtable" onmouseout="hideMsgBox(event);" style="display:none;">';
   QQcode+='    <tr>';
-  QQcode+='      <td title="工作时间：9:00～18:00 （周一至周六）" align="right" valign="top" width="110" height="76" background="images/QQface/QQ_top.gif">';
+  QQcode+='      <td title="工作时间：9:00～18:00 （周一至周六）" align="right" valign="top" width="110" height="76" background="/images/qqface/qq_top.gif">';
   QQcode+='         <table border=0 width=16 height=16 style="margin:5px;cursor:hand" onClick="document.getElementById(\'DivQQbox\').style.display=\'none\';"><tr><td></td></tr></table>';
   QQcode+='      </td>';
   QQcode+='    </tr>';
   QQcode+='    <tr>';
-  QQcode+='      <td valign="middle" align="center" background="images/QQface/QQ_middle.gif">';
+  QQcode+='      <td valign="middle" align="center" background="/images/qqface/qq_middle.gif">';
   QQcode+='<table border="0" width="90" cellSpacing="0" cellPadding="0">';
   QQcode+='  <tr>';
   QQcode+='    <td width="90" height="5" border="0" colspan="2">';
@@ -101,25 +91,25 @@ function LoadFloatingQQs()
   	randomoffet++;
 		qqNumber=OurQQs[randomoffet++];
 	  QQcode+='</td></tr><tr><td height=25 style="FONT-SIZE:12px;FONT-FAMILY:verdana">';
-	  QQcode+="&nbsp;<img src='http://wpa.qq.com/pa?p=1:"+qqNumber+":17' height=17 border=0 align=middle>&nbsp;&nbsp;<A title='在线即时交谈(QQ:"+qqNumber+")' href='http://wpa.qq.com/msgrd?V=1&Uin="+qqNumber+"&Site=铭悦日化&Menu=yes' target='_blank'>"+QQNick+"</A>"; 
+	  QQcode+="&nbsp;<img src='http://wpa.qq.com/pa?p=1:"+qqNumber+":17' height=17 border=0 align=middle>&nbsp;&nbsp;<A title='在线即时交谈(QQ:"+qqNumber+")' href='http://wpa.qq.com/msgrd?V=1&uin="+qqNumber+"&Site=涵若铭妆&Menu=yes' target='_blank'>"+QQNick+"</A>"; 
 	}
 	QQNick="业务合作"
 	qqNumber="787720462";
   QQcode+='</td></tr><tr><td height=25 style="FONT-SIZE:12px;FONT-FAMILY:verdana">';
-	QQcode+="&nbsp;<img src='http://wpa.qq.com/pa?p=1:"+qqNumber+":17' height=17 border=0 align=middle>&nbsp;&nbsp;<A title='在线即时交谈(QQ:"+qqNumber+")' href='http://wpa.qq.com/msgrd?V=1&Uin="+qqNumber+"&Site=铭悦日化&Menu=yes' target='_blank'>"+QQNick+"</A>"; 
+	QQcode+="&nbsp;<img src='http://wpa.qq.com/pa?p=1:"+qqNumber+":17' height=17 border=0 align=middle>&nbsp;&nbsp;<A title='在线即时交谈(QQ:"+qqNumber+")' href='http://wpa.qq.com/msgrd?V=1&uin="+qqNumber+"&Site=涵若铭妆&Menu=yes' target='_blank'>"+QQNick+"</A>"; 
 	QQNick="投诉建议"
 	qqNumber="879391457";
   QQcode+='</td></tr><tr><td height=25 style="FONT-SIZE:12px;FONT-FAMILY:verdana">';
-	QQcode+="&nbsp;<img src='http://wpa.qq.com/pa?p=1:"+qqNumber+":17' height=17 border=0 align=middle>&nbsp;&nbsp;<A title='在线即时交谈(QQ:"+qqNumber+")' href='http://wpa.qq.com/msgrd?V=1&Uin="+qqNumber+"&Site=铭悦日化&Menu=yes' target='_blank'>"+QQNick+"</A>"; 
+	QQcode+="&nbsp;<img src='http://wpa.qq.com/pa?p=1:"+qqNumber+":17' height=17 border=0 align=middle>&nbsp;&nbsp;<A title='在线即时交谈(QQ:"+qqNumber+")' href='http://wpa.qq.com/msgrd?V=1&uin="+qqNumber+"&Site=涵若铭妆&Menu=yes' target='_blank'>"+QQNick+"</A>"; 
 
   QQcode+='</td></tr></table>';
   QQcode+='</td>';
   QQcode+='    </tr>';
   QQcode+='    <tr>';
-  QQcode+='      <td width=110 height=12 background="images/QQface/QQ_bottom.gif"></td>';
+  QQcode+='      <td width=110 height=12 background="/images/qqface/qq_bottom.gif"></td>';
   QQcode+='    </tr>';
   QQcode+='</table>';
-  QQcode+='<div id="divMenu" onmouseover="OnlineOver();"><img src="images/QQface/ServiceQQ2.gif" class="press" alt="绚风科技"></div>';
+  QQcode+='<div id="divMenu" onmouseover="OnlineOver();"><img src="/images/qqface/serviceqq2.gif" class="press" alt="在线服务"></div>';
   QQcode+='</div>';
   return QQcode;
 }
@@ -128,7 +118,7 @@ function LoadFloatingQQs()
 function LoadFloating2()
 { var i,qqNumber,QQNick,QQcode="";
 	var randomoffet=Math.floor((OurQQs.length>>1)*Math.random())<<1;
-	if (!document.layers)QQcode+='<div id="DivQQbox" style="width:200px;height:236px;position:absolute;right:3px;background-image:url(images/QQface/resting.gif)">';
+	if (!document.layers)QQcode+='<div id="DivQQbox" style="width:200px;height:236px;position:absolute;right:3px;background-image:url(/images/qqface/resting.gif)">';
   QQcode+='<table border=0 width=20 height=16 align="right" style="margin-top:10px;cursor:hand" onClick="document.getElementById(\'DivQQbox\').style.display=\'none\';"><tr><td></td></tr></table>';
   if (!document.layers)QQcode+='</div>';
   return QQcode;

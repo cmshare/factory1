@@ -9,7 +9,7 @@ require('include/page_head.php');?>
     <tr>
       <td height="1%">
       <!---导航:会员中心 开始------> 
-      <TABLE cellSpacing=0 cellPadding=0 width="188" align="center"  border="0">
+      <TABLE cellSpacing=0 cellPadding=0 width="188" align="center"  border="0" id="usrnav" style="display:none">
       <TR>
          <TD height="31"><IMG height=31 src="images/guide_member.gif" width=188></TD>
       </TR>
@@ -46,7 +46,7 @@ require('include/page_head.php');?>
       	</TD>
       </TR>
       </TABLE>
-        <!---导航:会员中心 结束------> 
+      <!---导航:会员中心 结束------> 
       </td></tr><tr><td height="99%" background="images/left_bg.gif"> 
       </td></tr>
     </table> 
@@ -69,7 +69,8 @@ require('include/page_head.php');?>
   </TD>
 </TR>
 </TABLE><?php
-require('include/page_bottom.htm');?>
+require('include/page_bottom.htm');
+if(OWN_ICP){?>
 <SCRIPT language="JavaScript" src="user/district.js" type="text/javascript"></SCRIPT>
 <SCRIPT language="JavaScript" src="user/usrmgr.js" type="text/javascript"></SCRIPT>
 <script>
@@ -88,7 +89,9 @@ require('include/page_bottom.htm');?>
      case   "msg":          show_msg(1);break;    
      default:               show_accountinfo();
   }
+  if(OnlineUserID)document.getElementById("usrnav").style.display="";
 /*change header links of page_head.asp*/ 
-</script>
+</script><?php
+}?>
 </body>
 </html>
