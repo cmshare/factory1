@@ -9,8 +9,8 @@ if(!is_numeric($mode))$mode=0;
 OpenDB();
 function brand_sort($selec){
   global $conn,$brandlist,$UnfoldBrand;
-  if($selec==0)$sql='select id from `mg_brand` where recommend>1 order by recommend';#热销品牌
-  else $sql='select id from `mg_brand` where parent='.$selec.' order by sortorder';
+  if($selec==0)$sql='select id from `mg_category` where recommend>1 order by recommend';#热销品牌
+  else $sql='select id from `mg_category` where parent='.$selec.' order by sortorder';
   $res=$conn->query($sql,PDO::FETCH_ASSOC);
   foreach($res as $row){
     $brandlist.=', '.$row['id'];
@@ -30,7 +30,7 @@ else{
   $LinkSortGuider=''; 
   $PID = $cid;
   while($PID){
-    $row=$conn->query('select id,title,parent from `mg_brand` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+    $row=$conn->query('select id,title,parent from `mg_category` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
       if(empty($row)){
     	echo '<script LANGUAGE="javascript">alert("您输入的参数非法，请正确操作！");history.go(-1);</script>';
         CloseDB();

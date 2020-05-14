@@ -52,7 +52,7 @@ header('content-type:application/vnd.ms-excel');
 //header('content-type:application/x-download'); 
 header('content-disposition:attachment; filename='.$UserName.'的订单('.$OrderName.').xls'); 
 
-$res=$conn->query('select mg_ordergoods.id,mg_ordergoods.productid,mg_ordergoods.price,mg_ordergoods.amount,mg_ordergoods.remark,mg_ordergoods.productname,mg_ordergoods.score from (mg_ordergoods inner join mg_product on mg_ordergoods.productid=mg_product.id) inner join mg_brand on mg_brand.id=mg_product.brand where mg_ordergoods.ordername=\''.$OrderName.'\' and mg_ordergoods.amount>0 order by mg_brand.sortindex,mg_ordergoods.productname',PDO::FETCH_ASSOC);
+$res=$conn->query('select mg_ordergoods.id,mg_ordergoods.productid,mg_ordergoods.price,mg_ordergoods.amount,mg_ordergoods.remark,mg_ordergoods.productname,mg_ordergoods.score from (mg_ordergoods inner join mg_product on mg_ordergoods.productid=mg_product.id) inner join mg_category on mg_category.id=mg_product.brand where mg_ordergoods.ordername=\''.$OrderName.'\' and mg_ordergoods.amount>0 order by mg_category.sortindex,mg_ordergoods.productname',PDO::FETCH_ASSOC);
 
 if($OrderState>0){
   echo '<p align="center"><font size=4><strong>南京铭悦日化用品有限公司（出货单）</strong></font></p>

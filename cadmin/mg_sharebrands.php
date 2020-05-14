@@ -6,14 +6,14 @@ $mode=@$_GET['mode'];
 if($mode=='setshare'){
   $brandid=$_POST['brandid'];
   if(is_numeric($brandid) && $brandid>0){
-    $conn->exec('update mg_brand set shared=1 where id='.$brandid.' and recommend>=0');
+    $conn->exec('update mg_category set shared=1 where id='.$brandid.' and recommend>=0');
     PageReturn('设置成功！');	  
   }
 }
 else if($mode=='cancelshare'){
   $brandid=$_POST['brandid'];
   if(is_numeric($brandid) && $brandid>0){
-    $conn->exec('update mg_brand set shared=0 where id='.$brandid);
+    $conn->exec('update mg_category set shared=0 where id='.$brandid);
     PageReturn('操作成功！');
   }
 }
@@ -62,7 +62,7 @@ function cancelshareBrand(myForm)
 <table width="100%" height="100%" border="5" align="center" cellpadding="5" cellspacing="5" bordercolor="#CCCCCC" bgcolor="#FFFFFF">
   <tr bgcolor="#F7F7F7"> 
     <td height="20" colspan="2" background="images/topbg.gif" bgcolor="#F7F7F7">
-       <b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="mg_brand.php">品牌分类管理</a> -&gt; <font color=#FF0000>共享品牌分类管理</font></b>
+       <b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="mg_category.php">品牌分类管理</a> -&gt; <font color=#FF0000>共享品牌分类管理</font></b>
     </td>
   </tr>
 <tr> 
@@ -77,7 +77,7 @@ function cancelshareBrand(myForm)
 function GetBrandPath($parentid,$title){
    global $conn;
    while($parentid){
-     $row=$conn->query('select id,title,parent,isbrand from mg_brand where id='.$parentid,PDO::FETCH_ASSOC)->fetch();
+     $row=$conn->query('select id,title,parent,isbrand from mg_category where id='.$parentid,PDO::FETCH_ASSOC)->fetch();
      if($row){
        $title = $row['title'].'>>'.$title;
        $parentid = $row['parent'];
@@ -90,7 +90,7 @@ function GetBrandPath($parentid,$title){
     
 $sortindex=0;
      
-$res=$conn->query('select * from mg_brand where recommend>=0 and shared=1 order by recommend desc',PDO::FETCH_ASSOC);
+$res=$conn->query('select * from mg_category where recommend>=0 and shared=1 order by recommend desc',PDO::FETCH_ASSOC);
 foreach($res as $row){
   $sortindex++;?>
      <form method=post>

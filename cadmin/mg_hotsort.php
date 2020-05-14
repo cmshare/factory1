@@ -27,7 +27,7 @@ function GenLinkGuider($PID){
   global $conn,$str_begindate,$str_enddate;
   $Links='';
   while($PID){
-    $row=$conn->query('select id,title,parent from mg_brand where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+    $row=$conn->query('select id,title,parent from mg_category where id='.$PID,PDO::FETCH_ASSOC)->fetch();
     if($row){
       $Links = '&nbsp;&gt;&gt;&nbsp;<a href="?brand='.$row['id'].'&begindate='.$str_begindate.'&enddate='.$str_enddate.'"><font color="#FF6600">'.$row['title'].'</font></a>'.$Links;
       $PID = $row['parent'];
@@ -42,7 +42,7 @@ function GetSubBrands($selec){
   global $conn;
   $args = func_get_args();
   $list=($args && count($args)>1)?$args[1]:$selec;
-  $res=$conn->query('select id from mg_brand where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
+  $res=$conn->query('select id from mg_category where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
   foreach($res as $row){
     $list=GetSubBrands($row[0],$list.','.$row[0]);
   }
@@ -86,7 +86,7 @@ function GetSubBrands($selec){
     </tr><?php
 
 $SubbrandCount=0;
-$res=$conn->query('select id,sortindex,title from mg_brand where parent='.$brandid.' order by sortindex',PDO::FETCH_ASSOC);
+$res=$conn->query('select id,sortindex,title from mg_category where parent='.$brandid.' order by sortindex',PDO::FETCH_ASSOC);
 foreach($res as $row){
   $SubbrandCount++; 
   $CatList=GetSubBrands($row['id']);

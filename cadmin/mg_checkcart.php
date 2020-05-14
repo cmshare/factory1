@@ -156,7 +156,7 @@ else{
 </head>
 <body topmargin="0" leftmargin="0" onload="InitCodetype();document.forms[0].codetext.focus();"><?php  
 
-$sql='select mg_favorites.id,mg_favorites.productid,mg_favorites.amount,mg_favorites.remark,mg_product.name,mg_product.barcode,mg_product.price0,mg_product.'.$UserPriceName.',mg_product.score,mg_product.stock'.$AdminDepotIndex.' as stock,mg_product.onsale from (mg_favorites inner join mg_product on  mg_favorites.productid=mg_product.id) inner join mg_brand on mg_brand.id=mg_product.brand where mg_favorites.userid='.$UserID.' and (mg_favorites.state&0x2) order by mg_brand.sortindex,mg_product.name';
+$sql='select mg_favorites.id,mg_favorites.productid,mg_favorites.amount,mg_favorites.remark,mg_product.name,mg_product.barcode,mg_product.price0,mg_product.'.$UserPriceName.',mg_product.score,mg_product.stock'.$AdminDepotIndex.' as stock,mg_product.onsale from (mg_favorites inner join mg_product on  mg_favorites.productid=mg_product.id) inner join mg_category on mg_category.id=mg_product.brand where mg_favorites.userid='.$UserID.' and (mg_favorites.state&0x2) order by mg_category.sortindex,mg_product.name';
 $res=$conn->query($sql,PDO::FETCH_ASSOC);
 ?>	
 <form style="margin:0px" onsubmit="return false">

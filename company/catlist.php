@@ -7,7 +7,7 @@ OpenDB();
 
 function cat_sort($selec){
   global $conn,$catlist,$UnfoldCategory;
-  $res=$conn->query('select id from `mg_category` where parent='.$selec.' order by sortorder',PDO::FETCH_NUM);
+  $res=$conn->query('select id from `mg_sort` where parent='.$selec.' order by sortorder',PDO::FETCH_NUM);
   foreach($res as $row){
     $catlist .= ','.$row[0];
     if(empty($UnfoldCategory)) $UnfoldCategory=$selec;
@@ -23,7 +23,7 @@ cat_sort($cid);
 $LinkSortGuider='';
 $PID=$cid;
 while($PID){
-  $row=$conn->query('select id,title,parent from `mg_category` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+  $row=$conn->query('select id,title,parent from `mg_sort` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
   if($row){
     $LinkSortGuider='&nbsp;&gt;&gt;&nbsp;<a href="catlist.htm?cid='.$row['id'].'">'.$row['title'].'</a>'.$LinkSortGuider;
     if(empty($MyPageTitle)) $MyPageTitle = $row['title'].'-';

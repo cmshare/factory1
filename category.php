@@ -7,7 +7,7 @@ OpenDB();
 
 function sorts($selec){
   global $conn,$CatList,$UnfoldCategory;
-  $res=$conn->query('select id from `mg_category` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
+  $res=$conn->query('select id from `mg_sort` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
   foreach($res as $row){
     $CatList .= ', '.$row[0];
     if(empty($UnfoldCategory)) $UnfoldCategory=$selec;
@@ -23,7 +23,7 @@ sorts($cid);
 $PID = $cid;
 $LinkSortGuider='';
 while($PID>0){
-   $row=$conn->query('select id,title,parent from `mg_category` Where id='.$PID,PDO::FETCH_NUM)->fetch();
+   $row=$conn->query('select id,title,parent from `mg_sort` Where id='.$PID,PDO::FETCH_NUM)->fetch();
    if(empty($row)){
      echo '<script language="javascript">alert("您输入的参数非法，请正确操作！");history.go(-1);</script>';
      CloseDB();

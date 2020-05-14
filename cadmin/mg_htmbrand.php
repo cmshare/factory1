@@ -30,10 +30,10 @@ do_sort(0,0);
 
 function do_sort($selec,$index){
   global $conn,$SortIndex;
-  $res=$conn->query('select * from mg_brand where parent = '.$selec.' and recommend>0 order by sortorder',PDO::FETCH_ASSOC);
+  $res=$conn->query('select * from mg_category where parent = '.$selec.' and recommend>0 order by sortorder',PDO::FETCH_ASSOC);
   foreach($res as $row){
     $SortIndex++;
-    if($row['sortindex']!=$SortIndex)$conn->exec('update mg_brand set sortindex='.$SortIndex.' where id='.$row['id']);
+    if($row['sortindex']!=$SortIndex)$conn->exec('update mg_category set sortindex='.$SortIndex.' where id='.$row['id']);
     if($selec==0) echo '<tr bgcolor="#f7f7f7" height=25><td width="65%" background="images/topbg.gif" bgcolor="#f7f7f7">&nbsp;&nbsp;<b><a href="'.GenHtmURL($row['id']).'" target="_blank">'.$SortIndex.'.&nbsp;'.$row['title'].'</a></b></td><td align="center">&nbsp;</td><td width="10%" align="center" background="images/topbg.gif"><input type="button" value="更新" onclick="UpdateItem(this,\'id='.$row['id'].'\')"></td></tr>';
     else echo '<tr bgcolor="#FFFFFF" height=25 onMouseOut="mOut(this)" onMouseOver="mOvr(this)"><td><a href="'.GenHtmURL($row['id']).'" target="_blank">'.str_repeat('　',$index*2).$SortIndex.'.&nbsp;'.$row['title'].'</a></td><td align="center">&nbsp;</td><td align="center"> <input type="button" value="更新" onclick="UpdateItem(this,\'id='.$row['id'].'\')"></td></tr>';
     

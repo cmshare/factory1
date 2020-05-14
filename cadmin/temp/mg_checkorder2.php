@@ -323,7 +323,7 @@ $IsOrderManager=($Order_Operator==$AdminUsername || OwnPopedomFinance() || $Orde
 if($Order_State<3 and $IsOrderManager) $BaseInputStyle='style="width:95%"';	
 else $BaseInputStyle='style="width:95%;border:0px;background-color:transparent" readOnly';	
 
-$res=$conn->query('select mg_ordergoods.id,mg_ordergoods.productid,mg_ordergoods.price,mg_ordergoods.amount,mg_ordergoods.remark,mg_ordergoods.audit,mg_ordergoods.productname,mg_ordergoods.score,mg_product.stock'.$Order_Exporter.' as stock,mg_product.'.$PriceUser.' from (mg_ordergoods inner join mg_product on mg_ordergoods.productid=mg_product.id) inner join mg_brand on mg_brand.id=mg_product.brand where mg_ordergoods.ordername=\''.$OrderName.'\' order by mg_brand.sortindex,mg_ordergoods.productname',PDO::FETCH_ASSOC);
+$res=$conn->query('select mg_ordergoods.id,mg_ordergoods.productid,mg_ordergoods.price,mg_ordergoods.amount,mg_ordergoods.remark,mg_ordergoods.audit,mg_ordergoods.productname,mg_ordergoods.score,mg_product.stock'.$Order_Exporter.' as stock,mg_product.'.$PriceUser.' from (mg_ordergoods inner join mg_product on mg_ordergoods.productid=mg_product.id) inner join mg_category on mg_category.id=mg_product.brand where mg_ordergoods.ordername=\''.$OrderName.'\' order by mg_category.sortindex,mg_ordergoods.productname',PDO::FETCH_ASSOC);
 ?><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

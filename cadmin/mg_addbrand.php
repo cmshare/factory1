@@ -2,7 +2,7 @@
 CheckLogin('PRODUCT');
 OpenDB();
 
-define('PAGE_RETURN_URL','mg_brand.php');
+define('PAGE_RETURN_URL','mg_category.php');
 
 $action=$_GET['action'];
 
@@ -16,7 +16,7 @@ switch($action){
 }
 
 function do_sort($parentid,$selec,$index){
-  $res=$GLOBALS['conn']->query('select * from mg_brand where parent = '.$selec.' order by sortorder',PDO::FETCH_ASSOC);
+  $res=$GLOBALS['conn']->query('select * from mg_category where parent = '.$selec.' order by sortorder',PDO::FETCH_ASSOC);
   foreach($res as $row){
     $selected=($row['id']==$parentid)?' selected':''; 
     if($selec==0) echo '<option value="'.$row['id'].'"'.$selected.'>'.$row['title'].'</option>';
@@ -29,7 +29,7 @@ function edit_brand(){
   global $conn;
   $brandid=$_GET['brandid'];
   if(!is_numeric($brandid)||$brandid<=0)PageReturn('参数无效~！',PAGE_RETURN_URL);
-  $row=$conn->query('select * from mg_brand where id = '.$brandid,PDO::FETCH_ASSOC)->fetch();?>
+  $row=$conn->query('select * from mg_category where id = '.$brandid,PDO::FETCH_ASSOC)->fetch();?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -38,7 +38,7 @@ function edit_brand(){
 <body leftmargin="0" topmargin="0">
 <table width="100%" border="5" align="center" cellpadding="5" cellspacing="5" bordercolor="#CCCCCC" bgcolor="#FFFFFF">
 <tr> 
-<td height="20" background="images/topbg.gif"><b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="mg_brand.php">品牌分类管理</a> -&gt; <font color=#FF0000>编辑品牌分类</font></b></td>
+<td height="20" background="images/topbg.gif"><b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="mg_category.php">品牌分类管理</a> -&gt; <font color=#FF0000>编辑品牌分类</font></b></td>
 </tr>
 <tr> 
 <td bgcolor="#FFFFFF"><br>
@@ -90,7 +90,7 @@ function add_brand(){
   global $conn;
   $brandid=$_GET['brandid'];
   if(!is_numeric($brandid)||$brandid<=0)PageReturn('参数无效~！',PAGE_RETURN_URL);
-  $row=$conn->query('select * from mg_brand where id = '.$brandid,PDO::FETCH_ASSOC)->fetch();?>
+  $row=$conn->query('select * from mg_category where id = '.$brandid,PDO::FETCH_ASSOC)->fetch();?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -99,7 +99,7 @@ function add_brand(){
 <body leftmargin="0" topmargin="0">
 <table width="100%" border="5" align="center" cellpadding="5" cellspacing="5" bordercolor="#CCCCCC" bgcolor="#FFFFFF">
   <tr> 
-    <td height="20" background="images/topbg.gif"><b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a>-&gt; <a href="mg_brand.php">品牌分类管理</a> -&gt; <font color="#FF0000">添加下级分类</font></b></td>
+    <td height="20" background="images/topbg.gif"><b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a>-&gt; <a href="mg_category.php">品牌分类管理</a> -&gt; <font color="#FF0000">添加下级分类</font></b></td>
   </tr>
     <td bgcolor="#FFFFFF">
 	<br>
@@ -164,7 +164,7 @@ function add_save($parentid){
   if(!is_numeric($isbrand))$isbrand=0;
   if(!is_numeric($recommend))$recommend=1;
   if($title && is_numeric($sortorder) && is_numeric($parentid) && $parentid>=0){
-    $sql="mg_brand set title='$title',sortorder=$sortorder,parent=$parentid,recommend=$recommend,isbrand=$isbrand,shared=0,description='$description'";
+    $sql="mg_category set title='$title',sortorder=$sortorder,parent=$parentid,recommend=$recommend,isbrand=$isbrand,shared=0,description='$description'";
     if($conn->exec('update '.$sql.' where parent=-1 limit 1') || $conn->exec('insert into '.$sql)) PageReturn('分类添加成功！',PAGE_RETURN_URL);
   }
   PageReturn('添加失败！'.$sql);
@@ -182,7 +182,7 @@ function edit_save(){
   $description=FilterText(trim($_POST['description']));
   if($title && is_numeric($isbrand) && is_numeric($sortorder) && is_numeric($parent) && is_numeric($brandid) && $brandid>0 && is_numeric($recommend)){
     if($brandid==$parent) PageReturn('父类不能指向自己！');
-    $sql="update mg_brand set title='$title',sortorder=$sortorder,parent=$parent,recommend=$recommend,isbrand=$isbrand,description='$description' where id=$brandid";
+    $sql="update mg_category set title='$title',sortorder=$sortorder,parent=$parent,recommend=$recommend,isbrand=$isbrand,description='$description' where id=$brandid";
     if($conn->exec($sql)) PageReturn('保存成功！',PAGE_RETURN_URL);
     else PageReturn('没有修改~！',PAGE_RETURN_URL);
   }
@@ -193,9 +193,9 @@ function del_brand(){
   global $conn;
   $brandid=$_GET['brandid'];
   if(is_numeric($brandid) && $brandid>0){
-    $subcount=$conn->query('select count(*) from mg_brand where parent='.$brandid)->fetchColumn(0);
+    $subcount=$conn->query('select count(*) from mg_category where parent='.$brandid)->fetchColumn(0);
     if($subcount) PageReturn('该分类有子分类，请先删除该分类的所有子分类！');
-    else if($conn->exec('update mg_brand set parent=-1,title=null where id='.$brandid)) PageReturn('分类删除成功！',PAGE_RETURN_URL);
+    else if($conn->exec('update mg_category set parent=-1,title=null where id='.$brandid)) PageReturn('分类删除成功！',PAGE_RETURN_URL);
   }
 }
 

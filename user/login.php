@@ -12,7 +12,7 @@ else if($mode=='getinfo'){
     echo GetUserInfo($userid);
     CloseDB();
   }
-  else setcookie('cmshop[userid]','');
+  else setcookie('cmshop[userid]','',time(),'/');
   exit(0);
 }
  

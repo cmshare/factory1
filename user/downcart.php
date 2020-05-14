@@ -51,7 +51,7 @@ else{
   exit(0);
 }
 
-$res=$conn->query('select `mg_favorites`.productid,`mg_favorites`.amount,`mg_favorites`.remark,`mg_product`.name,`mg_product`.price0,`mg_product`.price'.$UserGrade.' as myprice,`mg_product`.onsale from ((`mg_favorites` inner join `mg_product` on `mg_favorites`.productid=`mg_product`.id) inner join `mg_brand` on `mg_brand`.id=`mg_product`.brand) where `mg_favorites`.userid='.$LoginUserID.' and `mg_favorites`.amount>0 and (`mg_favorites`.state=2 or `mg_favorites`.state=3) order by `mg_brand`.sortindex,`mg_product`.name',PDO::FETCH_ASSOC);
+$res=$conn->query('select `mg_favorites`.productid,`mg_favorites`.amount,`mg_favorites`.remark,`mg_product`.name,`mg_product`.price0,`mg_product`.price'.$UserGrade.' as myprice,`mg_product`.onsale from ((`mg_favorites` inner join `mg_product` on `mg_favorites`.productid=`mg_product`.id) inner join `mg_category` on `mg_category`.id=`mg_product`.brand) where `mg_favorites`.userid='.$LoginUserID.' and `mg_favorites`.amount>0 and (`mg_favorites`.state=2 or `mg_favorites`.state=3) order by `mg_category`.sortindex,`mg_product`.name',PDO::FETCH_ASSOC);
 $row=$res->fetch();
 header('Content-Type: application/vnd.ms-excel');  
 header('Content-Disposition: attachment; filename='.$UserName.'的购物车.xls');  

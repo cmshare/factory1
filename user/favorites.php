@@ -81,7 +81,7 @@ function GetList(){
     return false;
   }
   OpenDB();
-  $sql='select `mg_favorites`.productid,`mg_favorites`.state,`mg_product`.name,`mg_product`.onsale,`mg_product`.price0,`mg_product`.price1,`mg_product`.price'.$LoginUserGrade.' as myprice from (`mg_favorites` inner join `mg_product` on `mg_favorites`.productid=`mg_product`.id) inner join `mg_brand` on `mg_brand`.id=`mg_product`.brand where `mg_favorites`.userid='.$LoginUserID.' and (`mg_favorites`.state=1 or `mg_favorites`.state=3) order by `mg_brand`.sortindex,`mg_product`.name';	
+  $sql='select `mg_favorites`.productid,`mg_favorites`.state,`mg_product`.name,`mg_product`.onsale,`mg_product`.price0,`mg_product`.price1,`mg_product`.price'.$LoginUserGrade.' as myprice from (`mg_favorites` inner join `mg_product` on `mg_favorites`.productid=`mg_product`.id) inner join `mg_category` on `mg_category`.id=`mg_product`.brand where `mg_favorites`.userid='.$LoginUserID.' and (`mg_favorites`.state=1 or `mg_favorites`.state=3) order by `mg_category`.sortindex,`mg_product`.name';	
   $res=$conn->query($sql,PDO::FETCH_ASSOC);
   $row=$res->fetch();
   if(empty($row)){

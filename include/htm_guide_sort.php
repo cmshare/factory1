@@ -8,7 +8,7 @@ else if($mode=="2") include("guide_category.php");
 else if($mode=="3"){
   function gen_sort1($selec,$indent){
     global $conn;
-    $res=$conn->query("select id,title from `mg_brand` where parent = $selec order by sortorder",PDO::FETCH_NUM);
+    $res=$conn->query("select id,title from `mg_category` where parent = $selec order by sortorder",PDO::FETCH_NUM);
     foreach($res as $row){
       echo 'GenOption1('.$row[0].',"'.$row[1].'",'.$indent.');'.chr(10);
       gen_sort1($row[0],$indent+1);
@@ -30,7 +30,7 @@ function CreateBrandSelection(SelectName,SelectValue,DefaultOptionTitle,OnchageP
 else if($mode==4){
   function gen_sort2($selec,$indent){
     global $conn;
-    $res=$conn->query("select id,title from `mg_category` where parent=$selec order by sortorder",PDO::FETCH_NUM);
+    $res=$conn->query("select id,title from `mg_sort` where parent=$selec order by sortorder",PDO::FETCH_NUM);
     foreach($res as $row){
       echo 'GenOption2('.$row[0].',"'.$row[1].'",'.$indent.');'.chr(10);
       gen_sort2($row[0],$indent+1 );

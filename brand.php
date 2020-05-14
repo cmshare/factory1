@@ -8,10 +8,10 @@ OpenDB();
 function sorts($selec){
   global $conn,$brandlist,$UnfoldBrand; 
   if($selec==0){ #热销品牌
-    $res=$conn->query('select id from `mg_brand` where recommend>1 order by recommend',PDO::FETCH_NUM);
+    $res=$conn->query('select id from `mg_category` where recommend>1 order by recommend',PDO::FETCH_NUM);
   }
   else{
-    $res=$conn->query('select id from `mg_brand` where parent='.$selec.' order by sortorder',PDO::FETCH_NUM);
+    $res=$conn->query('select id from `mg_category` where parent='.$selec.' order by sortorder',PDO::FETCH_NUM);
   }
   foreach($res as $row){
     $brandlist .= ', '.$row[0];
@@ -33,7 +33,7 @@ else{
   $PID = $cid;
   $LinkSortGuider='';
   while($PID>0){
-    $row=$conn->query('select id,title,parent from `mg_brand` where id='.$PID,PDO::FETCH_NUM)->fetch();
+    $row=$conn->query('select id,title,parent from `mg_category` where id='.$PID,PDO::FETCH_NUM)->fetch();
     if(empty($row)){
       echo '<script language="javascript">alert("您输入的参数非法，请正确操作！");history.go(-1);</script>';
       CloseDB();
@@ -72,7 +72,7 @@ function ShowWareList($dynamicLoad){
   if(empty($content))$content='<br><p align="center">本类商品暂无记录！</p>';
   echo $content;
   if(!$dynamicLoad){
-    $story=$conn->query('select description from `mg_brand` where id='.$cid)->fetchColumn(0);
+    $story=$conn->query('select description from `mg_category` where id='.$cid)->fetchColumn(0);
     if($story)echo '<div class="BrandDescription" title="品牌介绍">'.$story.'</div>';
   }
 }

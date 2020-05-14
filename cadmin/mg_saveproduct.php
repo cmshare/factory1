@@ -20,7 +20,7 @@ function PageHalt($errmsg){
 function IsShareBrand($PID){
   global $conn;
   while($PID){
-    $row=$conn->query('select parent,shared From mg_brand Where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+    $row=$conn->query('select parent,shared From mg_category Where id='.$PID,PDO::FETCH_ASSOC)->fetch();
      if($row){
        if($row['shared'])return true; 
        else $PID=$row['parent'];		   

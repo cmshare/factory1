@@ -8,14 +8,14 @@ if($mode=='sethot'){
    $recommend=$_POST['recommend'];
    if(is_numeric($brandid) && $brandid>0 && is_numeric($recommend) && $recommend>=2){
      if(!is_numeric($recommend)||$recommend<2)$recommend=2;
-     if($conn->exec('update mg_brand set recommend='.$recommend.' where recommend<2 and id='.$brandid)) PageReturn('设置成功！');	  
+     if($conn->exec('update mg_category set recommend='.$recommend.' where recommend<2 and id='.$brandid)) PageReturn('设置成功！');	  
    }
    PageReturn('操作失败！');
 }
 else if($mode=='cancelhot'){
   $brandid=$_POST['brandid'];
   if(is_numeric($brandid) && $brandid>0){
-     if($conn->exec('update mg_brand set recommend=1 where recommend>=2 and id='.$brandid)) PageReturn('操作成功！');
+     if($conn->exec('update mg_category set recommend=1 where recommend>=2 and id='.$brandid)) PageReturn('操作成功！');
   }
   PageReturn('操作失败！');
 }
@@ -25,7 +25,7 @@ else if($mode=='changerank'){
      $state=0;
      $prev_id=0;$rear_id=0;
      $rear_rank=0;$prev_rank=0;$cur_rank=0;
-     $res=$conn->query('select id,recommend from mg_brand where recommend>1 order by recommend asc',PDO::FETCH_ASSOC);
+     $res=$conn->query('select id,recommend from mg_category where recommend>1 order by recommend asc',PDO::FETCH_ASSOC);
      foreach($res as $row){
         if($state==0){
  	   if($row['id']==$brandid){
@@ -44,14 +44,14 @@ else if($mode=='changerank'){
      }
      if(@$_GET['direction']=='1'){ #recommand  ↑
         if($rear_id){
-          $conn->exec('update mg_brand set recommend='.$cur_rank.' where id='.$rear_id);
-          $conn->exec('update mg_brand set recommend='.$rear_rank.' where id='.$brandid);
+          $conn->exec('update mg_category set recommend='.$cur_rank.' where id='.$rear_id);
+          $conn->exec('update mg_category set recommend='.$rear_rank.' where id='.$brandid);
         } 
      }
      else{
         if($prev_id){
-          $conn->exec('update mg_brand set recommend='.$cur_rank.' where id='.$prev_id);
-          $conn->exec('update mg_brand set recommend='.$prev_rank.' where id='.$brandid);
+          $conn->exec('update mg_category set recommend='.$cur_rank.' where id='.$prev_id);
+          $conn->exec('update mg_category set recommend='.$prev_rank.' where id='.$brandid);
         } 
      }
      PageReturn('');
@@ -102,7 +102,7 @@ function CancelHotBrand(myForm)
   <tr bgcolor="#F7F7F7"> 
     <td height="20" colspan="2" background="images/topbg.gif" bgcolor="#F7F7F7">
        <table width="100%" border="0" cellpadding="0" cellspacing="0">    	
-    	  <tr><td width="50%"><b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="mg_brand.php">品牌分类管理</a> -&gt; <font color=#FF0000>热销品牌分类管理</font></b></td>
+    	  <tr><td width="50%"><b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="mg_category.php">品牌分类管理</a> -&gt; <font color=#FF0000>热销品牌分类管理</font></b></td>
     	      <td align="right"></td>
     	  </tr>
     	  </table>
@@ -118,7 +118,7 @@ function CancelHotBrand(myForm)
 </tr><?php
 $sortindex=0;
 $maxrecommend=0;
-$res=$conn->query('select * from mg_brand where recommend>1 order by recommend desc',PDO::FETCH_ASSOC);
+$res=$conn->query('select * from mg_category where recommend>1 order by recommend desc',PDO::FETCH_ASSOC);
 foreach($res as $row){
   $sortindex++;
   if($maxrecommend==0)$maxrecommend=$row['recommend'];?>

@@ -7,7 +7,7 @@ OpenDB();
 
 function GenBrandIndex($brand,$categorytitle,$parent)
 { global $conn; 
-  $res=$conn->query("select id,title from `mg_brand` where parent=$brand and recommend>0 order by sortorder",PDO::FETCH_NUM);
+  $res=$conn->query("select id,title from `mg_category` where parent=$brand and recommend>0 order by sortorder",PDO::FETCH_NUM);
   $ArrayCode="BrandIndex[\"$brand\"]=new Array(\"$parent\",\"$categorytitle\"";
   foreach($res as $row)
   { $ArrayCode=$ArrayCode.",\"".$row[0]."\"";
@@ -19,7 +19,7 @@ function GenBrandIndex($brand,$categorytitle,$parent)
 
 function GenCategoryHot()
 { global $conn;
-  $res=$conn->query("select id from `mg_brand` where recommend>1 order by recommend desc",PDO::FETCH_NUM);
+  $res=$conn->query("select id from `mg_category` where recommend>1 order by recommend desc",PDO::FETCH_NUM);
   $ArrayCode="BrandIndex[\"hot\"]=new Array(\"\",\"热销品牌\"";
   foreach($res as $row)
   { $ArrayCode=$ArrayCode.",\"".$row[0]."\"";
@@ -30,7 +30,7 @@ function GenCategoryHot()
 
 function GenCategoryIndex($category,$categorytitle,$parent)
 { global $conn;
-  $res=$conn->query("select id,title from `mg_category` where parent=$category order by sortorder",PDO::FETCH_NUM);
+  $res=$conn->query("select id,title from `mg_sort` where parent=$category order by sortorder",PDO::FETCH_NUM);
   $ArrayCode="CategoryIndex[\"$category\"]=new Array(\"$parent\",\"$categorytitle\"";
   foreach($res as $row)
   { $ArrayCode=$ArrayCode.",\"".$row[0]."\"";

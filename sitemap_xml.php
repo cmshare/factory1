@@ -56,7 +56,7 @@ foreach($res as $row){?>
 }
 
 
-$res=$conn->query('select id from `mg_brand` where recommend>=0 and parent>=0',PDO::FETCH_NUM);
+$res=$conn->query('select id from `mg_category` where recommend>=0 and parent>=0',PDO::FETCH_NUM);
 foreach($res as $row){?>
 <url>
 <loc>http://www.gdhzp.com/category/cat<?php echo $row['id'];?>.htm</loc>
@@ -67,7 +67,7 @@ foreach($res as $row){?>
 }
 
 
-$res=$conn->query('select id from `mg_category` where parent>=0',PDO::FETCH_NUM);
+$res=$conn->query('select id from `mg_sort` where parent>=0',PDO::FETCH_NUM);
 foreach($res as $row){?>
 <url>
 <loc>http://www.gdhzp.com/category/sort<?php echo $row[0];?>.htm</loc>

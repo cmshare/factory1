@@ -109,7 +109,7 @@ $sql_sort_code='order by '.$sort_name.' '.$sort_order;
 
 function sorts($selec){
    global $conn,$CatList;
-   $res=$conn->query('select id from mg_brand where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
+   $res=$conn->query('select id from mg_category where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
    foreach($res as $row){
       $brandid = $row[0];
       $CatList = $CatList.','.$brandid;

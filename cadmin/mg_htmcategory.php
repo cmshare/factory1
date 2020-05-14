@@ -24,7 +24,7 @@ do_sort(0,0);
 
 function do_sort($selec,$index){
   global $conn,$SortIndex;
-  $res=$conn->query('select * from mg_category where parent = '.$selec.' order by sortorder',PDO::FETCH_ASSOC);
+  $res=$conn->query('select * from mg_sort where parent = '.$selec.' order by sortorder',PDO::FETCH_ASSOC);
   foreach($res as $row){ 
     $SortIndex++;
     if($selec==0) echo '<tr bgcolor="#f7f7f7" height=25><td width="65%" background="images/topbg.gif" bgcolor="#f7f7f7">&nbsp;&nbsp;<b><a href="'.GenHtmURL($row['id']).'" target="_blank">'.$SortIndex.'.&nbsp;'.$row['title'].'</b></a></td><td width="25%" align="center">&nbsp</td><td width="10%" align="center" background="images/topbg.gif"><input type="button" value="更新" onclick="UpdateItem(this,\'id='.$row['id'].'\')"></td></tr>';

@@ -12,7 +12,7 @@ else{
   $GoodPriceCaption='批发价';
 }
 $sql=(@$_GET['stock']=='show')?'and `mg_product`.stock0>0':''; 
-$sql='select `mg_product`.id,`mg_product`.name,`mg_product`.price0,`mg_product`.price1,`mg_product`.'.$GoodPriceName.',`mg_product`.onsale from `mg_product` inner join `mg_brand` on `mg_brand`.id=`mg_product`.brand where `mg_product`.recommend>0 '.$sql.' order by `mg_brand`.sortindex,`mg_product`.name';
+$sql='select `mg_product`.id,`mg_product`.name,`mg_product`.price0,`mg_product`.price1,`mg_product`.'.$GoodPriceName.',`mg_product`.onsale from `mg_product` inner join `mg_category` on `mg_category`.id=`mg_product`.brand where `mg_product`.recommend>0 '.$sql.' order by `mg_category`.sortindex,`mg_product`.name';
 echo $sql;
 $res=$conn->query($sql,PDO::FETCH_NUM);?>
 <html  xmlns:x="urn:schemas-microsoft-com:office:excel">

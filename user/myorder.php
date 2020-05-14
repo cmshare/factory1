@@ -150,7 +150,7 @@ else{
   exit(0);
 }
 
-$res=$conn->query("select `mg_ordergoods`.id,`mg_ordergoods`.productid,`mg_ordergoods`.price,`mg_ordergoods`.amount,`mg_ordergoods`.remark,`mg_ordergoods`.productname,`mg_ordergoods`.score,`mg_product`.stock0 from ((`mg_ordergoods` inner join `mg_product` on `mg_ordergoods`.productid=`mg_product`.id) left join `mg_brand` on `mg_product`.brand=`mg_brand`.id) where `mg_ordergoods`.ordername='$ordername' order by `mg_brand`.sortindex,`mg_ordergoods`.productname",PDO::FETCH_ASSOC);
+$res=$conn->query("select `mg_ordergoods`.id,`mg_ordergoods`.productid,`mg_ordergoods`.price,`mg_ordergoods`.amount,`mg_ordergoods`.remark,`mg_ordergoods`.productname,`mg_ordergoods`.score,`mg_product`.stock0 from ((`mg_ordergoods` inner join `mg_product` on `mg_ordergoods`.productid=`mg_product`.id) left join `mg_category` on `mg_product`.brand=`mg_category`.id) where `mg_ordergoods`.ordername='$ordername' order by `mg_category`.sortindex,`mg_ordergoods`.productname",PDO::FETCH_ASSOC);
 ?><html>
 <head>
 <META http-equiv=Content-Type content="text/html; charset=utf-8">

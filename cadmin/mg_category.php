@@ -45,7 +45,7 @@ do_sort(0,0);
 
 function do_sort($selec,$index){
   global $conn;
-  $res=$conn->query('select * from mg_category where parent = '.$selec.' order by sortorder',PDO::FETCH_ASSOC);
+  $res=$conn->query('select * from mg_sort where parent = '.$selec.' order by sortorder',PDO::FETCH_ASSOC);
   foreach($res as $row){
     if($selec==0){?>
 <tr bgcolor="#f7f7f7" height=25>
@@ -74,7 +74,7 @@ function do_sort($selec,$index){
 <table width="100%" border="5" align="center" cellpadding="5" cellspacing=5 bordercolor="#CCCCCC" bgcolor="#FFFFFF">
 <tr>
   <td colspan="2" align="right" bgcolor="#FFCC00"><?php
-$max_root_index=$conn->query('select max(sortorder) from mg_category where parent=0')->fetchColumn(0);?>
+$max_root_index=$conn->query('select max(sortorder) from mg_sort where parent=0')->fetchColumn(0);?>
 添加一级分类&nbsp;
 <input type=hidden name=classid value=0>
 <input type=hidden name=hide value=0>

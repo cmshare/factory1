@@ -12,7 +12,7 @@ function CreateBrandSelection(SelectName,SelectValue,DefaultOptionTitle,OnchageP
 <?php
  function sort1($selec,$indent){
     global $conn,$OutCode;
-    $res=$conn->query('select * from `mg_brand` where parent = '.$selec.' order by sortorder',PDO::FETCH_ASSOC);
+    $res=$conn->query('select * from `mg_category` where parent = '.$selec.' order by sortorder',PDO::FETCH_ASSOC);
     foreach($res as $row){
        $OutCode.='GenOption1('.$row['id'].',"'.$row['title'].'",'.$indent.');'."\r\n";
        sort1($row['id'],$indent+1);

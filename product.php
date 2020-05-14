@@ -32,7 +32,7 @@ $LinkSortGuider='';
 $brand = $roware['brand'];
 $PID = $brand; 
 while($PID){
-  $row1=$conn->query('select id,title,parent,isbrand from `mg_brand` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+  $row1=$conn->query('select id,title,parent,isbrand from `mg_category` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
   if($row1){
     if($row1['isbrand'] && empty($ProductBrand)) $ProductBrand=$row1['title']; 
   }
@@ -51,7 +51,7 @@ if(empty($ProductBrand)) $ProductBrand='其它品牌';
 #遍历子级品牌分类 
 function sorts($selec){
  global $conn,$CatList;
- $res=$conn->query('select id from `mg_brand` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
+ $res=$conn->query('select id from `mg_category` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
  foreach($res as $row1){
     $CatList.=', '.$row1[0];
     sorts($row1[0]);

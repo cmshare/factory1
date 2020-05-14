@@ -4,7 +4,7 @@ if(@$UnfoldProperty>0)
 { function sort2($selec)
   { global $conn;
 	  $count=0;
-	  $res=$conn->query("select id,title from `mg_category` where parent = $selec",PDO::FETCH_NUM);
+	  $res=$conn->query("select id,title from `mg_sort` where parent = $selec",PDO::FETCH_NUM);
 	  foreach($res as $row)
 	  { $count+=sort2($row[0]);
     }
@@ -12,14 +12,14 @@ if(@$UnfoldProperty>0)
     $count+=$res->fetchColumn(0);
     return $count;
   }
-	$row=$conn->query("select parent,title from `mg_category` where id=$UnfoldProperty",PDO::FETCH_NUM)->fetch();
+	$row=$conn->query("select parent,title from `mg_sort` where id=$UnfoldProperty",PDO::FETCH_NUM)->fetch();
   echo "<TR style=\"CURSOR: pointer\" onMouseOver=\"gmEnter(this)\" onMouseOut=\"gmLeave(this)\" onclick=\"gmSwitch(this)\" height=24 valign=\"middle\"><TD> <IMG width=20 height=20 border=0 src=\"/images/guidefold2.gif\" align=absMiddle> <a href=\"/category-{$row[0]}.htm\"><font color=#FF0000>返回上级分类</font></a></TD></TR>";
   echo "<TR><TD class=\"gMenuOpen\"><span onMouseOver=\"gmEnter(this)\" onMouseOut=\"gmLeave(this)\"><span class=\"gMenuBar\"><a href=\"/category/sort{$UnfoldProperty}.htm\">{$row[1]}</a></span></span></td></TR>";
-  $res=$conn->query("select id,title from `mg_category` where parent=$UnfoldProperty order by sortorder",PDO::FETCH_NUM);
+  $res=$conn->query("select id,title from `mg_sort` where parent=$UnfoldProperty order by sortorder",PDO::FETCH_NUM);
   foreach($res as $row)
   {?>
     <TR><td height=20 class="gMenu2" onmouseover="MM_showHideLayers('Layer<?php echo $row[0]?>',true)" onmouseout="MM_showHideLayers('Layer<?php echo $row[0]?>',false)"><a href="/category/sort<?php echo $row[0]?>.htm" style="font-weight:<?php if($row[0]==$propertyid)echo "bold"; else echo "normal";?>"><?php echo $row[1]?>(<?php echo sort2($row[0])?>)</a><?php
-    $res_subsort=$conn->query("select id,title from `mg_category` where parent={$row[0]} order by sortorder",PDO::FETCH_NUM);
+    $res_subsort=$conn->query("select id,title from `mg_sort` where parent={$row[0]} order by sortorder",PDO::FETCH_NUM);
     $row_subsort=$res_subsort->fetch();
     if($row_subsort){?>
       <div id="Layer<?php echo $row[0]?>" style="position: absolute; visibility: hidden; margin-left: 30px;" onmouseover="MM_showHideLayers('Layer<?php echo $row[0]?>',true)" onmouseout="MM_showHideLayers('Layer<?php echo $row[0];?>',false)">
@@ -59,9 +59,9 @@ if(@$UnfoldProperty>0)
   }
 }
 else{
-  $res=$conn->query("select id,title from `mg_category` where parent=0 order by sortorder",PDO::FETCH_NUM);
+  $res=$conn->query("select id,title from `mg_sort` where parent=0 order by sortorder",PDO::FETCH_NUM);
   foreach($res as $row){
-    $res_subsort=$conn->query("select id,title from `mg_category` where parent={$row[0]} order by sortorder",PDO::FETCH_NUM);
+    $res_subsort=$conn->query("select id,title from `mg_sort` where parent={$row[0]} order by sortorder",PDO::FETCH_NUM);
     $row_subsort=$res_subsort->fetch();
     if($row_subsort)	
     {?><TR>

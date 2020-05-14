@@ -2,7 +2,7 @@
 CheckLogin('PRODUCT');
 OpenDB();
 
-define('PAGE_RETURN_URL','mg_category.php');
+define('PAGE_RETURN_URL','mg_sort.php');
 
 $action=$_GET['action'];
 if($action){
@@ -18,7 +18,7 @@ if($action){
 
 function do_sort($parentid,$selec,$index){
   global $conn;
-  $sql='select * from mg_category where parent = '.$selec.' order by sortorder';
+  $sql='select * from mg_sort where parent = '.$selec.' order by sortorder';
   $res=$conn->query($sql,PDO::FETCH_ASSOC);
   foreach($res as $row){
     $selected=($row['id']==$parentid)?' selected':'';
@@ -31,7 +31,7 @@ function do_sort($parentid,$selec,$index){
 function edit_cat(){
   global $conn;
   $id=$_GET['id'];
-  if(is_numeric($id) && $id>0) $row=$conn->query('select * from mg_category where id = '.$id,PDO::FETCH_ASSOC)->fetch();
+  if(is_numeric($id) && $id>0) $row=$conn->query('select * from mg_sort where id = '.$id,PDO::FETCH_ASSOC)->fetch();
   if(!$row)PageReturn('参数无效！');?>
 <html>
 <head>
@@ -80,9 +80,9 @@ function edit_cat(){
 function add_cat(){
   global $conn;
   $id=$_GET['id'];
-  if(is_numeric($id) && $id>0)$row=$conn->query('select * from mg_category where id = '.$id,PDO::FETCH_ASSOC)->fetch();
+  if(is_numeric($id) && $id>0)$row=$conn->query('select * from mg_sort where id = '.$id,PDO::FETCH_ASSOC)->fetch();
   if(empty($row)) PageReturn('参数错误！');
-  $subindex=$conn->query('select max(sortorder) from mg_category where parent='.$id)->fetchColumn(0);
+  $subindex=$conn->query('select max(sortorder) from mg_sort where parent='.$id)->fetchColumn(0);
   $subindex=($subindex)?$subindex+1:1;?>
 <html>
 <head>
@@ -130,7 +130,7 @@ function add_save($parentid){
   $title=FilterText(trim($_POST['title']));
   $sortorder=$_POST['sortorder'];
   if($title && is_numeric($sortorder) && is_numeric($parentid) && $parentid>=0){
-    $sql="mg_category set title='$title',sortorder=$sortorder,parent=".$parentid;
+    $sql="mg_sort set title='$title',sortorder=$sortorder,parent=".$parentid;
     if($conn->exec('update '.$sql.' where parent=-1 limit 1') || $conn->exec('insert into '.$sql) )
     PageReturn('分类添加成功！',PAGE_RETURN_URL);
   }
@@ -144,7 +144,7 @@ function edit_save(){
   $sortorder=$_POST['sortorder'];
   $parent=$_POST['parent'];
   if(is_numeric($id) && $id>0 && $title && is_numeric($sortorder) && is_numeric($parent) && $parent>=0){
-    $sql="update mg_category set title='$title',sortorder=$sortorder,parent=$parent where id=$id";
+    $sql="update mg_sort set title='$title',sortorder=$sortorder,parent=$parent where id=$id";
     if($conn->exec($sql)) PageReturn('保存成功！',PAGE_RETURN_URL);
     else PageReturn('没有修改~！',PAGE_RETURN_URL);
   }
@@ -156,9 +156,9 @@ function del_cat(){
   global $conn;
   $id=$_GET['id'];
   if(is_numeric($id) && $id>0){
-    $subcount=$conn->query('select count(*) from mg_category where parent='.$id)->fetchColumn(0);
+    $subcount=$conn->query('select count(*) from mg_sort where parent='.$id)->fetchColumn(0);
     if($subcount)PageReturn('该分类有子分类，请先删除该分类的所有子分类！');
-    else if($conn->exec('update mg_category  set parent=-1,title=null where id='.$id))PageReturn('分类删除成功！',PAGE_RETURN_URL);
+    else if($conn->exec('update mg_sort  set parent=-1,title=null where id='.$id))PageReturn('分类删除成功！',PAGE_RETURN_URL);
   }
 }
 

@@ -23,7 +23,7 @@ function GenPageUrl($page){
 
 function sorts($selec){
   global $conn,$CatList;
-  $res=$conn->query('select id from `mg_brand` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
+  $res=$conn->query('select id from `mg_category` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
   foreach($res as $row){
     $CatList .= ','.$row[0];
     sorts($row[0]);

@@ -43,7 +43,7 @@ if(!is_numeric($userid) || $userid<=0) PageReturn('<p align=center>参数错误�
   else PageReturn('<p align=center>用户不存在！</p>',0);
 
 
- $res=$conn->query('select mg_favorites.productid,mg_favorites.amount,mg_favorites.remark,mg_product.name,mg_product.'.$UserPrice.',mg_product.score from (mg_favorites inner join mg_product on  mg_favorites.productid=mg_product.id) inner join mg_brand on mg_brand.id=mg_product.brand where mg_favorites.userid='.$userid.' and mg_favorites.amount>0 and (mg_favorites.state&0x2) order by mg_brand.sortindex,mg_product.name',PDO::FETCH_ASSOC);
+ $res=$conn->query('select mg_favorites.productid,mg_favorites.amount,mg_favorites.remark,mg_product.name,mg_product.'.$UserPrice.',mg_product.score from (mg_favorites inner join mg_product on  mg_favorites.productid=mg_product.id) inner join mg_category on mg_category.id=mg_product.brand where mg_favorites.userid='.$userid.' and mg_favorites.amount>0 and (mg_favorites.state&0x2) order by mg_category.sortindex,mg_product.name',PDO::FETCH_ASSOC);
 
 header('content-type:application/vnd.ms-excel'); 
 //header('content-type:application/x-download'); 

@@ -35,7 +35,7 @@ function GenSortName($row){
 
 function do_sort($selec,$index){
   global $conn,$MaxIndex;
-  $res=$conn->query('select * from mg_brand where parent='.$selec.' order by sortorder');
+  $res=$conn->query('select * from mg_category where parent='.$selec.' order by sortorder');
   foreach($res as $row){
     if($selec==0){?>
         <tr height=25 bgcolor="#f7f7f7">

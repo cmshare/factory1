@@ -4,7 +4,7 @@ var BrandIndex=new Array();
 var CategoryIndex=new Array();
 <?php
 function GenBrandIndex($brandid,$brandtitle,$parent){
-  $res_sort=$GLOBALS['conn']->query('select * from `mg_brand` where parent='.$brandid.' and recommend>0 order by sortorder',PDO::FETCH_ASSOC);
+  $res_sort=$GLOBALS['conn']->query('select * from `mg_category` where parent='.$brandid.' and recommend>0 order by sortorder',PDO::FETCH_ASSOC);
   $BrandArrayCode='BrandIndex["'.$brandid.'"]=new Array("'.$parent.'","'.$brandtitle.'"';
   foreach($res_sort as $row_sort){
     $BrandArrayCode.=',"'.$row_sort['id'].'"';
@@ -14,7 +14,7 @@ function GenBrandIndex($brandid,$brandtitle,$parent){
 }
 
 function GenBrandHot(){
-  $res_sort=$GLOBALS['conn']->query('select * from `mg_brand` where recommend>1 order by recommend desc',PDO::FETCH_ASSOC);
+  $res_sort=$GLOBALS['conn']->query('select * from `mg_category` where recommend>1 order by recommend desc',PDO::FETCH_ASSOC);
   $BrandArrayCode='BrandIndex["hot"]=new Array("","热销品牌"';
   foreach($res_sort as $row_sort){
     $BrandArrayCode.=',"'.$row_sort['id'].'"';
@@ -23,7 +23,7 @@ function GenBrandHot(){
 }
 
 function GenCategoryIndex($categoryid,$categorytitle,$parent){
-  $res_sort=$GLOBALS['conn']->query('select * from `mg_category` where parent='.$categoryid.' order by sortorder',PDO::FETCH_ASSOC);
+  $res_sort=$GLOBALS['conn']->query('select * from `mg_sort` where parent='.$categoryid.' order by sortorder',PDO::FETCH_ASSOC);
   $CategoryArrayCode='CategoryIndex["'.$categoryid.'"]=new Array("'.$parent.'","'.$categorytitle.'"';
   foreach($res_sort as $row_sort){
     $CategoryArrayCode.=',"'.$row_sort['id'].'"';

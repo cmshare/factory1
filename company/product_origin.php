@@ -6,7 +6,7 @@ OpenDB();
 #遍历子级品牌分类 
 function brand_sort($selec){
  global $conn,$CatList;
- $res=$conn->query('select id from `mg_brand` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
+ $res=$conn->query('select id from `mg_category` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
  foreach($res as $row){
     $CatList.=', '.$row[0];
     brand_sort($row[0]);
@@ -38,7 +38,7 @@ function ShowProduct(){
   $brand = $rowware['brand'];
   $PID = $brand; 
   while($PID){
-    $row=$conn->query('select id,title,parent,isbrand from `mg_brand` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+    $row=$conn->query('select id,title,parent,isbrand from `mg_category` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
     if($row){
       if($row['isbrand'] && empty($ProductBrand)) $ProductBrand=$row['title']; 
     }

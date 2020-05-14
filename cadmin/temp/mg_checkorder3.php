@@ -398,7 +398,7 @@ $TotalCost=0;
 $TotalScore=0;
 $TotalPrice=0;     //价格总计
 $RecordCount=0;    //商品总项目 
-$res=$conn->query('select mg_ordergoods.id,mg_ordergoods.productid,mg_ordergoods.price,mg_ordergoods.score,mg_ordergoods.amount,mg_ordergoods.remark,mg_ordergoods.productname,mg_product.stock'.GetAdminDepot().' as stock,mg_product.cost from (mg_ordergoods inner join mg_product on  mg_ordergoods.productid=mg_product.id) inner join mg_brand on mg_brand.id=mg_product.brand where mg_ordergoods.ordername=\''.$OrderName.'\' order by mg_brand.sortindex,mg_ordergoods.productname',PDO::FETCH_ASSOC);
+$res=$conn->query('select mg_ordergoods.id,mg_ordergoods.productid,mg_ordergoods.price,mg_ordergoods.score,mg_ordergoods.amount,mg_ordergoods.remark,mg_ordergoods.productname,mg_product.stock'.GetAdminDepot().' as stock,mg_product.cost from (mg_ordergoods inner join mg_product on  mg_ordergoods.productid=mg_product.id) inner join mg_category on mg_category.id=mg_product.brand where mg_ordergoods.ordername=\''.$OrderName.'\' order by mg_category.sortindex,mg_ordergoods.productname',PDO::FETCH_ASSOC);
 foreach($res as $row){
   $RecordCount++; //商品总项目 
   $Amount=$row['amount'];

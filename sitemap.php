@@ -28,7 +28,7 @@ OpenDB();?>
    <TD vAlign="top" align="center" width="100%" style="BACKGROUND-POSITION: 50% top; BACKGROUND-REPEAT: repeat-x;" background="images/search_bg.gif" >
 
       <TABLE align=center cellSpacing=0 cellPadding=0 width="100%" border="0" style="font-family: "宋体"; font-size: 9pt; color: #333333; letter-spacing: 1px; line-height: 160%"><?php  
-$res=$conn->query('select * from `mg_brand` where parent=0 and recommend>0 order by sortorder',PDO::FETCH_ASSOC);
+$res=$conn->query('select * from `mg_category` where parent=0 and recommend>0 order by sortorder',PDO::FETCH_ASSOC);
 foreach($res as $row){?>
       <TR>
         <TD height=24 valign="middle"><IMG id="img<?php echo $row['id'];?>"  width="20" height="20" src="images/guidefold1.gif" align="absMiddle">
@@ -38,7 +38,7 @@ foreach($res as $row){?>
       <TR>
         <TD  bgColor="#FEFDF5"><?php
 
-$res2=$conn->query('select * from `mg_brand` where parent='.$row['id'].' and recommend>0 order by sortorder',PDO::FETCH_ASSOC);
+$res2=$conn->query('select * from `mg_category` where parent='.$row['id'].' and recommend>0 order by sortorder',PDO::FETCH_ASSOC);
 foreach($res2 as $row_subsort){?>
   <IMG height=20 src="images/bclass3.gif" width=36 align=absMiddle border=0><a href="category/cat<?php echo $row_subsort['id'];?>.htm"><font color=0066ff><?php echo $row_subsort['title'];?></font></a><br><?php
 }?>
@@ -61,9 +61,9 @@ foreach($res2 as $row_subsort){?>
 <TR>
    <TD vAlign="top" align="center" width="100%" style="BACKGROUND-POSITION: 50% top; BACKGROUND-REPEAT: repeat-x;" background="images/search_bg.gif" >
       <TABLE align=center cellSpacing=0 cellPadding=0 width="100%" border="0" style="font-family: "宋体"; font-size: 9pt; color: #333333; letter-spacing: 1px; line-height: 160%"><?php
-$res=$conn->query('select * from `mg_category` where parent=0 order by sortorder',PDO::FETCH_ASSOC);
+$res=$conn->query('select * from `mg_sort` where parent=0 order by sortorder',PDO::FETCH_ASSOC);
 foreach($res as $row){
-  $res2=$conn->query('select * from `mg_category` where parent='.$row['id'].' order by sortorder',PDO::FETCH_ASSOC);
+  $res2=$conn->query('select * from `mg_sort` where parent='.$row['id'].' order by sortorder',PDO::FETCH_ASSOC);
   $row_subsort=$res2->fetch();
   if($row_subsort){?>
         <TR>

@@ -26,7 +26,7 @@ else{
   goto LABEL_EXIT;
 }
 
-$res=$conn->query('select `mg_ordergoods`.id,`mg_ordergoods`.productid,`mg_ordergoods`.price,`mg_ordergoods`.amount,`mg_ordergoods`.remark,`mg_ordergoods`.productname,`mg_ordergoods`.score from (`mg_ordergoods` inner join `mg_product` on `mg_ordergoods`.productid=`mg_product`.id) inner join `mg_brand` on `mg_brand`.id=`mg_product`.brand where `mg_ordergoods`.ordername=\''.$ordername.'\' and `mg_ordergoods`.amount>0 order by `mg_brand`.sortindex,`mg_ordergoods`.productname',PDO::FETCH_ASSOC);
+$res=$conn->query('select `mg_ordergoods`.id,`mg_ordergoods`.productid,`mg_ordergoods`.price,`mg_ordergoods`.amount,`mg_ordergoods`.remark,`mg_ordergoods`.productname,`mg_ordergoods`.score from (`mg_ordergoods` inner join `mg_product` on `mg_ordergoods`.productid=`mg_product`.id) inner join `mg_category` on `mg_category`.id=`mg_product`.brand where `mg_ordergoods`.ordername=\''.$ordername.'\' and `mg_ordergoods`.amount>0 order by `mg_category`.sortindex,`mg_ordergoods`.productname',PDO::FETCH_ASSOC);
 header('Content-Type: application/vnd.ms-excel');  
 header('Content-Disposition: attachment; filename='.$username.'的订单('.$ordername.').xls');  ?>
 <html xmlns:x="urn:schemas-microsoft-com:office:excel">
