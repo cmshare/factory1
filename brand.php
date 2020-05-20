@@ -11,7 +11,7 @@ function sorts($selec){
     $res=$conn->query('select id from `mg_category` where recommend>1 order by recommend',PDO::FETCH_NUM);
   }
   else{
-    $res=$conn->query('select id from `mg_category` where parent='.$selec.' order by sortorder',PDO::FETCH_NUM);
+    $res=$conn->query('select id from `mg_category` where parent='.$selec.' order by sequence',PDO::FETCH_NUM);
   }
   foreach($res as $row){
     $brandlist .= ', '.$row[0];
