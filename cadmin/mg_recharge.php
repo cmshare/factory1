@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 
 $op_score=1;$op_recharge=2;$op_refund=3;$op_pre_score=4;$op_pre_recharge=5;$op_pre_refund=6;$op_audit_score=7;$op_audit_recharge=8;$op_audit_refund=9;
 
@@ -10,7 +10,7 @@ if($mode){
     case 'audit': audit_account();break; 
     case 'new':   new_account();break;
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -341,4 +341,4 @@ foreach($res as $row){
 if($total_records==0) echo  '<tr  bgcolor=#FFFFFF align=center><td colspan=6>注：该用户今天没有其它帐务记录！</td></tr>';?>
 </table>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

@@ -21,7 +21,7 @@ function AddToFav(){
     echo '参数错误！';
     return false;
   }
-  OpenDB();
+  db_open();
   $row=$conn->query('select id,state from `mg_favorites` where userid='.$LoginUserID.' and productid='.$ProductID,PDO::FETCH_NUM)->fetch();
   if($row && $row[1])
   { if(($row[1]%2)!=1){
@@ -36,7 +36,7 @@ function AddToFav(){
     { echo '收藏成功！';	
     }
   }
-  CloseDB();
+  db_close();
 }
 
 function DelFromFav(){
@@ -50,10 +50,10 @@ function DelFromFav(){
     echo '<script LANGUAGE="javascript">alert("您没有选择要删除的商品！");history.go(-1);</script>'; 
     return false;
   }
-  OpenDB();
+  db_open();
   $conn->exec('update `mg_favorites` set state=state-1 where userid='.$LoginUserID.' and productid in ('.implode(',',$selectid).') and (state=1 or state=3)');
   echo '<script LANGUAGE="javascript">alert("选定的商品已经从您的收藏架中删除！");parent.show_myfav();</script>'; 
-  CloseDB();
+  db_close();
 } 
 
 function SelTotCart(){
@@ -67,10 +67,10 @@ function SelTotCart(){
     echo '<script LANGUAGE="javascript">alert("您没有选择所要购买的商品！");history.go(-1);</script>'; 
     return false;
   }
-  OpenDB();
+  db_open();
   $conn->exec('update `mg_favorites` set state=3,amount=1,remark=null where userid='.$LoginUserID.' and productid in ('.implode(',',$selectid).') and state=1');
   echo '<script LANGUAGE="javascript">alert("选定的商品已经放入购物车!"); parent.show_mycart();</script>'; 
-  CloseDB();
+  db_close();
 }
 
 function GetList(){
@@ -80,7 +80,7 @@ function GetList(){
     echo '<br><br><br><p align="center">请先登录</p><br><br><br>';
     return false;
   }
-  OpenDB();
+  db_open();
   $sql='select `mg_favorites`.productid,`mg_favorites`.state,`mg_product`.name,`mg_product`.onsale,`mg_product`.price0,`mg_product`.price1,`mg_product`.price'.$LoginUserGrade.' as myprice from (`mg_favorites` inner join `mg_product` on `mg_favorites`.productid=`mg_product`.id) inner join `mg_category` on `mg_category`.id=`mg_product`.brand where `mg_favorites`.userid='.$LoginUserID.' and (`mg_favorites`.state=1 or `mg_favorites`.state=3) order by `mg_category`.sortindex,`mg_product`.name';	
   $res=$conn->query($sql,PDO::FETCH_ASSOC);
   $row=$res->fetch();
@@ -123,6 +123,6 @@ function GetList(){
     </form>
     <br><?php
   }
-  CloseDB();
+  db_close();
 }
 ?>

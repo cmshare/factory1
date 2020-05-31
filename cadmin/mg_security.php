@@ -1,6 +1,6 @@
 <?php require("includes/dbconn.php");
 CheckLogin();
-OpenDB();
+db_open();
 $action=@$_GET["action"];
 if($action=="save"){
   $pwdold=trim($_POST["pwdold"]);

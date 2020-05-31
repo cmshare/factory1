@@ -17,7 +17,7 @@ function check_username(){
            echo '<script>alert("该用户名已经存在，请确认您是否已经在本站注册过！");history.go(-1);</script>';
        }
        else{
-         CloseDB();
+         db_close();
          echo '<script>self.location.href="?action=yes&username='.$username.'";</script>';
        }
     }   

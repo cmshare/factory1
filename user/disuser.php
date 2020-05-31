@@ -1,5 +1,5 @@
 <?php require('../include/conn.php');
-OpenDB();
+db_open();
 switch($_GET['action']){
   case 'customerinfo': customerinfo();break;
   case 'changepass':   changepass();break;
@@ -11,12 +11,12 @@ switch($_GET['action']){
   case 'accountlog':   AccountLog();break; 
   default:             MyAccount();break;
 }
-CloseDB();
+db_close();
 
 function check_user(){
   if(!CheckLogin(0)){
     echo '<table border=0 width="100%" height="100%"><tr valign="middle"><td width="47%" align="right"><img src="/images/nologin.gif"></td><td width="53%">请先登录网站！！！</td></tr></table>';
-    CloseDB();
+    db_close();
     exit(0);
   }
 }

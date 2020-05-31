@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('SYSTEM');
-OpenDB();
+db_open();
 
 if(@$_GET['mode']=='save'){
   $SMTP=$_POST['SMTP'];
@@ -69,4 +69,4 @@ if($row){
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

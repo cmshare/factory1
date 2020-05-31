@@ -155,14 +155,14 @@ foreach($res as $row){
         <tr> 
           <td align="right" bgcolor="#f7f7f7">支付方式：</td>
           <td bgcolor="#FFFFFF"><select name="paymethod" style="width:51%"><option value="" selected>...</option><?php
-          $res=$conn->query('select * from `mg_delivery` where method=1 order by sortorder',PDO::FETCH_ASSOC);
+          $res=$conn->query('select * from `mg_delivery` where method=1 order by sequence',PDO::FETCH_ASSOC);
           foreach($res as $row)echo '<option value="'.$row['subject'].'">'.$row['subject'].'</option>';?></select>   货款支付方式，作为财务查帐参考依据
           </td></tr>        
         <tr>
           <td align="right" bgcolor="#f7f7f7">配送方式：</td>
           <td bgcolor="#FFFFFF"><select name="deliveryid" style="width:51%">
             <option value="0" selected>...</option><?php  
-              $res=$conn->query('select * from `mg_delivery` where method=0 order by sortorder',PDO::FETCH_ASSOC);
+              $res=$conn->query('select * from `mg_delivery` where method=0 order by sequence',PDO::FETCH_ASSOC);
               foreach($res as $row)echo '<option value="'.$row['id'].'">'.$row['subject'].'</option>';?></select> * 运费按实际收取
           </td>        
       </tr> 

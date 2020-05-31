@@ -2,13 +2,13 @@
 
 function DlgReturn($info){
   echo '<table width=100% height=100% border=0 bgcolor="#dfdfdf"><tr><td align=center valign=middle><font color="#FF0000">'.$info.'</font> <input type="button" value=" 确定 " onclick="parent.closeDialog()"></td></tr></table>';
-  CloseDB();
+  db_close();
   exit(0);
 }
 
 function  PageHalt($errmsg){
   echo $errmsg;
-  CloseDB();
+  db_close();
   exit(0);
 }
 if(!CheckLogin((0)))DlgReturn('您没有登录，无法使用该功能！');
@@ -16,7 +16,7 @@ if(!CheckLogin((0)))DlgReturn('您没有登录，无法使用该功能！');
 $ProductID=$_GET['id'];
 if(!is_numeric($ProductID) || $ProductID<=0)DlgReturn('参数错误！');
 
-OpenDB();
+db_open();
 if(@$_GET['action']=='addsave'){
   $amount=trim($_POST['amount']);
   if(!is_numeric($amount) || $amount<1) PageHalt('购买数量无效！');
@@ -169,4 +169,4 @@ InitCartRemarks();
 </body>  
 </html><?php
 }
-CloseDB();?>
+db_close();?>

@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();?>
+db_open();?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -53,4 +53,4 @@ function CopyText(obj) {
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

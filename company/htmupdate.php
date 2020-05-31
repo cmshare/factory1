@@ -10,10 +10,7 @@ function PHP2HTML($url,$savefile){
 $ret=TRUE;
 
 echo '开始更新页面...<br>';  
-if($ret) $ret=PHP2HTML('include/guide_sort.php','include/guide_sort.js');
-if($ret) $ret=PHP2HTML('user/brandsel.php','user/brandsel.js');
 if($ret) $ret=PHP2HTML('main.php','index.htm');
-if($ret) $ret=PHP2HTML('brandlist.php','brandlist.htm');
 if($ret) $ret=PHP2HTML('catlist.php','catlist.htm');	
 if($ret) $ret=PHP2HTML('news.php','news.htm');
 if($ret) $ret=PHP2HTML('help.php','help.htm');

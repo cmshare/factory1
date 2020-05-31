@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 $UserTitles=array();
 $res=$conn->query('select id,title from mg_usrgrade',PDO::FETCH_NUM);
 foreach($res as $row){
@@ -60,4 +60,4 @@ else{
 </body>
 </html>
 <?php
-CloseDB();?>
+db_close();?>

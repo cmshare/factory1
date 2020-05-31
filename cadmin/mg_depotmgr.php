@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('SYSTEM');
-OpenDB();
+db_open();
 if(@$_GET['action']=='save'){
   $DepotID=$_POST['id'];
   $DepotName=FilterText(trim($_POST['depotname']));
@@ -55,4 +55,4 @@ foreach($res as $row){?>
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

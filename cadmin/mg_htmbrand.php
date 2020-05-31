@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 function GenHtmURL($id){return WEB_ROOT.'category/cat'.$id.'.htm';}
 ?><html>
 <head>
@@ -30,7 +30,7 @@ do_sort(0,0);
 
 function do_sort($selec,$index){
   global $conn,$SortIndex;
-  $res=$conn->query('select * from mg_category where parent = '.$selec.' and recommend>0 order by sortorder',PDO::FETCH_ASSOC);
+  $res=$conn->query('select * from mg_category where parent = '.$selec.' and recommend>0 order by sequence',PDO::FETCH_ASSOC);
   foreach($res as $row){
     $SortIndex++;
     if($row['sortindex']!=$SortIndex)$conn->exec('update mg_category set sortindex='.$SortIndex.' where id='.$row['id']);
@@ -43,4 +43,4 @@ function do_sort($selec,$index){
 </table>
 <script>InitHtmlUpdate(1,"mg_htmgen.php?mode=brand","mytable");</script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

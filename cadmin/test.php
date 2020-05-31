@@ -1,11 +1,11 @@
 ﻿<?php require('includes/dbconn.php');
-OpenDB();
+db_open();
 //   $ret=$conn->exec("update mg_users set  logincounts=1000 where username='aufame'");
 //   var_dump($ret);
 
 //echo $conn->exec($sql); 
 
-CloseDB();
+db_close();
 ?>
 <html>
 <script>

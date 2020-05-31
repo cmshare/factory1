@@ -10,7 +10,7 @@
 注：订单状态允许的前提下，具有popedomManage的管理员拥有所有权限。
 */
 CheckLogin();
-OpenDB();
+db_open();
 
 $mode=@$_GET['mode'];
 if($mode){
@@ -30,7 +30,7 @@ if($mode){
     case 'changeimporter':ChangePorter('importer');break;
     case 'orderstate':ChangeOrderState();break;
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -514,4 +514,4 @@ echo 'document.forms["stateform"].importer.value="'.$Order_Importer.'";';
 echo 'document.getElementById("dsp_importer").innerHTML="'.$DepotName.'";'; ?>
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

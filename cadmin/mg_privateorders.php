@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 
 function GenOrderNO(){
   return date('ymdHis').sprintf('%04d',rand(1,9999));
@@ -27,7 +27,7 @@ if($mode){
     case 'commonorder':ChangeToCommonOrder();break; 
     case 'privateorder':ChangeToPrivateOrder();break;
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -290,4 +290,4 @@ else if($Exporter) echo GetDepotName($Exporter).' <font color="#FF0000">[出库]
  }
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

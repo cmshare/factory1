@@ -3,7 +3,7 @@ $ordername=trim(FilterText($_GET['ordername']));
 if(empty($ordername))PageReturn('参数无效！');
 
 CheckLogin();
-OpenDB();
+db_open();
 
 function ProductURL($pid){
  if(WEB_SITE>1) return WEB_ROOT.'product.htm?id='.$pid;
@@ -26,7 +26,7 @@ if($row){
   $Order_AdminRemark=$row['adminremark'];
 }
 else{
-   CloseDB();
+   db_close();
    echo '<p align=center>订单不存在！</p>';
    exit(0);
 }
@@ -155,4 +155,4 @@ foreach($res as $row){
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

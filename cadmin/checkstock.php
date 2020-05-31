@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin('STOCK');
-OpenDB();
+db_open();
 
 $productid=@$_GET['id'];
 if(is_numeric($productid) && $productid>0){
@@ -132,4 +132,4 @@ function CheckInput(obj){
 </TABLE></form>
 </BODY>   
 </HTML><?php
- CloseDB();?>
+ db_close();?>

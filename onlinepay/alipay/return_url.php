@@ -33,13 +33,13 @@ $result = $alipaySevice->check($arr);
 if($result) {//验证成功
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //请在这里加上商户的业务逻辑程序代码
-    OpenDB();
+    db_open();
     echo '<p align=center><font color="#FF0000">在线支付已经支付成功！</font></p>'; 
     $out_trade_no = htmlspecialchars(trim($_GET['out_trade_no'])); //商户订单号
     $returl=$conn->query('select site from mg_onlinepay where tradeno=\''.$out_trade_no.'\' and mode=1')->fetchColumn(0);
     if($returl) echo '<p align="center"><a href="'.$returl.'">返回商户网站</a>...</p>';
     //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
-    CloseDB();
+    db_close();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 else{

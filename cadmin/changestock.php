@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('STOCK');
-OpenDB();?><html>
+db_open();?><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="includes/admincss.css" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@ if(is_numeric($productid)){
 }
 else{
    page_exit:echo "<p align=center>参数错误</p>";
-   CloseDB();
+   db_close();
    exit(0);
 }
  
@@ -66,7 +66,7 @@ if(@$_GET['mode']=='change'){
       else $ret_msg='<br><br><p align=center>参数错误</p>';
       echo '<br><br><p align=center>'.$ret_msg.'<br><br><br><input type="button" onclick="parent.closeDialog(true)" value=" 确定 "></p>';
   }
-  CloseDB(); 
+  db_close(); 
   exit(0);
 }?>
 
@@ -155,4 +155,4 @@ function CheckStock(){
 </table></form>
 </body>
 </html><?php
- CloseDB();?>
+ db_close();?>

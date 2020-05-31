@@ -5,7 +5,7 @@ $PageDescription='这是南京涵若铭妆新用户注册中心,涵若铭妆提�
 $PageTitle='新用户注册 - 韩国化妆品批发|进口化妆品批发|欧美品牌化妆品批发-涵若铭妆贸易有限公司';
 ob_start();
 require('include/page_head.php');
-OpenDB();
+db_open();
 ?>
 <TABLE cellSpacing="0" cellPadding="0" border="0" width="1000" align="center" style="background:url(/images/bg_mid.gif) repeat-x;">
  <tr>
@@ -43,6 +43,6 @@ OpenDB();
 <tr><td height="5"></td></tr>	
 </table>
 <?php include('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html>

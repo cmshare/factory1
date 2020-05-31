@@ -5,7 +5,7 @@ $showcost=@$_SESSION['showcost'];
 $arrearage=@$_SESSION['arrearage'];
 $mode=@$_GET['mode'];
 if($mode){
-  OpenDB();
+  db_open();
   switch($mode){
     case 'showcost':ShowCost();break;
     case 'arrearage':SwitchArrearage();break;
@@ -20,7 +20,7 @@ if($mode){
     case 'resetprice':ResetOrderPrice();break;
     case 'sales':StatSales();break;
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
  

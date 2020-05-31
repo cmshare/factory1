@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin('SYSTEM');
-OpenDB();
+db_open();
 
 if(@$_GET['mode']=='sysupdate'){
   $icp=FilterText(trim($_POST['icp']));
@@ -116,4 +116,4 @@ $row=$conn->query('select icp,webname,webemail,address,postcode,tel,fax,manager,
 </table>
 </body>
 </html>
-<?php CloseDB();?>
+<?php db_close();?>

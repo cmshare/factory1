@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin('INFOMATION');
-OpenDB();
+db_open();
 
 define('MAX_PROPERTY',7);
 $PropertyName=array();
@@ -22,7 +22,7 @@ if($action){
     case 'addsave':edit_save(0);break;
     case 'editsave':edit_save($_POST['id']);break;
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -170,8 +170,12 @@ function edit_article(){
      <script id="newscontent" type="text/plain"><?php if($row['content']) echo $row['content'];?></script>
      <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
      <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
-     <script type="text/javascript">var ueditor = UE.getEditor('newscontent',{toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'forecolor', 'backcolor', 'removeformat', 'formatmatch','|','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'indent', '|', 'insertorderedlist', 'insertunorderedlist','|','link', 'unlink', 'anchor', '|','insertimage', 'spechars', 'horizontal']],initialFrameWidth:null,autoHeightEnabled: true,autoFloatEnabled: true});
-        String.prototype.trim = function(){
+     <script type="text/javascript">
+       var ueditor = UE.getEditor('newscontent',{toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'forecolor', 'backcolor', 'removeformat', 'formatmatch','|','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'indent', '|', 'insertorderedlist', 'insertunorderedlist','|','link', 'unlink', 'anchor', '|','insertimage', 'spechars', 'horizontal']],initialFrameWidth:null,autoHeightEnabled: true,autoFloatEnabled: true});
+       ueditor.ready(function(){
+          document.forms[0].savebtn.disabled=false;
+       });
+       String.prototype.trim = function(){
           return this.replace(/(^\s*)|(\s*$)/g, ""); 
         } 
         function CheckModifyPost(myForm){
@@ -193,12 +197,14 @@ function edit_article(){
 	    return false;
 	  }
           return true; 
-	}</script>
+  }
+  
+    </script>
 
             </td>
           </tr>
           <tr bgcolor="#F7F7F7" align="center"> 
-            <td height="28" colspan="5" style="PADDING-LEFT: 6px"> <input type="submit" value=" 提交修改 "></td>
+            <td height="28" colspan="5" style="PADDING-LEFT: 6px"> <input type="submit" name="savebtn" value=" 提交修改 " disabled></td>
           </tr>
         </table>
 	</form></td>
@@ -300,4 +306,4 @@ function BatchDeleteArticle(myForm){
 </script>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

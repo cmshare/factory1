@@ -11,7 +11,7 @@ if(!is_numeric($productid) || empty($ordername)){
   exit(0);
 }
 
-OpenDB();
+db_open();
 
 $row=$conn->query('select * from `mg_ordergoods` where ordername=\''.$ordername.'\' and productid='.$productid,PDO::FETCH_ASSOC)->fetch();
 if($row){
@@ -34,7 +34,7 @@ $sql='select id,name,score,stock0,price0,price1,price'.$LoginUserGrade.' as mypr
 $row=$conn->query($sql,PDO::FETCH_ASSOC)->fetch();
 if(empty($row)){
   echo '<script LANGUAGE="javascript">alert("该商品不存在或者已经下架！");parent.closeDialog();</script>';
-  CloseDB();
+  db_close();
   exit(0);
 }?>
 <table width="100%" height="100%" bordercolor="#FF6600" bgcolor="#FF6600" border="1" cellpadding="1" cellspacing="2" bgcolor="#FFFFFF" >
@@ -118,4 +118,4 @@ if(empty($row)){
 	 
 	</body>  
   </html><?php
-  CloseDB();?>
+  db_close();?>

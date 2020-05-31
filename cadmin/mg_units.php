@@ -1,14 +1,14 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 	
 $action=@$_GET['action'];
 if($action){
   if($action=='newsave'){ #新添保存
-    $sortorder= $_POST['sortorder'];
+    $sequence= $_POST['sequence'];
     $UnitName=FilterText(trim($_POST['unitname']));
-    if(is_numeric($sortorder) && $UnitName){
-      $conn->exec("insert into mg_units(name,sortorder) values('$UnitName',$sortorder)");
+    if(is_numeric($sequence) && $UnitName){
+      $conn->exec("insert into mg_units(name,sequence) values('$UnitName',$sequence)");
       PageReturn('保存成功！');
     }
   }
@@ -16,9 +16,9 @@ if($action){
     $id=$_POST['id'];
     if(is_numeric($id)&& $id>0){
       $UnitName=FilterText(trim($_POST['unitname']));
-      $sortorder= $_POST['sortorder'];
-      if(is_numeric($sortorder) && $UnitName){
-        $conn->exec("update mg_units set name='$UnitName',sortorder=$sortorder where id=$id");
+      $sequence= $_POST['sequence'];
+      if(is_numeric($sequence) && $UnitName){
+        $conn->exec("update mg_units set name='$UnitName',sequence=$sequence where id=$id");
         PageReturn('修改成功！');
       }
     }
@@ -39,15 +39,15 @@ if($action){
 <script>
 function modify_object(myform){
  var unitname=myform.unitname.value.trim();
- var sortorder=myform.sortorder.value.trim();
+ var sequence=myform.sequence.value.trim();
  if(!unitname){
    alert("单位名称不能为空！");
    myform.unitname.focus();
    return false;
  }
- else if(!sortorder || isNaN(sortorder)){
+ else if(!sequence || isNaN(sequence)){
    alert("序号无效！");
-   myform.sortorder.focus();
+   myform.sequence.focus();
    return false;
  }
  else{
@@ -85,12 +85,12 @@ function delete_object(myform){
                 <td width="28%" background="images/topbg.gif"><strong>序号</strong></td>
                 <td width="30%" background="images/topbg.gif"><strong>操作</strong></td>
               </tr><?php
-	$res=$conn->query('select * from mg_units order by sortorder',PDO::FETCH_ASSOC);
+	$res=$conn->query('select * from mg_units order by sequence',PDO::FETCH_ASSOC);
         foreach($res as $row){?>
 	      <form method="post">
               <tr align="center" bgcolor="#FFFFFF">
                 <td height="25"><input name="unitname" type="text" class="input_sr" value="<?php echo $row['name'];?>"><input type="hidden" name="id" value="<?php echo $row['id'];?>"/></td>
-                <td><input name="sortorder" type="text" class="input_sr" value="<?php echo $row['sortorder'];?>" size="8"></td>
+                <td><input name="sequence" type="text" class="input_sr" value="<?php echo $row['sequence'];?>" size="8"></td>
                 <td><input type="button" class="input_bot" value="修改" onclick="modify_object(this.form)">&nbsp; <input type="button" class="input_bot" value="删除" onclick="delete_object(this.form)"></td>
               </tr></form><?php
         }?>
@@ -108,7 +108,7 @@ function delete_object(myform){
               </tr>
               <tr align="center" bgcolor="#FFFFFF">
                 <td height="25"><input name="unitname" type="text" class="input_sr"></td>
-                <td><input name="sortorder" type="text" class="input_sr" size="8"></td>
+                <td><input name="sequence" type="text" class="input_sr" size="8"></td>
                 <td><input name="Submit" type="submit" class="input_bot" value="添加"></td>
               </tr>
 			  </form>
@@ -122,5 +122,5 @@ function delete_object(myform){
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>
 

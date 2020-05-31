@@ -1,7 +1,7 @@
 <?php
 include('conn_articles.php');
 $articlestype=1;
-OpenDB();
+db_open();
 $id=@$_GET['id'];
 if(is_numeric($id) && $id>0){
   $row=$conn->query("select * from `articles` where id=$id and property=$articlestype",PDO::FETCH_ASSOC)->fetch();
@@ -44,7 +44,8 @@ $PageTitle=$newsTitle.'－'.$HotKeyword.'地区代理－涵若铭妆';
 	 	<TABLE cellSpacing="0" cellPadding="0" width="100%" height="100%" align="center" border="0">
 	 	<tr>
 	 		<td height="1%">
-	 	    <!-----导航:商品分类 开始------> 
+        <!-----导航:商品分类 开始------> 
+        <SCRIPT language="JavaScript" src="/include/category.js"></SCRIPT>
         <SCRIPT language="JavaScript" src="/include/guide_sort.js" type="text/javascript"></SCRIPT>
         <!-----导航:商品分类 结束------>   
       </td></tr><tr><td height="99%"> 
@@ -198,5 +199,5 @@ else{
 </body>
 </html>
 <?php
-CloseDB();
+db_close();
 ?>

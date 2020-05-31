@@ -1,12 +1,12 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 
 $mode=@$_GET['mode'];
 if($mode){
   include('checkorder.php');
   HandleAction($mode);
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -242,7 +242,7 @@ if($TotalPrice!=$OriginOrderTotalPrice || $TotalScore!=$OriginOrderTotalScore|| 
           <td><?php
            if($Order_State<3 and $IsOrderManager){
               echo '<select name="paymethod" '.$BaseInputStyle.'>';
-              $res=$conn->query('select subject from `mg_delivery` where method=1 order by sortorder',PDO::FETCH_NUM);
+              $res=$conn->query('select subject from `mg_delivery` where method=1 order by sequence',PDO::FETCH_NUM);
               foreach($res as $row){
                 if($Order_PayMethod==$row[0]) echo '<option value="'.$row[0].'" selected>'.$row[0].'</option>';
                 else echo '<option value="'.$row[0].'">'.$row[0].'</option>';
@@ -257,7 +257,7 @@ if($TotalPrice!=$OriginOrderTotalPrice || $TotalScore!=$OriginOrderTotalScore|| 
           <td><?php
 if($Order_State<5){
   echo '<b>包裹重量</b><input type="text" name="orderweight" maxlength=5 value="'.$Order_Weight_KG.'" style="width:50px;text-align:center" onFocus="this.select()" onkeyup="if(isNaN(value))execCommand(\'undo\');">千克 &nbsp; &nbsp; | &nbsp; <b>配送方式</b><select name="deliverymethod" onchange="if(newmethod.indexOf(\'上门\')>=0) this.form.deliverycode.value=\'0\';" style="width:90px"><option value="选择方式" >&nbsp;&nbsp;&nbsp;&nbsp;...</option>';  
-  $res=$conn->query('select * from mg_delivery where method=2 order by sortorder',PDO::FETCH_ASSOC);
+  $res=$conn->query('select * from mg_delivery where method=2 order by sequence',PDO::FETCH_ASSOC);
   foreach($res as $row){
     $selected=($Order_DeliveryMethod==$row['subject'])?' selected':'';
     echo  '<option value="'.$row['subject'].'"'.$selected.'>'.$row['subject'].'</option>';            	   	
@@ -324,4 +324,4 @@ foreach($DepotArray as $depotIndex=>$depotName){
 echo "InitDepot($Order_Importer,$Order_Exporter,new Array($DepotOptions));";?>
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

@@ -1,5 +1,5 @@
 <?php require('include/conn.php');
-OpenDB();
+db_open();
 $mypagetitle=WEB_NAME.'--化妆品批发报价单'.date('Ymd');
 header('Content-Type: application/vnd.ms-excel');  
 header('Content-Disposition: attachment; filename='.$mypagetitle.'.xls');  
@@ -55,7 +55,7 @@ foreach($res as $row){
   }
   echo round($price_vip,2).'</td></tr>';
 }
-CloseDB();
+db_close();
 ?>
 </table>
 </body>

@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('ORDER');
-OpenDB();
+db_open();
 $own_popedomFinance=true;  //暂时谁都可以修改订单 
 if(@$_POST['mode']=='remark'){
    $OrderID=$_POST['orderid'];
@@ -12,7 +12,7 @@ if(@$_POST['mode']=='remark'){
      if($conn->exec($sql)) echo '订单备注修改成功！<OK>';
      else echo '订单备注没有修改！<ERR>';
    }
-   CloseDB();
+   db_close();
    exit(0);
 }
 ?><html>
@@ -223,4 +223,4 @@ function ChangeRemark(OrderID,tableCell){
 }
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

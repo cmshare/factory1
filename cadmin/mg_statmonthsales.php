@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB(); 
+db_open(); 
 
 $username=FilterText(trim($_GET['user']));
 if(empty($username))PageReturn('参数错误！',0); 
@@ -56,4 +56,4 @@ for($i=0;$i<6;$i++){
 </tr>
 </table>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

@@ -12,7 +12,7 @@ else if(strtolower($authcode)!=strtolower($_SESSION['authcode'])) {
   echo '<script LANGUAGE="javascript">var verifyimg=parent.document.all("LoginCheckout");if(verifyimg)verifyimg.src="includes/authcode.php?handle='.time().'";alert("登录失败！验证码错误！");</script>';
 }
 else {
-   OpenDB();
+   db_open();
    $popedom=$conn->query("select popedom from `mg_users` where username='$adminuser' and password=md5('$adminpsw')",PDO::FETCH_NUM)->fetchColumn();
    if($popedom){
      $own_popedomFinance=CheckPopedom('FINANCE',$popedom);
@@ -20,7 +20,7 @@ else {
        $accountant=$conn->query('select accountant from `mg_configs`')->fetchColumn(0);
        if($accountant!=$adminuser){
           label_illegal:echo '<script LANGUAGE="javascript">alert("权限错误，登录失败，请联系管理员！");</script>';
-          CloseDB();
+          db_close();
           exit(0);
        }
      }
@@ -41,5 +41,5 @@ else {
      }else goto label_illegal;
    }
    else echo '<script LANGUAGE="javascript">alert("用户名或者密码错误，登录失败！");</script>';
-   CloseDB();
+   db_close();
 }

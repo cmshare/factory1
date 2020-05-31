@@ -1,6 +1,6 @@
 <?php
 require('conn_articles.php');
-OpenDB();
+db_open();
 ?>
 <table border="0" width="190" cellpadding="0" cellspacing="0" align="center" style="BACKGROUND-IMAGE:url(images/leftbarpatch1.gif);margin-top:5px">
 <tr><td height=60><img src="images/articles.gif" border=0 width=190 height=60></td></tr>
@@ -16,4 +16,4 @@ OpenDB();
     </table></td></tr>
 <tr><td><img src="images/leftbarpatch2.gif" width=190 border=0></td></tr>
 </table> 
-<?php CloseDB(); ?>   
+<?php db_close(); ?>   

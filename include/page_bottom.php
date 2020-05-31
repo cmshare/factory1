@@ -1,6 +1,6 @@
 <?php //注意：所有被include的文件要保存为无BOM格式，否则会导致页面头部空隙。
 require('conn.php');
-OpenDB();
+db_open();
 $rs=$conn->query("select webname,weblogo,address,postcode,webemail,tel,fax,copyright,icp from `mg_configs`",PDO::FETCH_ASSOC)->fetch();?>
 <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" id="MyPageBottom" style="background:url(/images/bg_bot.gif) repeat-x;">
 <tr height="22" align="center" class="menu_bar">
@@ -21,4 +21,4 @@ $rs=$conn->query("select webname,weblogo,address,postcode,webemail,tel,fax,copyr
    </td>
 </tr>
 </table><SCRIPT language="JavaScript" src="/include/qqservice.js" type="text/javascript"></SCRIPT>
-<?php CloseDB();?>
+<?php db_close();?>

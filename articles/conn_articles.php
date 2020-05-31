@@ -1,9 +1,9 @@
 <?php
 header("content-type:text/html;charset=utf-8");
-date_default_timezone_set("PRC");#¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿
+date_default_timezone_set("PRC");#ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
-function OpenDB(){
+function db_open(){
   global $conn;
   if(empty($conn)){
     try{
@@ -18,7 +18,7 @@ function OpenDB(){
 
 }
 
-function CloseDB(){
+function db_close(){
   global $conn;
   if(isset($conn))unset($conn);
 }
@@ -56,13 +56,13 @@ function PageReturn(){
       if($args[1]===-1)$script='history.go(-1);';
       else if($args[1]===-2)$script='self.location.href="admlogout.php";';
       else if(is_string($args[1]))$script='self.location.href="'.$args[1].'";';
-      else{if($args[0])echo $args[0];CloseDB();exit(0);}
+      else{if($args[0])echo $args[0];db_close();exit(0);}
     }
     else $script='self.location.href="'.$_SERVER['HTTP_REFERER'].'";';
     if($args[0]) echo '<script>alert("'.$args[0].'");'.$script.'</script>';
     else echo '<script>'.$script.'</script>';
   }
-  CloseDB();
+  db_close();
   exit();
 }
 

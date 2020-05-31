@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
  CheckLogin();
- OpenDB();
+ db_open();
  $AllowModifyUserInfo=CheckPopedom('MANAGE');
 
  $mode=@$_GET['mode'];
@@ -42,7 +42,7 @@
         }
         else $err='卡号无效！';
         echo ($err)?$err:'OK';
-        CloseDB();
+        db_close();
         exit(0);
       }
     }
@@ -222,4 +222,4 @@ function modal_recharge(userid,operation){
 </script>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

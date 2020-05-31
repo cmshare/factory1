@@ -38,7 +38,7 @@ if(!CheckLogin(0)){
   exit(0);
 }
   
-OpenDB();
+db_open();
 $row=$conn->query('select `mg_users`.username,`mg_users`.grade,`mg_usrgrade`.title from `mg_users` inner join `mg_usrgrade` on `mg_users`.grade=`mg_usrgrade`.id where `mg_users`.id='.$LoginUserID,PDO::FETCH_NUM)->fetch();
 if($row){
   $UserName=$row[0];
@@ -46,7 +46,7 @@ if($row){
   $UserTitle=$row[2];
 }
 else{
-  CloseDB();
+  db_close();
   echo '<p align=center>用户不存在！</p>';
   exit(0);
 }
@@ -85,6 +85,6 @@ else {
   $row=$res->fetch();
 }
 
-CloseDB();?>
+db_close();?>
 </body>
 </html>

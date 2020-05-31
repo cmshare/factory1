@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('PRODUCT');
-OpenDB();
+db_open();
 session_start();
 
 $mode=@$_GET['mode'];
@@ -78,6 +78,7 @@ if($mode){
     }
     else echo '参数无效';
   }
+/*
   else if($mode=='batchbrand'){
     $selectid=@$_POST['selectid'];
     $newbrand=@$_GET['newvalue'];
@@ -88,6 +89,7 @@ if($mode){
     }
     else PageReturn('参数错误！');
   }
+*/
   else if($mode=='delete'){
     if(CheckPopedom('SYSTEM')){
       $selectid=$_POST['selectid'];
@@ -97,7 +99,7 @@ if($mode){
       }
     }
   }
-  CloseDB();
+  db_close();
   exit(0);
 }  
 
@@ -150,21 +152,9 @@ $sort_order=@$_COOKIE['sort_order'];
 if($sort_order!='asc' && $sort_order!='dec') $sort_order='desc';
 $sql_sort_code='order by '.(($sort_name=='onsale')?'(onsale&0xf)':$sort_name).' '.$sort_order;
 
-function sorts($selec){
-   global $conn,$CatList;
-   $res=$conn->query('select id from mg_category where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
-   foreach($res as $row){
-      $brandid = $row[0];
-      $CatList = $CatList.','.$brandid;
-      sorts($brandid);
-   }
-}
-
 $cid=@$_GET['cid'];
 if(is_numeric($cid) && $cid>0){
-  $CatList=(string)$cid;
-  sorts($cid);
-  $strCat = 'and brand in ('.$CatList.') ';
+  $strCat = 'and cids like \'%,'.$cid.',%\' ';
 }
 else{
   $cid=0;
@@ -183,8 +173,8 @@ switch($onshelf){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="includes/admincss.css" rel="stylesheet" type="text/css">
 <SCRIPT language="JavaScript" src="includes/mg_comm.js" type="text/javascript"></SCRIPT>
-<script language="javascript" src="editproduct.js"></script>
-<SCRIPT language="JavaScript" src="<?php echo WEB_ROOT;?>include/brandsel.js" type="text/javascript"></SCRIPT>
+<script language="javascript" src="checkproduct.js"></script>
+<SCRIPT language="JavaScript" src="<?php echo WEB_ROOT;?>include/category.js" type="text/javascript"></SCRIPT>
 <title>商品管理</title>
 <style type="text/css">
 TR.grayrow TD,TR.grayrow TD A{color:#BFBFBF;}
@@ -198,7 +188,7 @@ TR.grayrow TD,TR.grayrow TD A{color:#BFBFBF;}
         <td width="55%"><b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="?"><font color=#FF0000>商品列表</font></a></b></td>
         <td width="45%"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td align="right"><select onchange="ChangeShelf(this.value)"><option value="0">所有商品</option><option value="1"<?php if($onshelf=='1')echo ' selected';?>>架上商品</option><option value="2"<?php if($onshelf=='2')echo ' selected';?>>架下商品</option></select><script language="javascript">CreateBrandSelection("brand",<?php echo $cid;?>,"--------商品分类过滤--------","self.location.href='?cid='+this.value;");</script></td>
+            <td align="right"><select onchange="ChangeShelf(this.value)"><option value="0">所有商品</option><option value="1"<?php if($onshelf=='1')echo ' selected';?>>架上商品</option><option value="2"<?php if($onshelf=='2')echo ' selected';?>>架下商品</option></select><script language="javascript">CreateCategorySelection("brand",<?php echo $cid;?>,"--------商品分类过滤--------","self.location.href='?cid='+this.value;");</script></td>
           </tr>
         </table></td>
       </tr>
@@ -348,7 +338,7 @@ TR.grayrow TD,TR.grayrow TD A{color:#BFBFBF;}
           $queryparam='kn='.$keyname.'&kv='.rawurlencode($keyvalue).'&cid='.$cid;
           echo "GeneratePageGuider(\"$queryparam\",$total_records,$page,$total_pages);";?>
      </script></td>
-                  <td align="right" width="20%" nowrap><input type="button" name="CategoryButton" value="修改分类" onclick="BatchChangeBrand(this.form)"> &nbsp;<input type="button"  onclick="BatchOnsale(this.form,true);" value="设定特价" /> &nbsp;<input type="button"  onclick="BatchOnsale(this.form,false);" value="取消特价"/> &nbsp;<input type="button"  onclick="BatchWithdrawProduct(this.form);" value="商品下架"/> &nbsp;<input type="button" onclick="BatchForwardProduct(this.form)" value="商品上架"></td>
+                  <td align="right" width="20%" nowrap><input type="button"  onclick="BatchOnsale(this.form,true);" value="设定特价" /> &nbsp;<input type="button"  onclick="BatchOnsale(this.form,false);" value="取消特价"/> &nbsp;<input type="button"  onclick="BatchWithdrawProduct(this.form);" value="商品下架"/> &nbsp;<input type="button" onclick="BatchForwardProduct(this.form)" value="商品上架"></td>
              </tr>
              </table>
             </td>
@@ -418,4 +408,4 @@ function SwitchShelf(obj,onoff){
 <?php if($keyname) echo 'ProSearchAutoSelect("'.$keyname.'","'.$keyvalue.'");';?>
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

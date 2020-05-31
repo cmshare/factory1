@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('PRODUCT');
-OpenDB();
+db_open();
 
 $mode=@$_GET['mode'];
 if($mode){
@@ -39,15 +39,15 @@ if($mode){
       if($conn->exec('update mg_product set onsale='.$newvalue.'|(onsale&0xf) where (onsale&0xf)>0 and id='.$selectid))echo '<OK>';
     }
   }
-  CloseDB();
+  db_close();
   exit(0);
 }?><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="includes/admincss.css" rel="stylesheet" type="text/css">
 <SCRIPT language="JavaScript" src="includes/mg_comm.js" type="text/javascript"></SCRIPT>
-<script language="javascript" src="editproduct.js"></script>
-<SCRIPT language="JavaScript" src="<?php echo WEB_ROOT;?>include/brandsel.js" type="text/javascript"></SCRIPT><?php
+<script language="javascript" src="checkproduct.js"></script>
+<SCRIPT language="JavaScript" src="<?php echo WEB_ROOT;?>include/category.js" type="text/javascript"></SCRIPT><?php
 $sort_name=@$_COOKIE['sort_name'];	  
 if($sort_name){
   if($sort_name!='deadline' && $sort_name!='price0')
@@ -62,21 +62,10 @@ else if($sort_name=='onsale')$sql_sort_code='(onsale & 0xf)';
 else $sql_sort_code=$sort_name;
 $sql_sort_code='order by '.$sql_sort_code.' '.(($sort_order=='asc')?'asc':'desc');
 
-function sorts($selec){
-   global $conn,$CatList;
-   $res=$conn->query('select id from mg_category where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
-   foreach($res as $row){
-      $brandid = $row[0];
-      $CatList = $CatList.','.$brandid;
-      sorts($brandid);
-   }
-}
 
 $cid=@$_GET['cid'];
 if(is_numeric($cid) && $cid>0){
-  $CatList=(string)$cid;
-  sorts($cid);
-  $strCat = 'and brand in ('.$CatList.') ';
+  $strCat = 'and cids like \'%,'.$cid.',%\' ';
 }
 else{
   $cid=0;
@@ -92,7 +81,7 @@ else{
         <td width="55%"><b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="?"><font color=#FF0000>特价商品管理</font></a></b></td>
         <td width="45%"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td align="right"><script language="javascript">CreateBrandSelection("brand",<?php echo $cid;?>,"--------商品分类过滤--------","self.location.href='?cid='+this.value;"); </script> </td>
+            <td align="right"><script language="javascript">CreateCategorySelection("brand",<?php echo $cid;?>,"--------商品分类过滤--------","self.location.href='?cid='+this.value;"); </script> </td>
           </tr>
         </table></td>
       </tr>
@@ -206,4 +195,4 @@ function ChangeDeadline(productID,tdCell){
 </script>
 
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

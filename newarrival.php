@@ -1,5 +1,5 @@
 <?php require('include/conn.php');
-OpenDB();
+db_open();
 $PageKeywords='化妆品,化妆品批发,韩国化妆品批发,进口化妆品批发,南京化妆品批发,上海化妆品批发,化妆品批发网,化妆品批发市场';
 $PageDescription='涵若铭妆化妆品公司主要提供韩国化妆品批发,进口化妆品批发,品牌化妆品批发及零售业务,通过南京化妆品批发网及上海化妆品批发市场组建完善的网络销售平台。';
 $PageTitle='【最新到货/缺货清单】-韩国化妆品批发-进口化妆品批发-涵若铭妆化妆品公司';
@@ -12,8 +12,8 @@ include('include/page_head.php');?>
    <TABLE cellSpacing="0" cellPadding="0" width="185" height="100%" border="0" style="background:url(/images/bg_left.gif) repeat-y;margin-top:30px;">
    <tr>
       <td height="1%"><?php
-      include('include/guide_brand.htm');
-      include('include/guide_category.htm'); 
+      include('include/guide_category.htm');
+      include('include/guide_catsort.htm'); 
       echo '</td></tr><tr><td height="99%">';
       include('include/guide_blank.php');?>  
       </td></tr>
@@ -85,7 +85,7 @@ foreach($res as $row){?>
 </tr>	
 </table><?php
 include('include/page_bottom.htm');
-CloseDB();
+db_close();
 ?>
 </body>
 </html>

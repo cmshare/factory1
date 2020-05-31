@@ -1,5 +1,5 @@
 ﻿<?php require('../include/conn.php');
-OpenDB();
+db_open();
 ?><HTML>
 <HEAD>
 <META http-equiv=Content-Type content="text/html; charset=utf-8">
@@ -18,6 +18,7 @@ OpenDB();
     <tr>
       <td height="1%">
        <!-----导航:商品分类 开始-----> 
+        <SCRIPT language="JavaScript" src="/include/category.js"></SCRIPT>
         <SCRIPT language="JavaScript" src="/include/guide_sort.js" type="text/javascript"></SCRIPT>
         <!-----导航:商品分类 结束----->   
       </td></tr><tr><td height="99%"> 
@@ -104,4 +105,4 @@ if($page==1) echo '首页 上一页';else echo '<a href="'.GenPageUrl(1).'"  onc
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

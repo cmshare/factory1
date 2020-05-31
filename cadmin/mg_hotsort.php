@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('PRODUCT');
-OpenDB();
+db_open();
 
 $EndDate=trim(@$_GET['enddate']);
 if($EndDate && ($EndDate=strtotime($EndDate))){
@@ -20,17 +20,17 @@ $LastRetrench=date('Y-m-d',$LastRetrench);
 
 
 $brandid=@$_GET['brand'];
-if(!is_numeric($brandid))$brandid=0;
+if(!is_numeric($brandid) || $brandid<1)$brandid=1;
 
 //遍历父类 	
 function GenLinkGuider($PID){
   global $conn,$str_begindate,$str_enddate;
   $Links='';
   while($PID){
-    $row=$conn->query('select id,title,parent from mg_category where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+    $row=$conn->query('select id,title,pid from mg_category where id='.$PID,PDO::FETCH_ASSOC)->fetch();
     if($row){
       $Links = '&nbsp;&gt;&gt;&nbsp;<a href="?brand='.$row['id'].'&begindate='.$str_begindate.'&enddate='.$str_enddate.'"><font color="#FF6600">'.$row['title'].'</font></a>'.$Links;
-      $PID = $row['parent'];
+      $PID = $row['pid'];
     }
     else PageReturn('参数错误！',0);
   }
@@ -42,7 +42,7 @@ function GetSubBrands($selec){
   global $conn;
   $args = func_get_args();
   $list=($args && count($args)>1)?$args[1]:$selec;
-  $res=$conn->query('select id from mg_category where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
+  $res=$conn->query('select id from mg_category where pid = '.$selec,PDO::FETCH_NUM);
   foreach($res as $row){
     $list=GetSubBrands($row[0],$list.','.$row[0]);
   }
@@ -53,7 +53,7 @@ function GetSubBrands($selec){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="includes/admincss.css" rel="stylesheet" type="text/css">
 <SCRIPT language="JavaScript" src="includes/mg_comm.js" type="text/javascript"></SCRIPT>
-<SCRIPT language="JavaScript" src="editproduct.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="checkproduct.js" type="text/javascript"></SCRIPT>
 <title>商品分类销售统计</title>
 </head>
 <body leftmargin="0" topmargin="0">
@@ -86,7 +86,7 @@ function GetSubBrands($selec){
     </tr><?php
 
 $SubbrandCount=0;
-$res=$conn->query('select id,sortindex,title from mg_category where parent='.$brandid.' order by sortindex',PDO::FETCH_ASSOC);
+$res=$conn->query('select id,sortindex,title from mg_category where pid='.$brandid.' order by sortindex',PDO::FETCH_ASSOC);
 foreach($res as $row){
   $SubbrandCount++; 
   $CatList=GetSubBrands($row['id']);
@@ -128,4 +128,4 @@ function CheckSearch(myform){
 }
 </script>	     
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

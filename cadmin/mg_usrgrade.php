@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 if(@$_GET['action']=='edit'){
   $gradetitle=trim(@$_POST['gradetitle']);
   $gradeid=@$_POST['id'];
@@ -69,4 +69,4 @@ function regInput(obj, reg, inputStr){
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

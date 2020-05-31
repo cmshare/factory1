@@ -13,17 +13,17 @@ if(!CheckPopedom('PRODUCT')){
 
 function PageHalt($errmsg){
  echo '<script>alert("'.$errmsg.'");parent.document.forms["myform"].ConfirmButton.disabled=false;</script>';
- CloseDB();
+ db_close();
  exit(0);
 }
 
 function IsShareBrand($PID){
   global $conn;
   while($PID){
-    $row=$conn->query('select parent,shared From mg_category Where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+    $row=$conn->query('select pid,shared From mg_category Where id='.$PID,PDO::FETCH_ASSOC)->fetch();
      if($row){
        if($row['shared'])return true; 
-       else $PID=$row['parent'];		   
+       else $PID=$row['pid'];		   
      }
      else return false;
   }
@@ -59,10 +59,9 @@ $brand=$_POST['brand'];
 if(!is_numeric($brand) || ($brand<=0)) PageHalt('没有选择品牌分类！');
 if($sharefellow && !IsShareBrand($brand)) PageHalt('操作权限错误！');
 
-$category=$_POST['category'];
-if(!is_numeric($category) || $category<=0) PageHalt('没有选择功能分类！');
+$cids=$_POST['cids'];
 	
-$sql="update mg_product set name='$productname',brand=$brand,category=$category"; 
+$sql="update mg_product set name='$productname',brand=$brand,cids='$cids'"; 
 
 $barcode=FilterText(trim($_POST['barcode']));
 if(empty($barcode))$sql.=',barcode=null';
@@ -118,7 +117,7 @@ $spec=FilterText(trim($_POST['spec']));
 
 $sql.=",supplier='$supplier',unit='$unit',spec='$spec',description='$description',addtime=$addtime,updatetime=unix_timestamp() where id=$productid";
 
-OpenDB();
+db_open();
 CheckNameRepetition($productname,$productid);
 CheckBarcodeRepetition($barcode,$productid); 
 if($conn->exec($sql)){
@@ -127,5 +126,5 @@ if($conn->exec($sql)){
 }
 //response.write "<script>alert(""商品保存成功！"");parent.location.reload();</script>"
 //server.execute("htmgen.asp")
-CloseDB();
+db_close();
 ?>

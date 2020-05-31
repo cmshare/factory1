@@ -1,9 +1,9 @@
 ﻿<?php require('include/conn.php');
-OpenDB();
+db_open();
    
 if(@$_POST['action']=='get'){
   ShowPresent();
-  CloseDB();
+  db_close();
   exit(0);
 }
    
@@ -101,7 +101,7 @@ include("include/page_head.php");?>
 </script>
 <?php
   include("include/page_bottom.htm");
-  CloseDB();
+  db_close();
 ?>
 </body>
 </html> 

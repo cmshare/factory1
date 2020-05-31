@@ -23,11 +23,8 @@ function HtmlUpdate($mode){
 		    break;
    case 'main':     PHP2HTML('main.php','index.htm');break; 
    case 'sysupdate':PHP2HTML('include/page_bottom.php','include/page_bottom.htm');break; 
-   case 'brand':    $brandid=@$_POST['id']; 
-		    if(is_numeric($brandid))PHP2HTML('brand.php?id='.$brandid,'category/cat'.$brandid.'.htm');
-		    break;
-   case 'category': $catid=@$_POST['id'];
-		    if($catid)PHP2HTML('category.php?id='.$catid,'category/sort'.$catid.'.htm');
+   case 'category':    $cid=@$_POST['id']; 
+		    if(is_numeric($cid))PHP2HTML('category.php?id='.$cid,'category/cat'.$cid.'.htm');
 		    break;
    case 'help':     $helpid=$_POST['id'];
 		    if($helpid)PHP2HTML('help.php?id='.$helpid,'help/help'.$helpid.'.htm');
@@ -36,13 +33,12 @@ function HtmlUpdate($mode){
 		    if($newsid)PHP2HTML('news.php?id='.$newsid,'news/news'.$newsid.'.htm');
 		    break;
 
-   case 'guide_brand': PHP2HTML('include/htm_guide_sort.php?mode=1','include/guide_brand.htm');
-		       PHP2HTML('include/htm_guide_sort.php?mode=3','include/brandsel.js');
-		       PHP2HTML('include/guide_sort.php','include/guide_sort.js');
-		       break;	
-   case 'guide_category': PHP2HTML('include/htm_guide_sort.php?mode=2','include/guide_category.htm');
-			  PHP2HTML('include/htm_guide_sort.php?mode=4','include/categorysel.js');
-			  break;     
+   case 'guide_category':
+           PHP2HTML('include/htm_guide_sort.php?mode=0','include/category.js');
+           PHP2HTML('include/htm_guide_sort.php?mode=1','include/guide_category.htm');
+           PHP2HTML('include/htm_guide_sort.php?mode=2','include/guide_catsort.htm');
+           PHP2HTML('include/htm_guide_sort.php?mode=3','include/wx_sync_category.json');
+		       break;	  
   }
 }
 

@@ -66,7 +66,7 @@ if($result) {//验证成功
 			//如果有做过处理，不执行商户的业务程序			
 		//注意：
 		//付款完成后，支付宝系统发送该交易状态通知
-         OpenDB();
+         db_open();
          try{//事务管理
 	      $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 	      $conn->beginTransaction();//事务开始
@@ -89,7 +89,7 @@ if($result) {//验证成功
 	     $conn->rollBack();  //事务回滚 
 	     echo  $ex->getMessage();
 	  } 
-	  CloseDB();
+	  db_close();
 	//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
    }
    else{

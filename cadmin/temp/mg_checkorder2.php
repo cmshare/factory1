@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 /*
 -8:已存档的内部订单
 -4:已完成的内部订单
@@ -33,7 +33,7 @@ if($mode){
     case 'orderstate':ChangeOrderState(false);break;
     case 'batch_settlement':ChangeOrderState(true);break;
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -481,7 +481,7 @@ foreach($res as $row){
           	 <input type="text" name="deliverymethod" value="<?php echo $Order_DeliveryMethod;?>" maxlength=10 <?php if($Order_State<5)echo 'style="width:75%"'; else echo 'style="width:95%" disabled';?>/><?php
 if($Order_State<5){
   echo '<select onchange="var newmethod=this.options[this.selectedIndex].value;this.selectedIndex=0;this.form.deliverymethod.value=newmethod;if(newmethod.indexOf(\'上门\')>=0) this.form.deliverycode.value=\'0\';" style="width:20%"><option value="选择方式" >&nbsp;&nbsp;&nbsp;&nbsp;...</option>';  
-  $res=$conn->query('select * from mg_delivery where method=2 order by sortorder',PDO::FETCH_ASSOC);
+  $res=$conn->query('select * from mg_delivery where method=2 order by sequence',PDO::FETCH_ASSOC);
   foreach($res as $row){
     echo  '<option value="'.$row['subject'].'">'.$row['subject'].'</option>';            	   	
   }
@@ -526,4 +526,4 @@ if($Order_State<5){
 //if($UserGrade==4 && $order_state==5)echo ' SyncPost("userid='.$userid.'&grade=4","change_usergrade.asp?mode=checkgrade");';
 ?></script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

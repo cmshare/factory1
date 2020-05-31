@@ -1,9 +1,9 @@
 <?php require('include/conn.php');
 
-OpenDB();
+db_open();
 if(@$_POST['action']=='get'){
   ShowHelp();
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -55,7 +55,7 @@ require('include/page_head.php');?>
 </TR>
 </TABLE><?php
 require('include/page_bottom.htm');
-CloseDB();?>	
+db_close();?>	
 <script> AsyncPost("action=get","help.php"+window.location.search,"contentbox"); </script>	
 </BODY>
 </HTML>

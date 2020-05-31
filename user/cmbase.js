@@ -177,10 +177,10 @@ function CheckEnvironment(){//OnlineUserID
      document.body.className="safebody";
      document.body.scroll="no";// no or auto
      document.write('<iframe scrolling="auto" width="100%" height="100%" Frameborder="no" marginwidth="0" marginheight="0" src="company/" style="position:relative;left:0;top:0;width:100%; height:100%"></iframe>');
-   }     
+   }   
  }
 /* 
-function CheckEnvironment(){
+function CheckEnvironment_origin(){
   if(getCookie("gdhzp")=="gdhzp")return;
   else if(self.location.href.indexOf("#")>0)return;
   else if(document.referrer.indexOf("baidu.com")>0 || document.referrer.indexOf("so.com")>0)
@@ -280,7 +280,7 @@ function AsyncPost(formContent,actionURL,callback){
   xmlhttp.send(formContent); 
   if(msgbox)msgbox.innerHTML="<p align=center style='color:#FF0000'>正在加载数据，请稍候...</p>";
 }
-
+/*
 var OldTempScript=null;
 function loadScript(url)
 { var newscript=document.createElement("script");
@@ -290,7 +290,27 @@ function loadScript(url)
   if(OldTempScript)lastScript.parentNode.removeChild(OldTempScript);
   OldTempScript=newscript;
 }
- 
+*/
+function loadScript(url,callback){
+  var script=document.createElement('script');
+  script.type="text/javascript";
+  if(typeof(callback)!="undefined"){
+    if(script.readyState){
+      script.onreadystatechange=function(){
+        if(script.readyState == "loaded" || script.readyState == "complete"){
+          script.onreadystatechange=null;
+          callback();
+        }
+      }
+    }
+    else script.onload=function(){
+      callback();
+    }
+  }
+  script.src=url;
+  document.body.appendChild(script);
+}
+
 function htmRequest(strParam,strURL)
 { /*location.search是从当前URL的?号开始的字符串（包括?）*/
   if(!strURL) strURL=window.location.search;
@@ -419,16 +439,7 @@ function check_search(searchform)
   }  
 }
 
-function gmSwitch(m)
-{ m=m.parentNode;
-	if(m.className=="gMenuOpen")m.className="gMenuClose";
-	else if(m.className=="gMenuClose")m.className="gMenuOpen";
-	else
-	{ m=m.getElementsByTagName("A");
-	  if(m && m.length)self.location.href=m[0].href;
-	}
-}
-
+function gmSwitch(m){m=m.parentNode;if(m.className=="gMenuOpen")m.className="gMenuClose";else if(m.className=="gMenuClose")m.className="gMenuOpen";else{m=m.getElementsByTagName("A");if(m && m.length)self.location.href=m[0].href;}}
 function gmEnter(m){m.style.backgroundColor="#FFE3D2";}
 function gmLeave(m){m.style.backgroundColor="";}
  
@@ -540,11 +551,12 @@ function ShowQR(obj,pid)
 	}
 }
 
-function UpdateProductInfo(pid)
-{ var obj=document.getElementById("warepad");	
-  if(obj)
-  { obj.rows[1].cells[0].innerHTML='<img src="/images/productqr.gif" onmouseover="ShowQR(this,'+pid+')" onMouseOut="ShowQR()" style="cursor:pointer"><div id="qrcodetip" style="z-index:1001;position:absolute;display:none;width:150px;height:150px;"></div><div class="bdsharebuttonbox"><a class="bds_more" href="#" data-cmd="more">分享到：</a><a class="bds_qzone" title="分享到QQ空间" href="#" data-cmd="qzone"></a><a class="bds_tsina" title="分享到新浪微博" href="#" data-cmd="tsina"></a><a class="bds_tqq" title="分享到腾讯微博" href="#" data-cmd="tqq"></a><a class="bds_renren" title="分享到人人网" href="#" data-cmd="renren"></a><a class="bds_weixin" title="分享到微信" href="#" data-cmd="weixin"></a></div>';
-		window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+function UpdateProductInfo(pid){
+  var obj=document.getElementById("warepad");	
+  if(obj){
+    obj.rows[1].cells[0].innerHTML='<img src="/images/productqr.gif" onmouseover="ShowQR(this,'+pid+')" onMouseOut="ShowQR()" style="cursor:pointer"><div id="qrcodetip" style="z-index:1001;position:absolute;display:none;width:150px;height:150px;"></div>';/*<div class="bdsharebuttonbox"><a class="bds_more" href="#" data-cmd="more">分享到：</a><a class="bds_qzone" title="分享到QQ空间" href="#" data-cmd="qzone"></a><a class="bds_tsina" title="分享到新浪微博" href="#" data-cmd="tsina"></a><a class="bds_tqq" title="分享到腾讯微博" href="#" data-cmd="tqq"></a><a class="bds_renren" title="分享到人人网" href="#" data-cmd="renren"></a><a class="bds_weixin" title="分享到微信" href="#" data-cmd="weixin"></a></div>';
+	   window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    */
     hProductTip=document.getElementById("qrcodetip");
   }
   if(self.location.href.indexOf(".htm")>0)//执行静态页面product_@@@@@.htm

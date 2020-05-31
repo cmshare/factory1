@@ -5,7 +5,7 @@ if(!CheckLogin(0)){
   exit(0);
 } 
 
-OpenDB();
+db_open();
 
 $action=@$_GET['action'];
 if($action=='delete'){
@@ -26,7 +26,7 @@ if($action=='delete'){
        echo 'OK'; 
      } 
   } 
-  CloseDB();
+  db_close();
   exit(0);
 }
 else if($action=='new'){
@@ -131,4 +131,4 @@ else{
   </tr>
   </table>
   </form><?php
-CloseDB();?>
+db_close();?>

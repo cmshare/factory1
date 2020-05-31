@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 CheckMenu('财务权限管理');
 
 $mode=@$_POST['mode'];
@@ -159,4 +159,4 @@ if($row['accountant']==$AdminUsername){
 <form name="MyTestForm" id="MyTestForm" method="post"><input type="hidden" name="mode"><input type="hidden" name="newValue"></form>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

@@ -1,6 +1,6 @@
 <?php require('include/conn.php');
 CheckLogin('paybill.php');
-OpenDB();
+db_open();
 $PageTitle='确认订单 - '.WEB_NAME;
 require('include/page_head.php');?>
 <TABLE align="center" width="1000"  border="0" cellSpacing=0 cellPadding=0 background="images/client_bg_mid.gif">
@@ -25,6 +25,6 @@ require('include/page_head.php');?>
 </TR>
 </TABLE><?php
 require('include/page_bottom.htm');
-CloseDB();?>	
+db_close();?>	
 </BODY>
 </HTML>

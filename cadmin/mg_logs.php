@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 if(@$_GET['mode']=='excuse'){
   $resID=$_POST['id'];
   if(is_numeric($resID) && $resID>0){
@@ -8,7 +8,7 @@ if(@$_GET['mode']=='excuse'){
     if(strlen($value)>255) $value=substr($value,0,250).'...';
     if($conn->exec("update mg_logs set remark='$value' where id=$resID"))echo '<OK>';
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
  
@@ -181,4 +181,4 @@ function ChangeRemark(resID,defValue){
   </tr>
 </table>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

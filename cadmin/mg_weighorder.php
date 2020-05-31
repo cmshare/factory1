@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 $own_popedomProduct=CheckPopedom('PRODUCT');
 if(@$_GET['mode']=='weight'){
   if($own_popedomProduct){
@@ -10,7 +10,7 @@ if(@$_GET['mode']=='weight'){
        if($conn->exec('update mg_product set weight='.$newvalue.' where id='.$selectid)) echo '<OK>';
     }
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -148,4 +148,4 @@ function ChangeWeight(tableCell,productID){
 </script>
 
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

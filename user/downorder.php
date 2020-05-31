@@ -11,7 +11,7 @@ if(empty($ordername)){
    exit(0);
 }
 
-OpenDB();
+db_open();
 $row=$conn->query('select `mg_orders`.support,`mg_orders`.username,`mg_orders`.receipt,`mg_orders`.address,`mg_orders`.usertel,`mg_orders`.userremark from `mg_orders` inner join `mg_users` on `mg_orders`.username=`mg_users`.username where `mg_orders`.ordername=\''.$ordername.'\' and `mg_users`.id='.$LoginUserID,PDO::FETCH_ASSOC)->fetch();
 if($row){
   $Receipt=$row['receipt'];
@@ -106,6 +106,6 @@ header('Content-Disposition: attachment; filename='.$username.'的订单('.$orde
 <b>地址</b>：<?php echo $Address;?> &nbsp;
 <?php if($UserRemark) echo '<br><b>客户留言</b>：<u>'.$UserRemark.'</u>';
 
-LABEL_EXIT: CloseDB();?>
+LABEL_EXIT: db_close();?>
 </body>
 </html>

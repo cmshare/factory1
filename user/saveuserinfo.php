@@ -7,7 +7,7 @@ if($action!='resetpsw'){
   }
 }
 
-OpenDB();
+db_open();
 switch($action){
   case 'receiveaddr':
         receiveaddr();
@@ -25,7 +25,7 @@ switch($action){
         resetpsw();
         break;
 }
-CloseDB();
+db_close();
 
 #收货人信息
 function receiveaddr(){

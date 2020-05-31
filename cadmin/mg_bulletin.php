@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin('INFOMATION');
-OpenDB();
+db_open();
 
 $action=@$_GET['action'];
 if($action){
@@ -53,7 +53,7 @@ $advs_mid_url=$row['advs_mid_url'];
   <tr>
   	<td>
         <table width="80%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#f2f2f2" id="Table2">
-        <tr><form  method="post" action="?action=savebulletin1" onsubmit="this.notify.value=ueditor.getContent();">
+        <tr><form  name="bulletin1" method="post" action="?action=savebulletin1" onsubmit="this.notify.value=ueditor1.getContent();">
         	 <td align="center" colspan=2 style="font-weight:bold;font-size:20px;color:#FFFFFF;background-color:#0000FF">右侧公告栏</td></tr>
         <tr>
             <td align="center" bgcolor="#f7f7f7"><input type="hidden" name="notify">
@@ -61,22 +61,25 @@ $advs_mid_url=$row['advs_mid_url'];
      <script id="notify" type="text/plain"><?php echo $strNotify?></script>
      <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
      <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
-     <script type="text/javascript">var ueditor = UE.getEditor('notify',{toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'forecolor', 'backcolor', 'removeformat', 'formatmatch','|','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'indent', '|', 'insertorderedlist', 'insertunorderedlist','|','link', 'unlink', 'anchor', '|','insertimage', 'spechars', 'horizontal']],initialFrameWidth:null,autoHeightEnabled: true,autoFloatEnabled: true});</script>
-
+     <script type="text/javascript">
+       var ueditor1 = UE.getEditor('notify',{toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'forecolor', 'backcolor', 'removeformat', 'formatmatch','|','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'indent', '|', 'insertorderedlist', 'insertunorderedlist','|','link', 'unlink', 'anchor', '|','insertimage', 'spechars', 'horizontal']],initialFrameWidth:null,autoHeightEnabled: true,autoFloatEnabled: true});
+       ueditor1.ready(function(){
+          document.forms['bulletin1'].savebtn.disabled=false;
+       });
+       </script>
             </td>
           </tr>
           <tr> 
             <td height="20" align="center" bgcolor="#F7F7F7">
-                <input name="Submit" type="submit" class="input_bot" id="Submit1" value="提 交">
-                &nbsp;&nbsp; 
-            <input name="Submit2" type="reset" class="input_bot" id="Reset1" value="恢 复">           </td>
+                <input name="savebtn" type="submit" value="提 交" disabled> &nbsp;&nbsp;  <input type="reset" value="恢 复">
+            </td>
         </tr></form>
         </table>
   	</td>
   </tr> 	
   <tr> 
     <td bgcolor="#FFFFFF" valign="top"> 
-       <br><form method="post" action="?action=savebulletin2" onsubmit="this.bulletincontent.value=ueditor2.getContent();">
+       <br><form name="bulletin2" method="post" action="?action=savebulletin2" onsubmit="this.bulletincontent.value=ueditor2.getContent();">
         <table width="550" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#f2f2f2">
           <tr><td align="center" colspan=2 style="font-weight:bold;font-size:20px;color:#FFFFFF;background-color:#0000FF">弹窗文字公告</td></tr>
           <tr><td colspan=2>&nbsp;标题：<input type="text" name="bulletintitle" value="<?php echo $BulletinTitle;?>" size=50></td></tr> 
@@ -84,7 +87,12 @@ $advs_mid_url=$row['advs_mid_url'];
             <td align="center" bgcolor="#f7f7f7"  colspan=2><input type="hidden" name="bulletincontent">
 
      <script id="bulletincontent" type="text/plain"><?php echo $BulletinContent;?></script>
-     <script type="text/javascript">var ueditor2 = UE.getEditor('bulletincontent',{toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'forecolor', 'backcolor', 'removeformat', 'formatmatch','|','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'indent', '|', 'insertorderedlist', 'insertunorderedlist','|','link', 'unlink', 'anchor', '|','insertimage', 'spechars', 'horizontal']],initialFrameWidth:null,autoHeightEnabled: true,autoFloatEnabled: true});</script>
+     <script type="text/javascript">
+       var ueditor2 = UE.getEditor('bulletincontent',{toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'forecolor', 'backcolor', 'removeformat', 'formatmatch','|','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'indent', '|', 'insertorderedlist', 'insertunorderedlist','|','link', 'unlink', 'anchor', '|','insertimage', 'spechars', 'horizontal']],initialFrameWidth:null,autoHeightEnabled: true,autoFloatEnabled: true});
+       ueditor2.ready(function(){
+          document.forms['bulletin2'].savebtn.disabled=false;
+       });
+     </script>
      
 
             </td>
@@ -94,8 +102,8 @@ $advs_mid_url=$row['advs_mid_url'];
           		&nbsp;显示弹窗文字公告：<input type="checkbox" name="bulletinenable" value="OK" <?php if($BulletinEnable) echo 'checked';?> >
           	</td>            	
             <td align="right" bgcolor="#F7F7F7" width="80%">
-                <input name="Submit" type="submit" class="input_bot" id="Submit1" value="保 存">
-                <input name="Submit2" type="reset" class="input_bot" id="Reset1" value="恢 复">
+                <input type="submit"  name="savebtn" value="保 存" disabled>
+                <input type="reset" value="恢 复">
             </td>
           </tr>
         </table></form>
@@ -142,4 +150,4 @@ function ShowImagePreview(imagepath)
 </script>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

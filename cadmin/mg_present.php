@@ -1,7 +1,7 @@
 ﻿<?php require('includes/dbconn.php');
 require('includes/mg_comm.php');
 CheckLogin();
-OpenDB();
+db_open();
 ?><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -109,7 +109,7 @@ if($mode){
     }
     echo '</body></html>';
   }
-  CloseDB();
+  db_close();
   exit(0);
 }?>
 
@@ -284,4 +284,4 @@ function ModifyRemark(){
 
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

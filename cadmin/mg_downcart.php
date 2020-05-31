@@ -32,7 +32,7 @@ if(!is_numeric($userid) || $userid<=0) PageReturn('<p align=center>参数错误�
 </style>        
 </head>
 <body><?php
-  OpenDB(); 
+  db_open(); 
   $row=$conn->query('select  mg_users.username,mg_users.grade,mg_usrgrade.title from mg_users inner join mg_usrgrade on mg_users.grade=mg_usrgrade.id where mg_users.id='.$userid,PDO::FETCH_ASSOC)->fetch();
   if($row){
     $UserName=$row['username'];
@@ -83,7 +83,7 @@ if($total_records>0) echo '
 else echo '<br><br><p align=center>购物车为空！</p><br><br>';
 
 
-CloseDB();
+db_close();
 ?>
 </body>
 </html>

@@ -3,7 +3,7 @@ $PageTitle='南京铭悦日化用品有限公司';
 #始终用这个标题,千万不要改
 #理由1:本站只体现铭悦日化公司,不使用涵若铭妆以及铭悦商城字样，因可能会作为涵若铭妆主站维护期间的镜像站点来用,同时也作为铭悦商城的镜像站点，因此需要中性.
 #理由2:本站不需要seo优化，只需要中性及好看的标题；
-OpenDB();
+db_open();
 require('include/page_head.php');?> 
 <base target="_top" />
 <TABLE border=0 cellSpacing=0 cellPadding=0 width="1000" height="300" align="center">
@@ -171,7 +171,7 @@ foreach($res as $row){
 </tr>
 </table><?php
 require('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 <script type="text/javascript" src="include/qqservice.js"></script><SCRIPT language="JavaScript">
 flashImage("imgslider1",5000,false);flashImage("imgslider2",8000,true);MarqueeInit();QQFloating();
 </SCRIPT><div style="display:none"><script type="text/javascript" src="http://js.users.51.la/2969614.js"></script></div>

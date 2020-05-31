@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin('SYSTEM');
-OpenDB();
+db_open();
 $mode=@$_GET['mode'];
 if($mode){
   switch($mode){
@@ -175,4 +175,4 @@ function ModifyLinkInfo(myForm)
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

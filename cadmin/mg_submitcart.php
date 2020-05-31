@@ -2,7 +2,7 @@
  CheckLogin();
 $ShopUserID=@$_GET['userid'];
 if(is_numeric($ShopUserID) && $ShopUserID>0){
-  OpenDB();
+  db_open();
   $bExist=$conn->query('select id from mg_favorites where userid='.$ShopUserID.' and (state&0x2) and amount>0 limit 1')->fetchColumn(0);
   if(!$bExist)PageReturn('对不起，您的购物车中还没有商品！',-1);
 } else PageReturn('<p align=center>参数错误</p>',0);?>
@@ -229,14 +229,14 @@ function checkform(myform){
        <tr> 
         <td align="right" bgcolor="#f7f7f7">支付方式：</td>
         <td bgcolor="#FFFFFF"><select name="paymethod" style="width:95%"><?php
-          $res=$conn->query('select * from mg_delivery where method=1 order by sortorder',PDO::FETCH_ASSOC);
+          $res=$conn->query('select * from mg_delivery where method=1 order by sequence',PDO::FETCH_ASSOC);
           foreach($res as $row)echo '<option value="'.$row['subject'].'">'.$row['subject'].'</option>';?></select></td>        
       </tr>        
         <tr> 
           <td align="right" bgcolor="#f7f7f7">配送方式：</td>
           <td bgcolor="#FFFFFF">
           	 <select name="deliverymethod" style="width:95%"><?php
- $res=$conn->query('select * from `mg_delivery` where method=0 order by sortorder',PDO::FETCH_ASSOC);
+ $res=$conn->query('select * from `mg_delivery` where method=0 order by sequence',PDO::FETCH_ASSOC);
               foreach($res as $row)echo '<option value="'.$row['subject'].'">'.$row['subject'].'</option>';?></select></td>        
       </tr> 
       
@@ -265,4 +265,4 @@ foreach($res as $row){
 </tr>
 </table>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

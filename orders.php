@@ -82,7 +82,7 @@ echo '</td>
 </tr> </table>';
 }
   
-OpenDB();
+db_open();
 $ordername=FilterText(trim($_GET['id']));
 if($ordername){
 $row=$conn->query('select * from `mg_orders` where ordername=\''.$ordername.'\'',PDO::FETCH_ASSOC)->fetch();
@@ -102,7 +102,7 @@ if($row){
 }
 else{
   echo '<p align=center>订单不存在！</p>';
-  CloseDB();
+  db_close();
   exit(0);
 }
 $sql='select id,productid,price,amount,remarks,productname,score from `mg_ordergoods` where ordername=\''.$ordername.'\' order by productname';
@@ -253,6 +253,6 @@ $PageDescription='涵若铭妆提供各种韩国化妆品批发,常州化妆品�
   </tr>
 </table><?php
 include('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html> 

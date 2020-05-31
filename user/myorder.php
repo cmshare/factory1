@@ -4,7 +4,7 @@ CheckLogin();
 $ordername=FilterText(@$_GET['ordername']); 
 if(empty($ordername))PageReturn('参数无效！');
 
-OpenDB();
+db_open();
 
 $mode=@$_GET['mode'];
 if($mode){
@@ -30,7 +30,7 @@ function IsOrderGoodsAllowEdit($order_goods_ID){
 function ReturnWarnning($warninfo){
   $return_url=$_SERVER['HTTP_REFERER'];
   echo '<body><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="0"><tr><td width="100%" style="font-size: 9pt; line-height: 12pt"><p align="center"><font color="#FF0000">'.$warninfo.'</font></p><p align="center"><font color=#FF0000><b id="timerlabel">3</b></font> 秒钟后自动<a href="'.$return_url.'">返回</a> ...  </td></tr></table><script>var invercount=3;function inversecounter(){if (--invercount>=0)document.getElementById("timerlabel").innerHTML=invercount;else self.location.href="'.$return_url.'";} setInterval("inversecounter()",1000);</script></body></html>';
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -69,7 +69,7 @@ function delete_myorder(){
   if($conn->exec("update (`mg_orders` inner join `mg_users` on `mg_orders`.username=`mg_users`.username) set `mg_orders`.state=0 where `mg_orders`.ordername='$ordername' and `mg_orders`.state=1 and `mg_users`.id=$LoginUserID")){
     $conn->exec("update `mg_ordergoods` set ordername=null where ordername='$ordername'");
     echo '<script>alert("订单删除成功！");self.location.href="'.WEB_ROOT.'usrmgr.htm?action=myorders";</Script>';
-    CloseDB();
+    db_close();
     exit(0);
   }
   else ReturnWarnning('订单删除失败！');
@@ -145,7 +145,7 @@ if($row){
   $UserGradeTitle=$row['title'];
 }
 else{
-  CloseDB();
+  db_close();
   echo '<p align=center>订单不存在！</p>';
   exit(0);
 }
@@ -386,5 +386,5 @@ foreach($res as $row){
 <script language=javascript> InitMyOrder("<?php echo $ordername;?>",<?php echo $Order_State;?>); </script>	
 </body>
 </html>
-<?php CloseDB();?>
+<?php db_close();?>
 

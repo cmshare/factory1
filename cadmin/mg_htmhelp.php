@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 ?><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -26,7 +26,7 @@ do_sort(0,0);
 
 function do_sort($selec,$index){
   global $conn,$SortIndex;
-  $res=$conn->query('select id,title from mg_help where parent='.$selec.' and property>0 order by sortorder',PDO::FETCH_ASSOC);
+  $res=$conn->query('select id,title from mg_help where parent='.$selec.' and property>0 order by sequence',PDO::FETCH_ASSOC);
   foreach($res as $row){
     $SortIndex++;
     echo '<tr bgcolor="#FFFFFF" height=25 onMouseOut="mOut(this)" onMouseOver="mOvr(this)">
@@ -39,4 +39,4 @@ function do_sort($selec,$index){
 <script>InitHtmlUpdate(8,"mg_htmgen.php?mode=help","mytable");
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

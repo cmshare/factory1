@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 	
 $action=@$_GET['action'];
 
@@ -19,8 +19,8 @@ function deliverysave(){
     $website=FilterText(trim($_POST['website']));
     $matchrule=$_POST['matchrule'];
     $memo=FilterText(trim($_POST['memo']));
-    $sortorder=$_POST['sortorder'];
-    $sql="update mg_delivery set subject='$subject',website='$website',matchrule='$matchrule',memo='$memo',sortorder=$sortorder where id=$id";
+    $sequence=$_POST['sequence'];
+    $sql="update mg_delivery set subject='$subject',website='$website',matchrule='$matchrule',memo='$memo',sequence=$sequence where id=$id";
     $GLOBALS['conn']->exec($sql);
     PageReturn('成功修改了送货方式！');
   }    
@@ -28,12 +28,12 @@ function deliverysave(){
 
 function deliveryadd(){
   $subject=FilterText(trim($_POST['subject']));
-  $sortorder=$_POST['sortorder'];
-  if($subject && is_numeric($sortorder)){
+  $sequence=$_POST['sequence'];
+  if($subject && is_numeric($sequence)){
     $memo=FilterText(trim($_POST['memo']));
     $matchrule=FilterText(trim($_POST['matchrule']));
     $website=FilterText(trim($_POST['website']));
-    $sql="insert into mg_delivery set subject='$subject',website='$website',matchrule='$matchrule',memo='$memo',sortorder=$sortorder,method=2";
+    $sql="insert into mg_delivery set subject='$subject',website='$website',matchrule='$matchrule',memo='$memo',sequence=$sequence,method=2";
     if($GLOBALS['conn']->exec($sql)) PageReturn('成功添加了新的送货方式！');
   }
   else PageReturn('信息不完整！');
@@ -67,7 +67,7 @@ function deliverydel(){
     <td width="15%" height="25" background="images/topbg.gif"><strong>操作</strong></td>
   </tr><?php
 $jishu=0;
-$res=$conn->query('select * from mg_delivery where method=2 order by sortorder',PDO::FETCH_ASSOC);
+$res=$conn->query('select * from mg_delivery where method=2 order by sequence',PDO::FETCH_ASSOC);
 foreach($res as $row){?>
   <form method="post">
   <tr align="center" bgcolor="#FFFFFF">
@@ -75,7 +75,7 @@ foreach($res as $row){?>
     <td height="25"><input name="matchrule" type="text" class="input_sr" value="<?php echo $row['matchrule'];?>" maxlength="20" size="25"></td>
     <td height="25"><input name="website" type="text" class="input_sr" value="<?php echo $row['website'];?>" size="25"></td>
     <td height="25"><textarea name="memo" cols="30" rows="2"><?php echo $row['memo'];?></textarea></td>
-    <td height="25"><input name="sortorder" type="text" style="text-align:center" onkeyup="if(isNaN(value))execCommand('undo')" value=<?php echo $row['sortorder'];?> size="2"></td>
+    <td height="25"><input name="sequence" type="text" style="text-align:center" onkeyup="if(isNaN(value))execCommand('undo')" value=<?php echo $row['sequence'];?> size="2"></td>
     <td height="25">
     	 <input type="hidden" name="id" value="<?php echo $row['id'];?>">
     	 <input type="button" value="修改" onclick="modify_delivery(this.form);">
@@ -102,7 +102,7 @@ $jishu++;
       <td height="25"><input name="RegExp" type="text" class="input_sr"size="25" ></td>
       <td height="25"><input name="website" type="text" class="input_sr"size="25"></td>
       <td height="25"><textarea name="memo" cols="30" rows=2"></textarea></td>
-      <td height="25"><input name="sortorder" type="text" class="input_sr" id="sortorder" onkeyup="if(isNaN(value))execCommand('undo')" value=<?php echo $jishu+1;?> size="2"></td>
+      <td height="25"><input name="sequence" type="text" class="input_sr" id="sequence" onkeyup="if(isNaN(value))execCommand('undo')" value=<?php echo $jishu+1;?> size="2"></td>
       <td height="25"><input type="submit" class="input_bot" value="添加"></td>
   </tr>
   </form>
@@ -126,4 +126,4 @@ function delete_delivery(myform){
 
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

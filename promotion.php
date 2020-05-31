@@ -1,9 +1,9 @@
 <?php require('include/conn.php');
-OpenDB();
+db_open();
    
 if(@$_POST['action']=='get'){
   ShowWareList(true);
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -65,8 +65,8 @@ include("include/page_head.php");?>
       <TABLE width="100%" height="100%" border="0"  cellSpacing="0" cellPadding="0" style="background:url(images/bg_left.gif) repeat-y;margin-top:30px;">
       <tr>
          <td height="1%" align="center"><?php
-         include('include/guide_brand.htm');  
-         include('include/guide_category.htm');?> 
+         include('include/guide_category.htm');  
+         include('include/guide_catsort.htm');?> 
          </td></tr>
     <tr><td height="99%" style="background:url(/images/advs/ADVs_Blank.gif) repeat-y;"></td></tr>
     </table>    
@@ -128,7 +128,7 @@ run_timer();
 </script>
 <?php
   include("include/page_bottom.htm");
-  CloseDB();
+  db_close();
 ?>
 </body>
 </html>

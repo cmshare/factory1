@@ -1,7 +1,7 @@
 <TABLE border=0 cellSpacing=0 cellPadding=0 width="185">
 <TR><TD height="50" background="/images/guide_help.gif"></TD></TR>
 <TR><TD align="center"><TABLE border=0 cellSpacing=0 cellPadding=0 width="100"><?php
-$query=$conn->query("select id,title from `mg_help` where parent=0 and property=1 order by sortorder",PDO::FETCH_NUM);
+$query=$conn->query("select id,title from `mg_help` where parent=0 and property=1 order by sequence",PDO::FETCH_NUM);
 foreach($query as $rs) 
 {?>
 <TR>

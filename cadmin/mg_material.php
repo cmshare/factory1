@@ -1,14 +1,14 @@
 <?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 	
 $action=@$_GET['action'];
 if($action){
   if($action=='newsave'){ #新添保存
-    $sortorder= $_POST['sortorder'];
+    $sequence= $_POST['sequence'];
     $materialname=FilterText(trim($_POST['materialname']));
-    if(is_numeric($sortorder) && $materialname){
-      $conn->exec("insert into mg_material(name,sortorder) values('$materialname',$sortorder)");
+    if(is_numeric($sequence) && $materialname){
+      $conn->exec("insert into mg_material(name,sequence) values('$materialname',$sequence)");
       PageReturn('保存成功！');
     }
   }
@@ -17,9 +17,9 @@ if($action){
     echo $id;
     if(is_numeric($id)&& $id>0){
       $materialname=FilterText(trim($_POST['materialname']));
-      $sortorder= $_POST['sortorder'];
-      if(is_numeric($sortorder) && $materialname){
-        $conn->exec("update mg_material set name='$materialname',sortorder=$sortorder where id=$id");
+      $sequence= $_POST['sequence'];
+      if(is_numeric($sequence) && $materialname){
+        $conn->exec("update mg_material set name='$materialname',sequence=$sequence where id=$id");
         PageReturn('修改成功！');
       }
     }
@@ -40,15 +40,15 @@ if($action){
 <script>
 function modify_object(myform){
  var materialname=myform.materialname.value.trim();
- var sortorder=myform.sortorder.value.trim();
+ var sequence=myform.sequence.value.trim();
  if(!materialname){
    alert("名称不能为空！");
    myform.materialname.focus();
    return false;
  }
- else if(!sortorder || isNaN(sortorder)){
+ else if(!sequence || isNaN(sequence)){
    alert("序号无效！");
-   myform.sortorder.focus();
+   myform.sequence.focus();
    return false;
  }
  else{
@@ -86,12 +86,12 @@ function delete_object(myform){
                 <td width="28%" background="images/topbg.gif"><strong>序号</strong></td>
                 <td width="30%" background="images/topbg.gif"><strong>操作</strong></td>
               </tr><?php
-	$res=$conn->query('select * from mg_material order by sortorder',PDO::FETCH_ASSOC);
+	$res=$conn->query('select * from mg_material order by sequence',PDO::FETCH_ASSOC);
         foreach($res as $row){?>
 	     <form method="post">
               <tr align="center" bgcolor="#FFFFFF">
                 <td height="25"><input name="materialname" type="text" class="input_sr" value="<?php echo $row['name'];?>"><input type="hidden" name="id" value="<?php echo $row['id'];?>"/></td>
-                <td><input name="sortorder" type="text" class="input_sr" value="<?php echo $row['sortorder'];?>" size="8"></td>
+                <td><input name="sequence" type="text" class="input_sr" value="<?php echo $row['sequence'];?>" size="8"></td>
                 <td><input type="button" class="input_bot" value="修改" onclick="modify_object(this.form)"> &nbsp;<input type="button" class="input_bot" value="删除" onclick="delete_object(this.form)"></td>
               </tr>
 	      </form><?php
@@ -110,7 +110,7 @@ function delete_object(myform){
               </tr>
               <tr align="center" bgcolor="#FFFFFF">
                 <td height="25"><input name="materialname" type="text" class="input_sr"></td>
-                <td><input name="sortorder" type="text" class="input_sr" size="8"></td>
+                <td><input name="sequence" type="text" class="input_sr" size="8"></td>
                 <td><input type="submit" class="input_bot" value="添加"></td>
               </tr></form>
             </table>
@@ -123,4 +123,4 @@ function delete_object(myform){
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

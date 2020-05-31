@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
  CheckLogin();
- OpenDB();
+ db_open();
     
  $PrivateNewsProperty=5;
 
@@ -181,4 +181,4 @@ else {
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin(); 
-OpenDB();
+db_open();
 $MaxProductID=$conn->query('select max(id) from mg_product')->fetchColumn(0);
 ?><html>
 <head>
@@ -80,4 +80,4 @@ function ControlProcess(myform){
 </tr>
 </table>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

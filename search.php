@@ -6,9 +6,9 @@ if(@$_POST['action']=='get'){
   $searchmode= @$_GET['mode'];
   if(!is_numeric($cid)) $cid=0;
   if(!is_numeric($searchmode)) $searchmode=0;
-  OpenDB();
+  db_open();
   ShowSearchResult();
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -19,15 +19,6 @@ function GenPageUrl($page){
   if($searchmode) $url.='&mode='.$searchmode;	
   if($searchkey) $url.='&key='.rawurlencode($searchkey);	
   return $url;
-}
-
-function sorts($selec){
-  global $conn,$CatList;
-  $res=$conn->query('select id from `mg_category` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
-  foreach($res as $row){
-    $CatList .= ','.$row[0];
-    sorts($row[0]);
-  }
 }
  
 function ShowSearchResult(){
@@ -63,10 +54,8 @@ function ShowSearchResult(){
       else{
         $sql_count.=' and name like \'%'.$searchkey.'%\'';
       }
-      if($cid>0){ #高级查询
-        $CatList=$cid;
-        sorts($cid);
-        $sql_count.=' and brand in ('.$CatList.')';
+      if($cid>1){ #高级查询
+        $sql_count.=' and cids like \'%,'.$cid.',%\'';
       }
     }
     $sql_query='select id,name,spec,stock0,price0,price1,price3,onsale '.$sql_count.' order by price3';
@@ -90,6 +79,7 @@ include('include/page_head.php');?>
       <tr>
 	<td height="1%">
         <!-----导航:商品分类 开始------> 
+        <SCRIPT language="JavaScript" src="include/category.js"></SCRIPT>
         <SCRIPT language="JavaScript" src="include/guide_sort.js" type="text/javascript"></SCRIPT>
         <!-----导航:商品分类 结束------>   
       </td></tr><tr><td height="99%"><?php 
@@ -97,7 +87,6 @@ include('include/page_head.php');?>
       ?>
       </td></tr>
     </table>    
-     <SCRIPT language="JavaScript" src="include/brandsel.js"></SCRIPT>
      <script>var page=1,searchmode,searchcat,searchkey=htmRequest("key");if(searchkey){searchmode=htmRequest("mode");searchcat=htmRequest("cid");page=htmRequest("page");}</script>
   </td>
   <td valign="top" width="800" height="100%">
@@ -128,7 +117,7 @@ include('include/page_head.php');?>
                </tr>
                <tr>
                  <td height="25" align="right">商品分类：</td>
-                 <td height="25"><script language="javascript">if(!searchkey)CreateBrandSelection("category","0","所有分类","");</script></td>
+                 <td height="25"><script language="javascript">if(!searchkey)CreateCategorySelection("category","0","所有分类","");</script></td>
                </tr>
                <tr BGCOLOR=ffffff>
                   <td height="25">&nbsp;</td>
@@ -166,6 +155,6 @@ if(searchkey && topsearch){
 }else InitSearchForm(prosearch);
 </script><?php
 include('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html>

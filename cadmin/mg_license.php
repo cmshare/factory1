@@ -1,7 +1,7 @@
 <?php require('includes/dbconn.php');
 CheckLogin('SYSTEM');
 
-OpenDB();
+db_open();
 if(@$_GET['action']=='save'){ #所有无权限
   $license=$_POST['content'];
   if($conn->exec("update mg_configs set license='$license'")) PageReturn('修改成功！');
@@ -10,7 +10,7 @@ if(@$_GET['action']=='save'){ #所有无权限
 $license=$conn->query('select license from mg_configs')->fetchColumn(0);
 // $license=htmlspecialchars_decode(htmlspecialchars_decode(htmlspecialchars_decode($license)));
 
-CloseDB();?>
+db_close();?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

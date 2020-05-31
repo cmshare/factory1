@@ -53,7 +53,7 @@ class CommSQL{
   }
 }
 
-OpenDB();
+db_open();
 $conn->setAttribute( PDO::ATTR_ERRMODE,PDO::ERRMODE_WARNING);
 
 $mode=@$_GET['mode'];
@@ -99,7 +99,7 @@ else{
     }
     else{
       echo '<br><p align="cener">您访问的内容不存在或者已经删除！</p>';
-      CloseDB();
+      db_close();
       exit(0);
     }
   }
@@ -122,7 +122,7 @@ session_start();
  $AdminName=@$_SESSION['meray[admin]'];
  if($AdminName!='aufame'){
   echo '<br><p align=center>权限不足！</p>';
-  CloseDB();
+  db_close();
   exit(0);
 }?>
 <table width="100%" border="5" align="center" cellpadding="5" cellspacing="5" bordercolor="#CCCCCC" bgcolor="#FFFFFF">
@@ -198,7 +198,7 @@ else if(empty($mode) && $newsid>0){
           </tr>
           <tr bgcolor="#F7F7F7" align="center"> 
             <td height="28" colspan="2" style="PADDING-RIGHT: 6px" align="right"> 
-              <input type="hidden" name="id" value="<?php echo $newsid;?>" > <input type="button" class="input_bot" value="重新发布" onclick="SaveArticle(this.form,2)"> <input type="button" class="input_bot" value="保存修改" onclick="SaveArticle(this.form,1)">
+              <input type="hidden" name="id" value="<?php echo $newsid;?>" > <input type="button" name="savebtn_republish"  value="重新发布" onclick="SaveArticle(this.form,2)" disabled> <input type="button" name="savebtn"  value="保存修改" onclick="SaveArticle(this.form,1)" disabled>
             </td>
           </tr></form>
         </table><?php
@@ -285,6 +285,12 @@ function SaveArticle(myform,mode){
 }  
 
 var ueditor = UE.getEditor('newscontent',{toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'forecolor', 'backcolor', 'removeformat', 'formatmatch','|','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'indent', '|', 'insertorderedlist', 'insertunorderedlist','|','link', 'unlink', 'anchor', '|','insertimage', 'spechars', 'horizontal']],initialFrameWidth:null,autoHeightEnabled: true,autoFloatEnabled: true});
+ueditor.ready(function(){
+  var btn1=document.forms[0].savebtn;
+  var btn2=document.forms[0].savebtn_republish;
+  if(btn1) btn1.disabled=false;
+  if(btn2) btn2.disabled=false;  
+});
 
 String.prototype.trim = function(){
    return this.replace(/(^\s*)|(\s*$)/g, ""); 
@@ -311,4 +317,4 @@ function CheckModifyPost(myForm){
 </script>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

@@ -33,12 +33,12 @@ function StartCounter(counter)
 }
 setInterval("StartCounter(DownCounter-1)",1000); 
 </script><?php
-OpenDB();
+db_open();
 if(empty($DeliveryCode)){
   if($DeliveryMethod){
       $weburl=$conn->query('select website from `mg_delivery` where methord=2 and subject=\''.$DeliveryMethod.'\'')->fetchColumn(0);
       if($weburl){
-        CloseDB();
+        db_close();
         header('location:'.$weburl);
         exit(0);
       }
@@ -123,7 +123,7 @@ else if(strstr($DeliveryMethod,'德邦')){?>
 else{
   echo '<p align="center">尚未给该配送方式建立自动追踪服务！</p>';
 }
-CloseDB();
+db_close();
 ?>
 </body>
 </html>

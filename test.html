@@ -1,0 +1,99 @@
+<HTML>
+    <HEAD>	
+    <META http-equiv=Content-Type content="text/html; charset=utf-8">
+    <META http-equiv="Keywords" content="化妆品,化妆品批发,最低价,南京化妆品批发,韩国化妆品批发,进口化妆品批发,欧美化妆品批发,上海化妆品批发,广东美容化妆品网,化妆品批发市场,品牌化妆品批发,香水批发">
+    <LINK href="/include/mycss.css" rel="stylesheet" type="text/css"><SCRIPT language="JavaScript" src="/user/cmbase.js"></SCRIPT>
+    <META http-equiv="Description" content="涵若铭妆(www.gdhzp.com)化妆品批发网,提供各种品牌化妆品批发,包括护肤品批发,彩妆批发,洗发水批发,沐浴露批发,精油香水批发,一手货源好,最低价格低,现货供应,质量保证！原装进口韩国化妆品批发,欧美化妆品批发,进口化妆品批发,品牌化妆品批发,广东美容化妆品网是全国最大最专业的化妆品批发进货渠道综合服务平台。">
+    <title>【涵若铭妆】－韩国化妆品批发－进口化妆品批发－南京化妆品批发网</title>
+ <SCRIPT language="JavaScript" src="include/category.js" type="text/javascript"></SCRIPT>
+
+</HEAD>
+
+<body>
+   
+<script>
+var CurrentCategory;
+function gmSwitch(m){m=m.parentNode;if(m.className=="gMenuOpen")m.className="gMenuClose";else if(m.className=="gMenuClose")m.className="gMenuOpen";else{m=m.getElementsByTagName("A");if(m && m.length)self.location.href=m[0].href;}}
+function gmEnter(m){m.style.backgroundColor="#FFE3D2";}
+function gmLeave(m){m.style.backgroundColor="";}
+function genCategoryURL(cid){return "/category/cat"+cid+".htm";}
+
+function GenSingleCategory(catdata) { 
+   var menu_class=catdata.children?(catdata.id==CurrentCategory?"gMenuOpen":"gMenuClose"):"gMenuEmpty";
+   var catcode='<TR><TD class="'+menu_class+'"><span onclick="gmSwitch(this)" onMouseOver="gmEnter(this)" onMouseOut="gmLeave(this)"><span class="gMenuBar"><a href="'+genCategoryURL(catdata.id)+'">'+catdata.title+'</a></span></span><div>';
+   var subsort=catdata.children;
+   var subcount=subsort && subsort.length;
+   for(var i=0;i<subcount;i++){
+     catcode+='<a href="'+genCategoryURL(subsort[i].id)+'">'+subsort[i].title+'</a>'; 
+   } 
+   catcode+='</div></TD></TR>';
+   return catcode;
+}
+  
+function GenHotCategory() { 
+    var menu_class=(CurrentCategory)?"gMenuClose":"gMenuOpen";
+    var catcode='<TR><TD class="'+menu_class+'"><span onclick="gmSwitch(this)" onMouseOver="gmEnter(this)" onMouseOut="gmLeave(this)"><span class="gMenuBar"><a href="/hotsell.htm">热销品牌</a></span></span><div>';
+    var subcount=CategoryHotIndex.length;
+    for(var i=0;i<subcount;i++){
+      var catdata=GetCategoryById(CategoryHotIndex[i]);
+      if(catdata)catcode+='<a href="'+genCategoryURL(catdata.id)+'">'+catdata.title+'</a>'; 
+    } 
+    catcode+='</div></TD></TR>';
+    return catcode;
+}
+
+function ShowCategoryGuider(){
+  var catdata=null,catcode='<TABLE cellSpacing=0 cellPadding=0 width="185" align="center"  border="0"><TR><TD height=50 background="/images/guide_category.gif"></TD></TR>';
+  if(!isNaN(CurrentCategory) && CurrentCategory>0 && (catdata=GetCategoryById(CurrentCategory))){
+    if(!catdata.children && catdata.pid!=0){
+      CurrentCategory=catdata.pid;
+      catdata=GetCategoryById(CurrentCategory);
+    } 
+  }
+  else CurrentCategory=0; 
+  var rootCategory=(catdata && catdata.pid==0)?0:CurrentCategory;
+  if(rootCategory==0){ 
+    var sortcount=CategoryMap.length;
+    catcode+=GenHotCategory();
+    for(var i=0;i<sortcount;i++){
+      catcode+=GenSingleCategory(CategoryMap[i]);
+    }  	
+  }
+  else{
+     catcode+='<TR style="CURSOR: pointer" onMouseOver="gmEnter(this)" onMouseOut="gmLeave(this)" onclick="gmSwitch(this)" height=24 valign="middle"><TD> <IMG width=20 height=20 border=0 src="/images/guidefold2.gif" align="absMiddle"> <a href="'+genCategoryURL(catdata.pid)+'"><font color=#FF0000>返回上级分类</font></a></TD></TR>';
+     catcode+=GenSingleCategory(catdata);
+  } 
+  catcode+='<TR><td height="10"></td></tr></TABLE>';
+  document.write(catcode);
+}
+  
+function GenSingleCatSort(catdata){
+  var subsort=catdata && catdata.children; 
+  var subcount=subsort && subsort.length;
+  var menu_class=subcount?"gMenuClose":"gMenuEmpty";
+  var catcode='<TR><TD class="'+menu_class+'"><span onclick="gmSwitch(this)" onMouseOver="gmEnter(this)" onMouseOut="gmLeave(this)"><span class="gMenuBar"><a href="'+genCategoryURL(catdata.id)+'">'+catdata.title+'</a></span></span><div>';
+  for(var i=0;i<subcount;i++){
+    catcode+='<a href="'+genCategoryURL(subsort[i].id)+'">'+subsort[i].title+'</a>';  
+  }  
+  catcode+="</div></td></tr>";
+  return catcode;
+}
+
+function ShowCatSortGuider(){
+  var catcode='<TABLE cellSpacing=0 cellPadding=0 width="185" align="center" border="0"><TR><TD height=50 background="/images/guide_sort.gif"></TD></TR>';
+  var sortcount=CategoryNavSortIndex.length;
+  for(var i=0;i<sortcount;i++){
+    var catdata=GetCategoryById(CategoryNavSortIndex[i]);
+    if(catdata)catcode+=GenSingleCatSort(catdata);
+  }  	
+  catcode+='<TR><td height="10"></td></tr></TABLE>';
+  document.write(catcode);
+}
+ 
+
+ShowCategoryGuider();
+ShowCatSortGuider();
+
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 
 $EndDate=trim(@$_GET['enddate']);
 if($EndDate && ($EndDate=strtotime($EndDate))){
@@ -22,7 +22,7 @@ $LastRetrench=date('Y-m-d',$LastRetrench);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="includes/admincss.css" rel="stylesheet" type="text/css">
 <SCRIPT language="JavaScript" src="includes/mg_comm.js" type="text/javascript"></SCRIPT>
-<SCRIPT language="JavaScript" src="editproduct.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="checkproduct.js" type="text/javascript"></SCRIPT>
 <title>商品缺货统计</title>
 </head>
 <body leftmargin="0" topmargin="0">
@@ -91,5 +91,5 @@ function CheckSearch(myform){
 </script>	
 
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>
 

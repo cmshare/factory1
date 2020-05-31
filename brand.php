@@ -3,7 +3,7 @@ $cid=@$_GET['id'];
 $mode=@$_GET['mode'];
 if(!is_numeric($cid))$cid=0;
 if(!is_numeric($mode))$mode=0;
-OpenDB();
+db_open();
 
 function sorts($selec){
   global $conn,$brandlist,$UnfoldBrand; 
@@ -36,7 +36,7 @@ else{
     $row=$conn->query('select id,title,parent from `mg_category` where id='.$PID,PDO::FETCH_NUM)->fetch();
     if(empty($row)){
       echo '<script language="javascript">alert("您输入的参数非法，请正确操作！");history.go(-1);</script>';
-      CloseDB();
+      db_close();
       exit(0);
     }
     $LinkSortGuider = '&nbsp;&gt;&gt;&nbsp;<a href="/category/cat'.$row[0].'.htm">'.$row[1].'</a>'.$LinkSortGuider;
@@ -49,7 +49,7 @@ else{
 
 if(@$_POST['action']=='get'){
   ShowWareList(true);
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -151,6 +151,6 @@ function ChangeSort(sortindex){
 }
 </script><?php
 include('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html> 

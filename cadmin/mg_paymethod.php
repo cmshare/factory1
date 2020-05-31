@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 
 $action=@$_GET['action'];
 if($action){
@@ -14,17 +14,17 @@ if($action){
       $id=$_POST['id'];
       if(is_numeric($id) && $id>0){
         $subject=FilterText(trim($_POST['subject']));
-        $sortorder=$_POST['sortorder'];
+        $sequence=$_POST['sequence'];
         $memo=FilterText(trim($_POST['memo']));
-        $conn->exec("update mg_delivery set subject='$subject',sortorder=$sortorder,memo='$memo',method=1 where id=$id");
+        $conn->exec("update mg_delivery set subject='$subject',sequence=$sequence,memo='$memo',method=1 where id=$id");
         PageReturn('保存成功！');
       }
     }
     else if($action=='zhifuadd'){
       $subject=FilterText(trim($_POST['subject']));
-      $sortorder=$_POST['sortorder'];
+      $sequence=$_POST['sequence'];
       $memo=FilterText(trim($_POST['memo']));
-      if($conn->exec("insert into mg_delivery set subject='$subject',sortorder=$sortorder,memo='$memo',method=1"))PageReturn('添加成功！'); 
+      if($conn->exec("insert into mg_delivery set subject='$subject',sequence=$sequence,memo='$memo',method=1"))PageReturn('添加成功！'); 
     }
     else if($action=='save1'){ #保存支付宝信息的地方
       $alipayenabled=($_POST['alipayenabled']=='支付宝有效')?'1':'0';
@@ -107,15 +107,15 @@ function ChkModifyNNPay(myForm){
 }
 function modify_object(myform){
  var subject=myform.subject.value.trim();
- var sortorder=myform.sortorder.value.trim();
+ var sequence=myform.sequence.value.trim();
  if(!subject){
    alert("支付方式不能为空！");
    myform.subject.focus();
    return false;
  }
- else if(sortorder=='' || isNaN(sortorder)){
+ else if(sequence=='' || isNaN(sequence)){
    alert("序号无效！");
-   myform.sortorder.focus();
+   myform.sequence.focus();
    return false;
  }
  else{
@@ -214,14 +214,14 @@ function delete_object(myform){
       <td width="9%" height="25" align="center" background="images/topbg.gif"><strong>排序        </strong></td>
       <td width="15%" height="25" align="center" background="images/topbg.gif"><strong>操作</strong></td>
     </tr><?php
-   $res=$conn->query('select * from mg_delivery where method=1 order by sortorder',PDO::FETCH_ASSOC);
+   $res=$conn->query('select * from mg_delivery where method=1 order by sequence',PDO::FETCH_ASSOC);
    foreach($res as $row){
-     $sortorder=$row['sortorder'];?>
+     $sequence=$row['sequence'];?>
     <form method="post">
     <tr bgcolor="#FFFFFF">
       <td height="25" align="center" bgcolor="#F7F7F7"><input name="subject" type="text" class="input_sr" value=<?php echo $row['subject'];?> maxlength="10" size="40"><input type=hidden name="id" value="<?php echo $row['id'];?>"></td>
       <td height="25" align="center"><textarea name="memo" cols="38" rows="4"><?php echo $row['memo'];?></textarea></td>
-      <td height="25" align="center"><input name="sortorder" type="text" class="input_sr" value=<?php echo $sortorder;?> size="4"></td>
+      <td height="25" align="center"><input name="sequence" type="text" class="input_sr" value=<?php echo $sequence;?> size="4"></td>
       <td height="25" align="center"><input  type="button" class="input_bot" value="修改" onclick="modify_object(this.form)">&nbsp; <input  type="button" class="input_bot" value="删除" onclick="delete_object(this.form)"></td>
     </tr>
     </form><?php
@@ -239,7 +239,7 @@ function delete_object(myform){
     <tr bgcolor="#FFFFFF">
       <td height="25" align="center" bgcolor="#F7F7F7"><input name="subject" type="text" class="input_sr" size="40"></td>
       <td align="center"><textarea name="memo" cols="38" rows="4"></textarea></td>
-      <td height="25" align="center"><input name="sortorder" type="text" class="input_sr" value=<?php echo $sortorder+1;?> size="4"></td>
+      <td height="25" align="center"><input name="sequence" type="text" class="input_sr" value=<?php echo $sequence+1;?> size="4"></td>
       <td height="25" align="center"><input  type="submit" class="input_bot" value="添加"></td>
     </tr>
     </form>
@@ -250,4 +250,4 @@ function delete_object(myform){
 
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 /*
 -8:已存档的内部订单
 -4:已完成的内部订单
@@ -34,7 +34,7 @@ function PageBegin(){
 function PageClose($info){
   if($info) echo '<p align=center>'.$info.'</p>';
   echo chr(13).'</td></tr></table></body></html>';
-  CloseDB();
+  db_close();
 }
 
 function PageShowDetail(){

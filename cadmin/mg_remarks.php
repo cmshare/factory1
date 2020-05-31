@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
  CheckLogin();
- OpenDB();
+ db_open();
  
  $action=@$_GET['action']; 
  if($action=='save'){
@@ -11,7 +11,7 @@
      $conn->exec("update mg_review set reply='$reply',audit=$audit where id=$remarkid");
      echo '<script>parent.window.closeDialog(true);</script>';        
    }
-   CloseDB();
+   db_close();
    exit(0);
  }
  else if($action=='del'){
@@ -74,7 +74,7 @@ if($action=='audit'){
         </tr>
     </table></form></body></html><?php
   }
-  CloseDB();
+  db_close();
   exit(0);
 }?>
 
@@ -151,4 +151,4 @@ if($action=='audit'){
 </script>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

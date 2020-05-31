@@ -7,7 +7,7 @@
 <SCRIPT language="JavaScript" src="<%=WebRoot%>include/property.js"></SCRIPT>
 <script language="javascript" src="mouse_on_title.js"></script>
 <SCRIPT language="JavaScript" src="admscript.js" type="text/javascript"></SCRIPT>
-<script language="javascript" src="editproduct.js"></script>
+<script language="javascript" src="checkproduct.js"></script>
 <%CheckAdmin(popedomShare)
 
 set rs=server.CreateObject("adodb.recordset")
@@ -93,7 +93,7 @@ end if
             <td align="right" background="images/topbg.gif" bgcolor="#f4f4f4"><strong>功能分类：</strong></td>
             <td bgcolor="#FFFFFF">
             	<script language="javascript">
-            	CreatePropertySelection("property",<%=rs("property")%>,"．．．","");
+            	CreateNavcatSelection("property",<%=rs("property")%>,"．．．","");
               </script>
             	<font color=#FF0000>＊</font></td>
           </tr>            

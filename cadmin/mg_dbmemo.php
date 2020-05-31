@@ -6,7 +6,7 @@ if(empty($str_params) || !($params=simpleDecode($str_params))) PageReturn("参�
 parse_str($params,$params);
 if(!is_numeric($id=$params['id']) || empty($tb=$params["tb"]) || empty($field=$params["field"]))PageReturn("参数无效！",0);
 CheckLogin();
-OpenDB();
+db_open();
 
 if(@$_POST['mode']=='save'){
   $sql="update `$tb` set $field=:content";
@@ -16,7 +16,7 @@ if(@$_POST['mode']=='save'){
   if($res->execute()){ //执行sql并返回受影响的列数
     echo '<script language="javascript">parent.closeDialog("<OK>");</script>';
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -48,4 +48,4 @@ $content=$conn->query($sql)->fetchColumn(0);
  
 </body>
 </html>
-<?php CloseDB();?>
+<?php db_close();?>

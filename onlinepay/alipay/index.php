@@ -22,7 +22,7 @@ if(is_numeric($pay_amount))$pay_amount=round($pay_amount,2);
 else $pay_amount=0;
 
 if($pay_amount>0 && $pay_tradeno && $pay_subject && $pay_user ){
-    OpenDB();
+    db_open();
     
     $conn->exec('lock tables mg_onlinepay write'); 
     $bExist=$conn->query('select id from mg_onlinepay where tradeno=\''.$pay_tradeno.'\'')->fetchColumn(0);
@@ -57,5 +57,5 @@ if($pay_amount>0 && $pay_tradeno && $pay_subject && $pay_user ){
 	 var_dump($response);
       } 
     }
-    CloseDB();
+    db_close();
 }?>

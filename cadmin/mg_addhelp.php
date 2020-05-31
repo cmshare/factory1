@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 
 switch($_GET['action']){
   case 'edit': show_editor();break;
@@ -18,7 +18,7 @@ function show_editor(){
   else PageReturn('参数错误');
 
   function do_sort($selec,$parent){
-    $sql="select id,title from mg_help where parent = '$selec' order by sortorder";
+    $sql="select id,title from mg_help where parent = '$selec' order by sequence";
     $res=$GLOBALS['conn']->query($sql,PDO::FETCH_NUM);
     foreach($res as $row){
       echo '<option value="'.$row[0].'" ';   
@@ -55,7 +55,7 @@ $ii=0;?></select></td>
      </tr>
      <tr bgcolor="#FFFFFF">
        <td align="center"><b>当前序号</b></td>
-       <td><input name="sortorder" type="text" class="input_sr" id="sortorder" value="<?php echo $row['sortorder'];?>" size="3" /></td>
+       <td><input name="sequence" type="text" class="input_sr" id="sequence" value="<?php echo $row['sequence'];?>" size="3" /></td>
      </tr>
      <tr bgcolor="#FFFFFF">
   	<td align="center" valign="top"><b>正文内容</b></td>
@@ -106,7 +106,7 @@ function show_add(){
      </tr>
      <tr bgcolor="#FFFFFF">
         <td align="center" background="images/topbg.gif" bgcolor="#F7F7F7"><strong>排列序号</strong></td>
-        <td><input name="sortorder" type="text" class="input_sr" id="sortorder" value="<?php echo $row['sortorder'];?>" size="3" /></td>
+        <td><input name="sequence" type="text" class="input_sr" id="sequence" value="<?php echo $row['sequence'];?>" size="3" /></td>
      </tr>
      <tr bgcolor="#FFFFFF">
  	<td align="center" valign="top"><b>正文内容</b></td>
@@ -133,9 +133,9 @@ function show_add(){
 
 function addcat_save(){
   $title=FilterText(trim($_POST['title']));
-  $sortorder=$_POST['sortorder'];
-  if($title && is_numeric($sortorder)){
-    $sql="insert into mg_help set title='$title',sortorder=$sortorder,parent=0,property=1";
+  $sequence=$_POST['sequence'];
+  if($title && is_numeric($sequence)){
+    $sql="insert into mg_help set title='$title',sequence=$sequence,parent=0,property=1";
     if($GLOBALS['conn']->exec($sql)) PageReturn('添加成功！');
   }
   PageReturn('参数错误');
@@ -146,11 +146,11 @@ function addsave(){
   if(empty($helpTitle))PageReturn('标题为空！',-1);
   $existid=$GLOBALS['conn']->query('select id from mg_help where title=\''.$helpTitle.'\'')->fetchColumn(0);
   if($existid) PageReturn('标题名重复,请更改！',-1);
-  $sortorder=$_POST['sortorder'];
+  $sequence=$_POST['sequence'];
   $parent=$_POST['parent'];
-  if(is_numeric($sortorder) && is_numeric($parent)){
+  if(is_numeric($sequence) && is_numeric($parent)){
     $content=trim($_POST['content']);
-    $sql="insert into mg_help set title='$helpTitle',content='$content',sortorder=$sortorder,parent=$parent,property=1";
+    $sql="insert into mg_help set title='$helpTitle',content='$content',sequence=$sequence,parent=$parent,property=1";
     if($GLOBALS['conn']->exec($sql))PageReturn('添加成功！','mg_help.php');
   }
   PageReturn('参数错误！',-1);
@@ -164,11 +164,11 @@ function editsave(){
   if(empty($helpTitle))PageReturn('标题为空！',-1);
   $existid=$GLOBALS['conn']->query('select id from mg_help where title=\''.$helpTitle.'\' and id<>'.$id.' and property=1')->fetchColumn(0);
   if($existid) PageReturn('标题名重复,请更改！',-1);
-  $sortorder=$_POST['sortorder'];
+  $sequence=$_POST['sequence'];
   $parent=$_POST['parent'];
-  if(is_numeric($sortorder) && is_numeric($parent)){
+  if(is_numeric($sequence) && is_numeric($parent)){
     $content=trim($_POST['content']);
-    $sql="update mg_help set title='$helpTitle',content='$content',sortorder=$sortorder,parent=$parent where id=$id";
+    $sql="update mg_help set title='$helpTitle',content='$content',sequence=$sequence,parent=$parent where id=$id";
     if($GLOBALS['conn']->exec($sql))PageReturn('保存成功！','mg_help.php');
   }
   PageReturn('参数错误！',-1);
@@ -184,5 +184,5 @@ function delok_save(){
   PageReturn('参数错误！',-1);
 }
 
-CloseDB();
+db_close();
 ?>

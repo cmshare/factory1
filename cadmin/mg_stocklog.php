@@ -1,6 +1,6 @@
 ï»¿<?php require('includes/dbconn.php');
 CheckLogin(); 
-OpenDB();
+db_open();
 
 $mode=@$_GET['mode'];
 if($mode=='delete'){
@@ -203,4 +203,4 @@ else if($first_records==0) echo '<tr><td align=center colspan="'.$colspan.'"> æ•
 </table> 
 
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

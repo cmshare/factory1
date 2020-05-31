@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 $where='where deposit<-10 and username<>\'junhang\'';
 $totalDebt=$conn->query('select sum(deposit) from mg_users '.$where)->fetchColumn(0);
 if($totalDebt===false)$totalDebt=0;
@@ -51,4 +51,4 @@ else $totalDebt=round($totalDebt);
   </tr>
 </table>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

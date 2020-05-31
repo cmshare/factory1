@@ -6,11 +6,11 @@ if(!is_numeric($cid))$cid=0;
 $mode=@$_GET['mode'];
 if(!is_numeric($mode))$mode=0;
  
-OpenDB();
+db_open();
 function brand_sort($selec){
   global $conn,$brandlist,$UnfoldBrand;
   if($selec==0)$sql='select id from `mg_category` where recommend>1 order by recommend';#热销品牌
-  else $sql='select id from `mg_category` where parent='.$selec.' order by sortorder';
+  else $sql='select id from `mg_category` where parent='.$selec.' order by sequence';
   $res=$conn->query($sql,PDO::FETCH_ASSOC);
   foreach($res as $row){
     $brandlist.=', '.$row['id'];
@@ -33,7 +33,7 @@ else{
     $row=$conn->query('select id,title,parent from `mg_category` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
       if(empty($row)){
     	echo '<script LANGUAGE="javascript">alert("您输入的参数非法，请正确操作！");history.go(-1);</script>';
-        CloseDB();
+        db_close();
         exit(0);
       }
       $LinkSortGuider = '&nbsp;&gt;&gt;&nbsp;<a href="brandlist.htm?cid='.$row['id'].'">'.$row['title'].'</a>'.$LinkSortGuider;
@@ -47,7 +47,7 @@ else{
  
 if(@$_POST['action']=='get'){
   ShowWareList();
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -156,6 +156,6 @@ function ChangeSort(sortindex)
 JumpToPage(page);  
 </script><?php
 require('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html> 

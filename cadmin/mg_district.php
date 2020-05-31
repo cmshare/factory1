@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin('SYSTEM');
-OpenDB();
+db_open();
 $mode=@$_GET['mode'];
 if($mode){
  switch($mode){
@@ -14,14 +14,14 @@ if($mode){
 function do_save(){
   global $conn;
   $provinceid=$_POST['provinceid'];
-  $sortorder=$_POST['sortorder'];
+  $sequence=$_POST['sequence'];
   $provincename=$_POST['provincename'];
-  if(is_numeric($provinceid) && is_numeric($sortorder) && $provincename){
+  if(is_numeric($provinceid) && is_numeric($sequence) && $provincename){
     $parentdistrict=$conn->query('select parent from mg_district where id='.$provinceid)->fetchColumn(0);
     if(empty($parentdistrict)) PageReturn('参数错误！');
     $existid=$conn->query('select id from mg_district where parent='.$parentdistrict.' and name=\''.$provincename.'\' and id<>'.$provinceid)->fetchColumn(0);
     if($existid)PageReturn('同级的地区名称已经存在！');
-    $conn->exec("update mg_district set name='$provincename',sortorder=$sortorder where id=$provinceid");
+    $conn->exec("update mg_district set name='$provincename',sequence=$sequence where id=$provinceid");
     PageReturn('保存成功！');
   }
   else PageReturn('参数错误！');
@@ -30,12 +30,12 @@ function do_save(){
 function do_add(){
   global $conn;
   $parentdistrict=$_GET['parent'];
-  $sortorder=$_POST['sortorder'];
+  $sequence=$_POST['sequence'];
   $provincename=$_POST['provincename'];
-  if(is_numeric($parentdistrict) && is_numeric($sortorder) && $provincename){
+  if(is_numeric($parentdistrict) && is_numeric($sequence) && $provincename){
      $existid=$conn->query('select * from mg_district where parent='.$parentdistrict.' and name=\''.$provincename.'\'')->fetchColumn(0);
      if($existid)PageReturn('同级的地区名称已经存在了！');
-     $sql="mg_district set parent=$parentdistrict,name='$provincename',sortorder='$sortorder'";
+     $sql="mg_district set parent=$parentdistrict,name='$provincename',sequence='$sequence'";
      if($conn->exec("update $sql where parent=-1 limit 1") || $conn->exec("insert into $sql"))PageReturn('添加成功！');
   }
 }
@@ -63,11 +63,11 @@ function do_generatescript(){
   $provincearray="var provincearray=new Array(new Option('请选择省份……','0')";
   $script_path=$_SERVER['DOCUMENT_ROOT'].WEB_ROOT.'user/district.js';
   $myscript="var cityarray=[];\ncityarray['0']=new Array(new Option('请选择城市……','0'));\n";
-  $res=$conn->query('select * from mg_district where parent=0 order by sortorder',PDO::FETCH_ASSOC);
+  $res=$conn->query('select * from mg_district where parent=0 order by sequence',PDO::FETCH_ASSOC);
   foreach($res as $row){
     $provincearray.=",new Option('{$row['name']}','{$row['id']}')";
     $myscript.="cityarray['{$row['id']}']=new Array(\n";
-      $subquery=$conn->query('select * from mg_district where parent='.$row['id'].' order by sortorder',PDO::FETCH_ASSOC);
+      $subquery=$conn->query('select * from mg_district where parent='.$row['id'].' order by sequence',PDO::FETCH_ASSOC);
       $subcount=0;
       foreach($subquery as $subrs){
         if($subcount)$myscript.=",\n";
@@ -142,10 +142,10 @@ function EditDistrict(clickbutton){
     myform.submit();
   }
   else if(buttonname=="添加"){
-    var sortorder=myform.sortorder.value.trim();
-    if(sortorder=="" || isNaN(sortorder)){
+    var sequence=myform.sequence.value.trim();
+    if(sequence=="" || isNaN(sequence)){
       alert("请填写有效的序号！");
-      myform.sortorder.focus();
+      myform.sequence.focus();
       return false;
     } 		
     if(myform.provincename.value.trim()==""){
@@ -180,12 +180,12 @@ function EditDistrict(clickbutton){
 <td width="40%" background="images/topbg.gif"><strong>名称</strong></td>
 <td width="50%" background="images/topbg.gif"><strong>操作</strong></td>
 </tr><?php
-$res=$conn->query('SELECT  * From mg_district where parent='.$parentdistrict.' order by sortorder',PDO::FETCH_ASSOC);
+$res=$conn->query('SELECT  * From mg_district where parent='.$parentdistrict.' order by sequence',PDO::FETCH_ASSOC);
 $row=$res->fetch();
 if(empty($row)) echo '<tr align=center bgcolor="#ffffff"><td colspan="5" align="center">还没有添加下属地区</td></tr>';
 else do{?>
 <tr align=center bgcolor="#ffffff" onMouseOut="mOut(this)" onMouseOver="mOvr(this)"><form method="post">
-  <td align=center><input class=input_text type="text" name="sortorder" size="10" value="<?php echo $row['sortorder'];?>" ONKEYPRESS="event.returnValue=IsDigit();" onMouseOver="this.focus()"  onFocus="this.select()"></td>
+  <td align=center><input class=input_text type="text" name="sequence" size="10" value="<?php echo $row['sequence'];?>" ONKEYPRESS="event.returnValue=IsDigit();" onMouseOver="this.focus()"  onFocus="this.select()"></td>
   <td align=center><input class=input_text type="text" name="provincename" size="10" value="<?php echo $row['name'];?>"  onMouseOver="this.focus()"  onFocus="this.select()"></td>
   <td align=center><input type="hidden" value="<?php echo $row['id'];?>" name="provinceid"><input type="button" value="保存" onclick="EditDistrict(this)"> &nbsp;  <input type="button" value="删除" onclick="EditDistrict(this)"> &nbsp; <input type="button" value="管理下属地区..." onclick="EditDistrict(this)"></td>
 </tr></form><?php
@@ -200,7 +200,7 @@ else do{?>
 <form method="post">
 <tr align=center bgcolor="#FFFFFF"> 
 <td width=33% align=center> 
-序号：<input class=input_str type="text" name="sortorder" size="10" ONKEYPRESS="event.returnValue=IsDigit();"  onMouseOver="this.focus()"  onFocus="this.select()">
+序号：<input class=input_str type="text" name="sequence" size="10" ONKEYPRESS="event.returnValue=IsDigit();"  onMouseOver="this.focus()"  onFocus="this.select()">
 </td>
 <td width=33% align=center> 
 名称：<input class=input_str type="text" name="provincename" size="10"  onMouseOver="this.focus()"  onFocus="this.select()">
@@ -213,4 +213,4 @@ else do{?>
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

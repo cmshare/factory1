@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin('PRODUCT');
-OpenDB();
+db_open();
 
 $mode=@$_GET['mode'];
 if($mode=='sethot'){
@@ -150,4 +150,4 @@ foreach($res as $row){
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

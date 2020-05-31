@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 
 
 $mode=@$_POST['mode'];
@@ -114,7 +114,7 @@ if($mode){
     }
   }
           
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -276,4 +276,4 @@ else echo '<tr bgcolor="#FFFFFF" id="dummyrow"><td align="center" colspan=8><br>
 </table>
 </form>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

@@ -10,16 +10,16 @@ switch(@$_POST['mode']){
 	$ProductID=$_POST['id'];
         if(is_numeric($ProductID)){
           include('m_reviews.php');
-          OpenDB();
+          db_open();
           show_product_reviews($LoginUserID,$ProductID);
-          CloseDB();
+          db_close();
         }
         break;
   case 'del':
         $ReviewID=$_POST['reviewid'];
   	if(is_numeric($ReviewID) && $ReviewID>0){
           $errmsg='';
-          OpenDB();
+          db_open();
   	  $rs=$conn->query('select productid,audit from `mg_review` where productid>0 and id='.$ReviewID,PDO::FETCH_ASSOC)->fetch();
           if($rs){
   	    if($rs['audit']==0){
@@ -31,7 +31,7 @@ switch(@$_POST['mode']){
   	      $errmsg='对不起，无法删除已经审核的评论！';
             }         
           }
-          CloseDB();
+          db_close();
           echo $errmsg;
           exit(0); 
        }
@@ -41,7 +41,7 @@ switch(@$_POST['mode']){
         $remark=FilterText(trim($_POST['remark']));	
         $vote=$_POST['vote'];
         if(is_numeric($ProductID) && is_numeric($vote) && $ProductID>0 && $remark){
-          OpenDB();
+          db_open();
   	  $ShopUserName=$conn->query('select username from `mg_users` where id='.$LoginUserID)->fetchColumn(0);
           if($ShopUserName){
             $ip=GetIP();
@@ -51,7 +51,7 @@ switch(@$_POST['mode']){
   	      mark_product($ProductID);
             }
           }
-          CloseDB();
+          db_close();
         }
         break;
 }

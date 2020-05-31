@@ -1,5 +1,5 @@
 ﻿<?php require('include/conn.php');
-OpenDB();
+db_open();
 
 $id=@$_GET["id"];
 if(is_numeric($id)) $sql_condition='id='.$id;
@@ -58,7 +58,7 @@ include("include/page_head.php");?>
 </table>
 <?php
   include("include/page_bottom.htm");
-  CloseDB();
+  db_close();
 ?>
 </body>
 </html> 

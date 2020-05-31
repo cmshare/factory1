@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('FINANCE');
-OpenDB();
+db_open();
 ?><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -57,4 +57,4 @@ foreach($res as $row){
 InitHtmlUpdate(5,"mg_checkorder.php?mode=batchsettlement","mytable");
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

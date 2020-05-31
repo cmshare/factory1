@@ -1,7 +1,7 @@
 <?php require('include/conn.php');
 $news_limited='property=1';
 $id=@$_GET['id'];
-OpenDB();
+db_open();
 if(is_numeric($id) && $id>0){
     $row=$conn->query('select * from `mg_article` where id='.$id.' and '.$news_limited,PDO::FETCH_ASSOC)->fetch();
     if($row){
@@ -11,7 +11,7 @@ if(is_numeric($id) && $id>0){
       $newsproperty=$row['property'];
     }
     else{
-      CloseDB();
+      db_close();
       echo '您访问的内容不存在或者已经删除!';
       exit(0);
     }
@@ -88,7 +88,7 @@ function ShowNews(){
 }
 if(@$_POST['action']=='get'){
   ShowNews();
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -128,6 +128,6 @@ require('include/page_head.php');?>
   JumpToPage(htmRequest("page"));
 </script><?php
 require('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html>

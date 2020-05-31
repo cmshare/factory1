@@ -5,7 +5,7 @@
 <STYLE TYPE="text/css">
  td {font-size: 10pt}
 </STYLE>
-<SCRIPT language="JavaScript" src="../include/brandsel.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="../include/category.js" type="text/javascript"></SCRIPT>
 <SCRIPT LANGUAGE=JavaScript>
 function htmRequest(name) {
   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -31,7 +31,7 @@ function Submit_ChangeCategory(myform){
 <TABLE width="100%"  border="1"  align="center" bordercolor="#FF6600" bgcolor="#FF6600" cellpadding="4" cellspacing="1" bgcolor="#FFFFFF">
 <TR><form>
  	 <TD width="100%"><font color="#FFFFFF"><strong>将选定的 <font id="ProductCount" color="#00FFAA">0</font> 件商品重置分类 </strong></font>
- 	 </TD><TD><script language="javascript">CreateBrandSelection("brand",0,"--请选择商品分类--",0)</script></TD>
+ 	 </TD><TD><script language="javascript">CreateCategorySelection("brand",0,"--请选择商品分类--",null)</script></TD>
 </TR>
 <TR bgcolor="#f7f7f7" >
 	<TD align="right" bgcolor="#FFCC00" colspan="2"><input  type="button"  value=" 提交 " onclick="Submit_ChangeCategory(this.form)">&nbsp;</TD>

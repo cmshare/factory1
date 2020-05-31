@@ -3,7 +3,7 @@
    echo ' Not login! <a href="mg_leftnav.php">[Refresh]</a>';
    exit(0);
  }
- OpenDB();
+ db_open();
  $res_menu=$conn->query("select * from `mg_popedom` where parent=0 order by sort",PDO::FETCH_ASSOC);
 ?>
 <html>
@@ -157,7 +157,7 @@ top.window.onunload=function(){
       }
     }  
   }
-  CloseDB();?>
+  db_close();?>
  <!----------------------------------------------------------------------------------------->    
       <TABLE cellSpacing=0 cellPadding=0 width=158 align=center>
       <TR>

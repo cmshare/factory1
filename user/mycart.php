@@ -6,14 +6,14 @@ if(!CheckLogin(0)){
   exit(0);
 }
 
-OpenDB();
+db_open();
 switch($action){
   case 'del':  DeleteFromCart();break;
   case 'save': UpdateCart();break;
   case 'seltofav': SelToFav();break;
   default: GetList();break;
 }
-CloseDB();
+db_close();
 
 function DeleteFromCart(){
   global $conn,$LoginUserID;

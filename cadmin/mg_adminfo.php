@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 $OwnPopedomManage=CheckPopedom('MANAGE');
 $userid=@$_GET['userid'];
 if($userid && !(is_numeric($userid) && $OwnPopedomManage)) $userid=0;
@@ -206,4 +206,4 @@ function FormCheck(myform)
 </script> 
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin('SYSTEM');
-OpenDB();
+db_open();
 	
 $action=@$_GET['action'];
 
@@ -17,10 +17,10 @@ function deliverysave(){
   if(is_numeric($id) && $id>0){
     $subject=FilterText(trim($_POST['subject']));
     $memo=FilterText(trim($_POST['memo']));
-    $sortorder=$_POST['sortorder'];
+    $sequence=$_POST['sequence'];
     $fee=$_POST['fee'];
     $insurance=$_POST['insurance'];
-    $sql="update mg_delivery set subject='$subject',fee=$fee,insurance=$insurance,memo='$memo',sortorder=$sortorder where id=$id";
+    $sql="update mg_delivery set subject='$subject',fee=$fee,insurance=$insurance,memo='$memo',sequence=$sequence where id=$id";
     $GLOBALS['conn']->exec($sql);
     PageReturn('成功修改了送货方式！');
   }    
@@ -29,11 +29,11 @@ function deliverysave(){
 function deliveryadd(){
   $subject=FilterText(trim($_POST['subject']));
   $fee=$_POST['fee'];
-  $sortorder=$_POST['sortorder'];
-  if($subject && is_numeric($fee) && is_numeric($sortorder)){
+  $sequence=$_POST['sequence'];
+  if($subject && is_numeric($fee) && is_numeric($sequence)){
     $memo=FilterText(trim($_POST['memo']));
     $insurance=$_POST['insurance'];
-    $sql="insert into mg_delivery set subject='$subject',fee=$fee,insurance=$insurance,memo='$memo',sortorder=$sortorder,method=0";
+    $sql="insert into mg_delivery set subject='$subject',fee=$fee,insurance=$insurance,memo='$memo',sequence=$sequence,method=0";
     if($GLOBALS['conn']->exec($sql)) PageReturn('成功添加了新的送货方式！');
   }
   else PageReturn('信息不完整！');
@@ -67,7 +67,7 @@ function deliverydel(){
     <td width="11%" height="25" background="images/topbg.gif"><strong>操作</strong></td>
   </tr><?php
 $jishu=0;
-$res=$conn->query('select * from mg_delivery where method=0 order by sortorder',PDO::FETCH_ASSOC);
+$res=$conn->query('select * from mg_delivery where method=0 order by sequence',PDO::FETCH_ASSOC);
 foreach($res as $row){?>
   <form method="post" >
   <tr align="center" bgcolor="#FFFFFF">
@@ -77,7 +77,7 @@ foreach($res as $row){?>
     <td height="25"><input name="insurance" type="text" class="input_sr" value=<?php echo $row['insurance'];?> size="6">
       %</td>
     <td height="25"><textarea name="memo" cols="46" rows="4"><?php echo $row['memo'];?></textarea></td>
-    <td height="25"><input name="sortorder" type="text" class="input_sr" value=<?php echo $row['sortorder'];?> size="2"></td>
+    <td height="25"><input name="sequence" type="text" class="input_sr" value=<?php echo $row['sequence'];?> size="2"></td>
     <td height="25"><input type="button" class="input_bot" value="修改" onclick="modify_delivery(this.form)"><input  type="button" class="input_bot" value="删除" onclick="delete_delivery(this.form)"><input type="hidden" value="<?php echo $row['id'];?>"></td>
   </tr>
   </form><?php
@@ -102,7 +102,7 @@ foreach($res as $row){?>
       元</td>
       <td height="25"><input name="insurance" type="text" class="input_sr" id="insurance" size="6"> %</td>
       <td height="25"><textarea name="memo" cols="46" rows="4" id="memo"></textarea></td>
-      <td height="25"><input name="sortorder" type="text" class="input_sr" id="sortorder" value="<?php echo $jishu+1;?>" size="2"></td>
+      <td height="25"><input name="sequence" type="text" class="input_sr" id="sequence" value="<?php echo $jishu+1;?>" size="2"></td>
       <td height="25"><input name="Submit" type="submit" class="input_bot" value="添加"></td>
     </tr>
     </form>
@@ -125,4 +125,4 @@ function delete_delivery(myform){
 </script>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

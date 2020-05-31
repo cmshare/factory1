@@ -2,7 +2,7 @@
 $PageKeywords='用户注册,化妆品,化妆品批发,韩国化妆品批发,进口化妆品批发,上海化妆品批发,苏州化妆品批发,无锡化妆品批发,南京化妆品批发';
 $PageDescription='这是香港銘悅商城新用户注册中心,铭悦商城提供各种进口化妆品批发,韩国化妆品批发,上海化妆品批发,无锡化妆品批发,苏州化妆品批发等品牌化妆品批发零售业务';
 $PageTitle='新用户注册 - 韩国化妆品批发|进口化妆品批发|欧美品牌化妆品批发-铭悦商城贸易有限公司';
-OpenDB();
+db_open();
 require('include/page_head.php');?>
 <TABLE align="center" width="1000"  border="0" cellSpacing=0 cellPadding=0 background="images/client_bg_mid.gif">
 <TR><TD colspan=2 height="15"></TD></TR>	
@@ -22,6 +22,6 @@ require('include/page_head.php');?>
 </TR>
 </TABLE><?php
 require('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html>

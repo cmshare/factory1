@@ -28,11 +28,11 @@ else{
   $sql_query='select id,name,spec,stock0,price0,price1,price3,onsale '.$sql_count.' order by addtime desc';
 }
 
-OpenDB();
+db_open();
 
 if(@$_POST['action']=='get'){ 
   ShowWareList(true);
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -64,8 +64,8 @@ include('include/page_head.php');?>
     <tr>
       <td height="1%" align="center"><?php  
         #导航:商品分类 开始 
-        include('include/guide_brand.htm');
-        include('include/guide_category.htm'); 
+        include('include/guide_category.htm');
+        include('include/guide_catsort.htm'); 
         #导航:商品分类 结束
         ?>  
       </td></tr>
@@ -119,6 +119,6 @@ include('include/page_head.php');?>
 </script>
 <?php
 include('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html> 

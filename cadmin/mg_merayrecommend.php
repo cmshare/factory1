@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('MANAGE');
-OpenDB();
+db_open();
 $OrderName='MerayRecommend';
 $mode=@$_GET['mode'];
 if($mode=='addnew'){
@@ -129,4 +129,4 @@ function AddNewProduct(){
 }
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

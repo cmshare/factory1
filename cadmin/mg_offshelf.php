@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin('PRODUCT');
-OpenDB();
+db_open();
 
 $sort_name=@$_COOKIE['sort_name'];	  
 if($sort_name){
@@ -23,7 +23,7 @@ $sql_sort_code='order by '.$sort_name.' '.$sort_order;
 
 function sorts($selec){
    global $conn,$CatList;
-   $res=$conn->query('select id from mg_category where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
+   $res=$conn->query('select id from mg_category where parent = '.$selec.' order by sequence',PDO::FETCH_NUM);
    foreach($res as $row){
       $brandid = $row[0];
       $CatList = $CatList.','.$brandid;
@@ -206,4 +206,4 @@ else{
 <?php if($keyname) echo 'ProSearchAutoSelect("'.$keyname.'","'.$keyvalue.'");';?>
 </script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

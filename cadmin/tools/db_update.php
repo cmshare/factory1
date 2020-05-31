@@ -4,7 +4,7 @@
 header("content-type:text/html;charset=utf-8"); 
 date_default_timezone_set("PRC");//设置时区，否则将时间戳转换为时间字符串时会有时差；
 
-function OpenDB()
+function db_open()
 { global $conn,$conn; 
   if(empty($conn))
   { try
@@ -20,12 +20,12 @@ function OpenDB()
   }  
 }  
 
-function CloseDB()
+function db_close()
 { global $conn; 
   if(isset($conn))unset($conn);
 }
 
-OpenDB();
+db_open();
 $query=$conn->query("select *  from  mc_admins ",PDO::FETCH_ASSOC); 
 foreach($query as $rs){
 /*   $app_url=str_replace('http://www.mplanet.cn','',$rs['app_download_url']);
@@ -37,6 +37,6 @@ foreach($query as $rs){
  //  $conn->exec("update mc_devgroup set mainfw_upgradestory='{$rs['fwupgradestory']}' where id={$rs['id']}"); 
 }
 
-CloseDB();
+db_close();
 echo WEB_DOMAIN;
 ?>

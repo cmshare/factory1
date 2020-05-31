@@ -2,7 +2,7 @@
 $id=@$_GET["id"];
 $granted=false;
 if(is_numeric($id)){
-  OpenDB();
+  db_open();
   $row=$conn->query("select name,price0,price1,price3,onsale from `mg_product` where id=$id",PDO::FETCH_NUM)->fetch();
   if($row){
     $ProductName=$row[0];
@@ -17,7 +17,7 @@ if(is_numeric($id)){
       if($ShopUserGrade>2 && ($ShopUserScore>0 || $ShopUserDeposit>100))$granted=true;
     }
   }
-  CloseDB(); 
+  db_close(); 
   $pic_url=product_pic($id,$granted?2:1);
 }
 ?><HTML>

@@ -1,7 +1,7 @@
 <?php require('includes/dbconn.php');
 #注意：向后台会员回消息时，如果改后台会员在前台没有相同名称的账号时，有可能会出现故障。
 CheckLogin();
-OpenDB();
+db_open();
 	  
 $action=@$_GET['action'];
 
@@ -42,7 +42,7 @@ else if($action=='send'){
       }
     }
   }
-  CloseDB();
+  db_close();
   header('Location: ?mode=2');		
   exit(0);
 }
@@ -93,7 +93,7 @@ else if($action=='checkuser'){
     $existid=$conn->query('select id from mg_users where username=\''.$username.'\'')->fetchColumn(0);
     if($existid) echo 'OK';  
   }
-  CloseDB();
+  db_close();
   exit(0);
 }?>
 <html>
@@ -433,4 +433,4 @@ else{
 
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

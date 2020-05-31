@@ -1,6 +1,6 @@
 <?php require('include/conn.php');
 require('user/m_reviews.php');
-OpenDB();
+db_open();
 CheckLogin(0);
 
 $id=@$_GET['id'];
@@ -23,7 +23,7 @@ else{
 if(empty($roware)){
   echo '<script language="javascript">alert("此产品不存在或已经下架！");</script>';
   echo '<p align=center><a href="'.WEB_ROOT.'#">点击这里返回主页</a></p>';
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -32,34 +32,20 @@ $LinkSortGuider='';
 $brand = $roware['brand'];
 $PID = $brand; 
 while($PID){
-  $row1=$conn->query('select id,title,parent,isbrand from `mg_category` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+  $row1=$conn->query('select id,title,pid,isbrand from `mg_category` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
   if($row1){
     if($row1['isbrand'] && empty($ProductBrand)) $ProductBrand=$row1['title']; 
   }
   else{
-    echo '<script LANGUAGE="javascript">alert("您输入的参数非法，请正确操作！");history.go(-1);</script>';
-    CloseDB();
+    echo '<script language="javascript">alert("您输入的参数非法，请正确操作！");history.go(-1);</script>';
+    db_close();
     exit(0);
   }
   $LinkSortGuider = '&nbsp;&gt;&gt;&nbsp;<a href="/category/cat'.$row1['id'].'.htm">'.$row1['title'].'</a>'.$LinkSortGuider;
-  if(empty($ParentBrand)) $ParentBrand=$row1['parent'];
-  $PID = $row1['parent'];
+  if(empty($ParentBrand)) $ParentBrand=$row1['pid'];
+  $PID = $row1['pid'];
 }
 if(empty($ProductBrand)) $ProductBrand='其它品牌';  
-
-
-#遍历子级品牌分类 
-function sorts($selec){
- global $conn,$CatList;
- $res=$conn->query('select id from `mg_category` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
- foreach($res as $row1){
-    $CatList.=', '.$row1[0];
-    sorts($row1[0]);
- }
-}
-$CatList =$brand;
-sorts($brand);
-
 
 $StarRecommend=$roware['recommend'];
 if($StarRecommend<3)$StarRecommend=3;
@@ -77,7 +63,7 @@ include('include/page_head.php');?>
 <tr >
   <td width="200" valign="TOP">
   <table cellSpacing="0" cellPadding="0" width="100%" height="100%" border="0" style="background:url(/images/bg_left.gif) repeat-y;margin-top:30px;">
-  <tr><td height="1%"><SCRIPT language="JavaScript" src="/include/guide_sort.js" type="text/javascript"></SCRIPT></td></tr>
+  <tr><td height="1%"><SCRIPT src="/include/category.js"></SCRIPT><SCRIPT language="JavaScript" src="/include/guide_sort.js" type="text/javascript"></SCRIPT></td></tr>
   <tr><td height="99%"><?php include('include/guide_blank.php');?></td></tr>
   </table>
   </td>
@@ -209,8 +195,7 @@ include('include/page_head.php');?>
 </tr>   
 </table><?php
 #同类商品滚动栏 开始
-
-$res=$conn->query('select id,name,price1,price3 from `mg_product` where brand in  ('.$CatList.') and recommend>0 and id<>'.$id.' order by recommend desc,addtime desc limit 12',PDO::FETCH_ASSOC); 
+$res=$conn->query('select id,name,price1,price3 from `mg_product` where brand='.$brand.' and recommend>0 and id<>'.$id.' order by recommend desc,addtime desc limit 12',PDO::FETCH_ASSOC); 
 if($res->fetch()){?>
 <TABLE cellSpacing=0 cellPadding=0 width="100%" align="center"  border="0" bgcolor="#ffffff">
 <tr>
@@ -255,6 +240,6 @@ foreach($res as $row){
 </tr>	
 </table><?php
 include('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html>

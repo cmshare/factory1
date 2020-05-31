@@ -86,7 +86,7 @@ if isNumeric(CID) then CID=CInt(CID) else CID=0
 
 If CID<>0 Then
   sub sorts(selec)
-	   Set Rs1=Conn.Execute("select id from [category] where Parent = "&selec&" order by sortorder")
+	   Set Rs1=Conn.Execute("select id from [category] where Parent = "&selec&" order by sequence")
      do while not rs1.eof
 		   IntCat =  rs1("id")
 	 	   'If InStr( CatList, IntCat ) <= 0 Then

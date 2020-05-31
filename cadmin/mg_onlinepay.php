@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 /* 旧版-交易状态说明-参考
 0   :  删除的交易记录
 10  :  网银交易开始
@@ -191,4 +191,4 @@ else{
 </tr>
 </table>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

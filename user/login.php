@@ -8,9 +8,9 @@ if($mode=='logout'){
 else if($mode=='getinfo'){
   $userid=@$_COOKIE['cmshop']['userid'];
   if($_GET['userid']==$userid && is_numeric($_COOKIE['cmshop']['usergrade'])){
-    OpenDB();
+    db_open();
     echo GetUserInfo($userid);
-    CloseDB();
+    db_close();
   }
   else setcookie('cmshop[userid]','',time(),'/');
   exit(0);
@@ -53,7 +53,7 @@ else if(empty($password)) $errormsg='密码不能为空！';
 else if(empty($verifycode) || strtolower($verifycode)!=strtolower($_SESSION['VerifyCode']) ) $errormsg='验.证码无效！';
 else{
   $errormsg='';
-  OpenDB();
+  db_open();
   $row=$conn->query("select id,grade,password,lastlogin from `mg_users` where username='$username'",PDO::FETCH_ASSOC)->fetch();
   if(empty($row)) $errormsg='该用户名不存在！';
   else if(($password_md5=md5($password))!=$row['password']){
@@ -76,6 +76,6 @@ else{
     setcookie('cmshop[unreadmsg]',GetUnreadMsgCount($username),time()+3600,'/');
     echo GetUserInfo($userid);
   }    
-  CloseDB();
+  db_close();
 } 
 if($errormsg)echo $errormsg;

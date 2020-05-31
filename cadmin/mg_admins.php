@@ -1,6 +1,6 @@
 <?php require("includes/dbconn.php");
 CheckLogin();
-OpenDB();
+db_open();
 CheckMenu('超级用户管理');
 if(($mode=@$_GET["mode"])) {
   if($mode=="modify") {
@@ -217,7 +217,7 @@ function UpdateUserPopedom(objCheckBox){
     </tr><?php
      }
     }
-    CloseDB();
+    db_close();
     ?>
     </table></form>
   </td>

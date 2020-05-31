@@ -114,32 +114,11 @@ function getCookie(name){
   }else return null;
 }
 
-function CreateXMLHTTP()
-{ var xmlhttp;
-  try 
-  { xmlhttp = new XMLHttpRequest();
-  } 
-  catch (trymicrosoft)
-  { try
-    { xmlhttp= new ActiveXObject("Msxml2.XMLHTTP");
-  　}
-    catch (othermicrosoft)
-    { try
-      { xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
-  　　}
-      catch (failed)
-      { xmlhttp = null;
-  　　}
- 　 }
-  }
-  return xmlhttp; 
-}
- 
 
 function SyncPost(formContent,actionURL){
-  var xmlhttp=CreateXMLHTTP();
+  var xmlhttp=new XMLHttpRequest();
   xmlhttp.open("post",actionURL,false);   
-  xmlhttp.setRequestHeader("Content-length",formContent?formContent.length:0);   
+  //xmlhttp.setRequestHeader("Content-length",formContent?formContent.length:0);   
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");   
   xmlhttp.send(formContent);  
   return (xmlhttp.readyState==4 && xmlhttp.status==200)?xmlhttp.responseText:null;
@@ -147,15 +126,15 @@ function SyncPost(formContent,actionURL){
 
 function AsyncPost(formContent,actionURL,callback){
   var msgbox=(typeof(callback)=='function')?null:document.getElementById(callback);
-  var xmlhttp=CreateXMLHTTP();
+  var xmlhttp=new XMLHttpRequest();
   xmlhttp.onreadystatechange=function(){
     if(xmlhttp.readyState==4){
       if(msgbox)msgbox.innerHTML=(xmlhttp.status==200)?xmlhttp.responseText:"<p align=center>服务器请求失败，可能是您的网速太慢，请刷新重试!</p>";
-      else callback((xmlhttp.status==200)?xmlhttp.responseText:null);
+      else if(callback)callback((xmlhttp.status==200)?xmlhttp.responseText:null);
     }
   }
   xmlhttp.open("post",actionURL,true);
-  xmlhttp.setRequestHeader("Content-length",formContent?formContent.length:0);   
+  //xmlhttp.setRequestHeader("Content-length",formContent?formContent.length:0);   
   xmlhttp.setRequestHeader('content-type','application/x-www-form-urlencoded');
   xmlhttp.send(formContent); 
   if(msgbox)msgbox.innerHTML="<p align=center style='color:#FF0000'>正在加载数据，请稍候...</p>";
@@ -268,9 +247,9 @@ function CheckIdentity(pId)
   return (pId.length ==18 && pId != Ai)?"身份证输入错误！":Ai;        
 }
 
-function AsyncDialog(wndtitle,content,w,h,callback)
-{ var dlg=document.createElement("DIV");
-  var dragObject=null,dragX=0,dragY=0;
+function AsyncDialog(wndtitle,content,w,h,callback){
+  var dlg=document.createElement("DIV");
+  var dragObject=null,dragX=0,dragY=0,domContent=null,domParnet,domContentOldDisplay;
   dlg.style.position="absolute";
   dlg.style.zIndex="9999"; 
   dlg.style.width=w+"px";
@@ -278,10 +257,23 @@ function AsyncDialog(wndtitle,content,w,h,callback)
   dlg.style.left=Math.round((document.body.scrollWidth-w)/2)+"px";
   dlg.style.top =(120+document.body.scrollTop)+"px";
   document.body.appendChild(dlg);
-  if(content.charAt(0)!='<')content='<iframe src="'+content+'" style="width:'+w+'px;height:'+h+'px;" marginwidth=0 marginheight=0 scrolling="no" Frameborder="no"></iframe>';
+  if(content){
+    if(typeof(content)=='object' && content.nodeType){
+      domContent=content;
+      domParnet=domContent.parentNode;
+      if(domContent.offsetParent===null){domContentOldDisplay=domContent.style.display;domContent.style.display='block';}
+      content='';
+    }
+    else if(content.charAt(0)!='<'){
+      content='<iframe src="'+content+'" style="width:'+w+'px;height:'+h+'px;" marginwidth=0 marginheight=0 scrolling="no" Frameborder="no"></iframe>';
+    }  
+  }
   dlg.innerHTML='<table width="'+w+'" height="'+h+'" style="border-radius:5px 5px 5px 5px;background-color:#0D9EFA;border-collapse:separate;border-spacing:2px;" align="center"><tr><td height="20" style="color:#ffffff;font-size:9pt;font-weight:bold;" onmousedown ="moveDialog(1,event);" onmousemove="moveDialog(2,event);" onmouseup="moveDialog();" onmouseout="moveDialog();">⊙ '+wndtitle+'</td><td align="right"><img style="cursor:pointer" onclick="self.closeDialog()" src="/images/closebtn1.gif" border=0></td></tr><tr><td colspan="2" style="background-color:#dfdfdf;text-align:center">'+content+'</td></tr></table>';
+  if(domContent){
+    dlg.children[0].rows[1].cells[0].appendChild(domContent);
+  }
   if(self.closeDialog)self.closeDialog();
-  self.closeDialog=function(ret){if(self.closeDialog.arguments.length==0||!callback || callback(ret)){document.body.removeChild(dlg);self.closeDialog=null;}}//闭包
+  self.closeDialog=function(ret){if(self.closeDialog.arguments.length==0||!callback || callback(ret)){if(domContent){if(domContentOldDisplay!==undefined)domContent.style.display=domContentOldDisplay;domParnet.appendChild(domContent);} document.body.removeChild(dlg);self.closeDialog=null;}}//闭包
   self.moveDialog=function(mode,event){if(mode==2){if(dragObject){dragObject.style.left=event.clientX-dragX+"px";dragObject.style.top=event.clientY-dragY+"px";}}else if(mode==1){dragObject = dlg;dragX=event.clientX-parseInt(dragObject.style.left);dragY=event.clientY-parseInt(dragObject.style.top);}else if(dragObject) dragObject= null;}
 }
 

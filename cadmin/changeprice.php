@@ -3,7 +3,7 @@ $ProductID=@$_GET['id'];
 if(is_numeric($ProductID) && $ProductID>0) CheckLogin('PRODUCT');
 else exit(0);
 
-OpenDB();
+db_open();
 
 if(@$_POST['mode']=='save'){
    $price1=trim(@$_POST['price1']);
@@ -26,14 +26,14 @@ if(@$_POST['mode']=='save'){
        if($conn->exec($sql.' where id='.$ProductID)) echo '修改成功！<OK>';
        else echo '参数错误！';
    }
-   CloseDB();
+   db_close();
    exit(0);
 }
 
 $row=$conn->query('select name,price1,price2,price3,price4,cost from mg_product where id='.$ProductID,PDO::FETCH_ASSOC)->fetch();
 if(empty($row)){
   echo '<p align="center">参数错误！</p>';
-  CloseDB();
+  db_close();
   exit(0);
 }
 else{
@@ -46,7 +46,7 @@ else{
 <TITLE>修改商品价格</TITLE>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <STYLE TYPE="text/css"> td {font-size: 10pt}</STYLE>
-<script language="javascript" src="editproduct.js"></script>
+<script language="javascript" src="checkproduct.js"></script>
 <SCRIPT language="JavaScript" src="includes/mg_comm.js" type="text/javascript"></SCRIPT>
 <SCRIPT LANGUAGE=JavaScript>
 function Submit_Price(myform){
@@ -114,4 +114,4 @@ if(myform)myform.CancelButton.focus();
 </TABLE>
 
 </BODY>   
-</HTML><?php CloseDB();?>
+</HTML><?php db_close();?>

@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 if(@$_GET['mode']=='addnew'){
   $OrderName=$_POST['ordername'];
   $ProductID=$_POST['productid'];
@@ -42,7 +42,7 @@ if(@$_GET['mode']=='addnew'){
       else echo '该商品编号不存在或者已经下架！'; 
     }
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -51,7 +51,7 @@ $ProductID=@$_GET['productid'];
 $OrderName=FilterText(@$_GET['ordername']);
 if(!is_numeric($ProductID) || empty($OrderName)) PageReturn('参数错误！！！',0);
 
-OpenDB();
+db_open();
 $row=$conn->query('select mg_users.username,mg_users.grade,mg_orders.state from mg_users inner join mg_orders on mg_users.username=mg_orders.username where mg_orders.ordername=\''.$OrderName.'\'',PDO::FETCH_ASSOC)->fetch();  
 if($row && ($row['state']==1 || $row['state']==2 || $row['state']==-1)){
   $ShopUserGrade=$row['grade'];
@@ -101,7 +101,7 @@ if($row){
         $row=$res->fetch();
       }while($row);
       echo '</select></div></center>';
-      CloseDB();
+      db_close();
       exit(0);
     }
 }
@@ -181,4 +181,4 @@ function InitFavRemarks()
 InitFavRemarks();    	 
 </script> 
 </body>  
-</html><?php CloseDB();?>
+</html><?php db_close();?>

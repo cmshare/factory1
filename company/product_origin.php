@@ -1,12 +1,12 @@
 <?php require('include/conn.php');
 require('user/m_reviews.php');
 
-OpenDB();
+db_open();
 
 #遍历子级品牌分类 
 function brand_sort($selec){
  global $conn,$CatList;
- $res=$conn->query('select id from `mg_category` where parent = '.$selec.' order by sortorder',PDO::FETCH_NUM);
+ $res=$conn->query('select id from `mg_category` where pid = '.$selec.' order by sequence',PDO::FETCH_NUM);
  foreach($res as $row){
     $CatList.=', '.$row[0];
     brand_sort($row[0]);
@@ -15,7 +15,7 @@ function brand_sort($selec){
 
 if(@$_POST['action']=='get'){
   ShowProduct();
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -27,7 +27,7 @@ function ShowProduct(){
   }
   if(empty($rowware)){
     echo '<br><br><p align=center>此产品不存在或已经下架！<br><br><a href="'.WEB_ROOT.'">点击这里返回主页</a></p>';
-    CloseDB();
+    db_close();
     exit(0);
   }
    
@@ -38,18 +38,18 @@ function ShowProduct(){
   $brand = $rowware['brand'];
   $PID = $brand; 
   while($PID){
-    $row=$conn->query('select id,title,parent,isbrand from `mg_category` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
+    $row=$conn->query('select id,title,pid,isbrand from `mg_category` where id='.$PID,PDO::FETCH_ASSOC)->fetch();
     if($row){
       if($row['isbrand'] && empty($ProductBrand)) $ProductBrand=$row['title']; 
     }
     else{
       echo '<script LANGUAGE="javascript">alert("您输入的参数非法，请正确操作！");history.go(-1);</script>';
-      CloseDB();
+      db_close();
       exit(0);
     }
-    $LinkSortGuider = '&nbsp;&gt;&gt;&nbsp;<a href="brandlist.htm?cid='.$row['id'].'">'.$row['title'].'</a>'.$LinkSortGuider;
-    if(empty($ParentBrand)) $ParentBrand=$row['parent'];
-    $PID = $row['parent'];
+    $LinkSortGuider = '&nbsp;&gt;&gt;&nbsp;<a href="catlist.htm?cid='.$row['id'].'">'.$row['title'].'</a>'.$LinkSortGuider;
+    if(empty($ParentBrand)) $ParentBrand=$row['pid'];
+    $PID = $row['pid'];
   }
 
   if(empty($ProductBrand)) $ProductBrand='其它品牌';  
@@ -65,7 +65,7 @@ function ShowProduct(){
         
   <TABLE cellSpacing=0 cellPadding=0 width="100%" height="100%" align="center" border="0" bgcolor="#FFFFFF">
   <TR>
-     <TD width="100%" height="28" valign="middle"  background="images/pdbg01.gif" style="padding-left:25px"><img src="images/arrow2.gif" width="6" height="7">&nbsp;當前位置：&nbsp;<a href=".">首页</a> &gt;&gt; <a href="brandlist.htm">产品中心</a><?php echo $LinkSortGuider;?></TD>
+     <TD width="100%" height="28" valign="middle"  background="images/pdbg01.gif" style="padding-left:25px"><img src="images/arrow2.gif" width="6" height="7">&nbsp;當前位置：&nbsp;<a href=".">首页</a> &gt;&gt; <a href="catlist.htm">产品中心</a><?php echo $LinkSortGuider;?></TD>
      </TR>
      <TR>
         <TD valign="top"  style="padding-top:10px;padding-bottom:20px;">
@@ -225,7 +225,7 @@ require('include/page_head.php');?>
 <TR valign="top">
   <TD background="images/client_bg_left.jpg" width=190" height="100%">
     <TABLE cellSpacing="0" cellPadding="0" width="190" height="100%" border="0">
-    <tr><td height="1%"><SCRIPT language="JavaScript" src="include/guide_sort.js" type="text/javascript"></SCRIPT></td></tr>
+    <tr><td height="1%"><SCRIPT src="../include/category.js"></SCRIPT><SCRIPT language="JavaScript" src="include/guide_sort.js" type="text/javascript"></SCRIPT></td></tr>
     <tr><td height="99%" background="images/left_bg.gif"></td></tr>
     </table> 
   </TD>
@@ -248,6 +248,6 @@ require('include/page_head.php');?>
  }
 </SCRIPT><?php
 require('include/page_bottom.php');
-CloseDB();?>
+db_close();?>
 </body>
 </html> 

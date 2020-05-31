@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 CheckMenu('财务出纳日志');
 
 $MaxSelection=8;
@@ -15,7 +15,7 @@ else if($mode){
   else if($mode=='audit') BatchAudit();
   else if($mode=='batchdelete')BatchDelete();
   else if($mode=='delete')DeleteLog();
-  CloseDB();
+  db_close();
   exit(0);
 }
 else $mode=0;
@@ -281,4 +281,4 @@ function CalculateSelectSum(myform){
 // if Own_popedomFinance then response.write "<img src=""images/edit_1.gif"" alt=""未审核，点击审核..."" style=""cursor:pointer"" onclick=""window.open('b2b_jfgl.asp?id="&rs("id")&"&operation="&CSTR(operation+3)&"','deposit_score')"">"
 </script>  
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 ?><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -32,4 +32,4 @@ foreach($res as $row){
 echo '</table>';?>
 <script>InitHtmlUpdate(8,'mg_htmgen.php?mode=news','mytable');</script>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

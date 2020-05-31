@@ -17,7 +17,7 @@ if(!refer_to_home()){
 
 include('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 
 $BeginDate=@$_GET['begindate'];
 $EndDate=@$_GET['enddate'];
@@ -218,4 +218,4 @@ else echo '<tr><td colspan=4 align="center">统计范围内共<font color="#FF00
   </tr>
 </table>
 </body>
-</html><?php CloseDB();?>
+</html><?php db_close();?>

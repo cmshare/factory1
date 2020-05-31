@@ -28,8 +28,7 @@ CheckLogin();
   <td valign="top" bgcolor="#FFFFFF">
 <p align="center"><a href="mg_htmgen.php?mode=base" style="color:#FF0000">更新--前台基础页面</a></p> 
 <p align="center"><a href="mg_htmgen.php?mode=main">更新--前台单独首页</a></p> 
-<p align="center"><a href="mg_htmbrand.php">更新--品牌分类列表</a></p> 
-<p align="center"><a href="mg_htmcategory.php">更新--功能分类列表</a></p>   	 
+<p align="center"><a href="mg_htmcategory.php">更新--商品分类列表</a></p>  	 
 <p align="center"><a href="mg_htmnews.php">更新--更新新闻文档</a></p>   
 <p align="center"><a href="mg_htmhelp.php">更新--更新帮助文档</a></p>   
 <p align="center"><a href="mg_htmproduct.php">更新--商品详情介绍</a></p>   	

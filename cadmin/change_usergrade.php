@@ -2,7 +2,7 @@
 
 
 CheckLogin();
-OpenDB();
+db_open();
 
 require('config_usergrade.php');
 
@@ -14,7 +14,7 @@ if($mode){
     case 'checkgrade':checkgrade();break;
     case 'restraintobigclient':restraintobigclient();break;
   }
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -94,7 +94,7 @@ if(is_numeric($UserID) && $UserID>0){
 }
 if($UserGrade==0){
   echo '<p align=center>参数错误</p>';
-  CloseDB();
+  db_close();
   exit(0);
 }
 $own_popedomManage=CheckPopedom('MANAGE');?>
@@ -156,4 +156,4 @@ function ChangeUserGrade(myform){
 <iframe name="dummyframe" style="width:100%; height:1px;" scrolling="no" Frameborder="no" marginwidth=0 marginheight=0></iframe>   
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

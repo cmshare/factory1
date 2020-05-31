@@ -1,12 +1,12 @@
 <?php require('includes/dbconn.php');
 CheckLogin('PRODUCT');
-OpenDB();
+db_open();
 
 $mode=@$_GET['mode'];
 if($mode=='setshare'){
   $brandid=$_POST['brandid'];
   if(is_numeric($brandid) && $brandid>0){
-    $conn->exec('update mg_category set shared=1 where id='.$brandid.' and recommend>=0');
+    $conn->exec('update mg_category set shared=1 where id='.$brandid.' and recommend>0');
     PageReturn('设置成功！');	  
   }
 }
@@ -23,9 +23,8 @@ else if($mode=='cancelshare'){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="includes/admincss.css" rel="stylesheet" type="text/css">
 <SCRIPT language="JavaScript" src="includes/mg_comm.js" type="text/javascript"></SCRIPT>
-<SCRIPT language="JavaScript" src="<?php echo WEB_ROOT;?>include/brandsel.js" type="text/javascript"></SCRIPT>
+<SCRIPT language="JavaScript" src="<?php echo WEB_ROOT;?>include/category.js" type="text/javascript"></SCRIPT>
 <style type="text/css">
-<!--
 .input_text{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	color: #000000;
@@ -36,7 +35,6 @@ else if($mode=='cancelshare'){
 	border: 0px solid #CCCCCC;
 	background-color:transparent
 }
--->
 </style>
 <script>
 function SetShareBrand(myForm)
@@ -62,7 +60,7 @@ function cancelshareBrand(myForm)
 <table width="100%" height="100%" border="5" align="center" cellpadding="5" cellspacing="5" bordercolor="#CCCCCC" bgcolor="#FFFFFF">
   <tr bgcolor="#F7F7F7"> 
     <td height="20" colspan="2" background="images/topbg.gif" bgcolor="#F7F7F7">
-       <b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="mg_category.php">品牌分类管理</a> -&gt; <font color=#FF0000>共享品牌分类管理</font></b>
+       <b><img src="images/pic5.gif" width="28" height="22" align="absmiddle" />您现在所在的位置是： <a href="admincenter.php">管理首页</a> -&gt; <a href="mg_category.php">商品分类管理</a> -&gt; <font color=#FF0000>共享品牌分类管理</font></b>
     </td>
   </tr>
 <tr> 
@@ -74,31 +72,15 @@ function cancelshareBrand(myForm)
        <td WIDTH="15%" height="25" align="center" background="images/topbg.gif"><strong>操作</strong></td>
 </tr><?php
     
-function GetBrandPath($parentid,$title){
-   global $conn;
-   while($parentid){
-     $row=$conn->query('select id,title,parent,isbrand from mg_category where id='.$parentid,PDO::FETCH_ASSOC)->fetch();
-     if($row){
-       $title = $row['title'].'>>'.$title;
-       $parentid = $row['parent'];
-       if($row['isbrand'])$parentid=0;
-     }
-     else $parentid=0;  
-   }
-   return $title;
-}
-    
 $sortindex=0;
      
-$res=$conn->query('select * from mg_category where recommend>=0 and shared=1 order by recommend desc',PDO::FETCH_ASSOC);
+$res=$conn->query('select * from mg_category where recommend>0 and shared=1 order by recommend desc',PDO::FETCH_ASSOC);
 foreach($res as $row){
   $sortindex++;?>
      <form method=post>
      <tr align="center" bgcolor="#FFFFFF" height="20" onMouseOut=mOut(this,"#FFFFFF") onMouseOver=mOvr(this,MENU_HOTTRACK_COLOR)> 
        <td height="25"><?php echo $sortindex;?><input type="hidden" name="brandid" value="<?php echo $row['id'];?>"></td>
-       <td height="25"><?php
-       	 if($row['isbrand']) echo $row['title'];
-       	 else echo GetBrandPath($row['parent'],$row['title']);?>
+       <td height="25"><?php echo $row['title'];?>
        </td>
        <td height="25"><input type="button" value="取消共享" onclick="cancelshareBrand(this.form)"></td>
      </tr></form><?php
@@ -110,7 +92,7 @@ foreach($res as $row){
 <tr align="center" bgcolor="#FFFFFF" height="20" onMouseOut=mOut(this,"#FFFFFF") onMouseOver=mOvr(this,MENU_HOTTRACK_COLOR)> 
         <td height="25" background="images/topbg.gif">
         	<script language="javascript">
-            	CreateBrandSelection("brandid",0,"--选择品牌分类--",null);
+            	CreateCategorySelection("brandid",0,"--选择品牌分类--",null);
             </script>
         	
         	</td>
@@ -123,4 +105,4 @@ foreach($res as $row){
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

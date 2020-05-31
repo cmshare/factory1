@@ -1,6 +1,6 @@
 ﻿<?php require('includes/dbconn.php');
  CheckLogin();
- OpenDB();
+ db_open();
  CheckMenu('客户资料管理');
 
  if(@$_GET['mode']=='delete'){
@@ -177,4 +177,4 @@ function ChangeUserGrade(userid){
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

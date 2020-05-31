@@ -1,5 +1,5 @@
 <?php require('include/conn.php');
-OpenDB();
+db_open();
 
 $news_limited='(property=1 or property=2)';
 $id=@$_GET['id'];
@@ -12,7 +12,7 @@ if(is_numeric($id) && $id>0){
      $newsproperty=$row['property'];
   }
   else{
-    CloseDB();
+    db_close();
     echo '您访问的内容不存在或者已经删除!';
     exit(0);
   }
@@ -80,7 +80,7 @@ function ShowNewsList(){
 
 if(@$_POST['action']=='get'){
   ShowNewsList();
-  CloseDB();
+  db_close();
   exit(0);
 }
 
@@ -137,6 +137,6 @@ include('include/page_head.php');?>
   }
 </script><?php
 include('include/page_bottom.htm');
-CloseDB();?>
+db_close();?>
 </body>
 </html>

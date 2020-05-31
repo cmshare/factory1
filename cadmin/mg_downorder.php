@@ -3,7 +3,7 @@ CheckLogin();
 $OrderName=FilterText(trim(@$_GET['ordername']));
 if(!$OrderName)PageReturn('<p align=center>参数错误！</p>',0);
 
-OpenDB();
+db_open();
 
 $row=$conn->query('select state,support,username,receipt,address,usertel,userremark from mg_orders where ordername=\''.$OrderName.'\'',PDO::FETCH_ASSOC)->fetch();
 if($row){
@@ -116,6 +116,6 @@ else{
 }
 
 
-CloseDB();?>
+db_close();?>
 </body>
 </html>

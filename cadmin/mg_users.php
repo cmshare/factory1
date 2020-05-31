@@ -2,7 +2,7 @@
 
  CheckLogin();
  
- OpenDB();
+ db_open();
 
  $UserTitles=array();
 
@@ -103,4 +103,4 @@ function ChangeUserGrade(userid){
 </table>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

@@ -4,7 +4,7 @@ $PageDescription="涵若铭妆(www.gdhzp.com)化妆品批发网,提供各种品�
 $PageTitle="【涵若铭妆】－韩国化妆品批发－进口化妆品批发－南京化妆品批发网";
 $Pagination="-1";
 require("include/page_head.php");
-OpenDB();
+db_open();
 
 $row=$conn->query('select notify,bulletinenable,bulletintitle,bulletincontent,webstatenabled,advs_mid_show,advs_mid_url from `mg_configs`',PDO::FETCH_NUM)->fetch();
 if($row[1]){?>
@@ -132,8 +132,8 @@ $notify=$row[0]; ?>
 	 	<tr>
 	 		<td height="1%">
 <?php //导航:商品分类
-        include("include/guide_brand.htm");
         include("include/guide_category.htm");
+        include("include/guide_catsort.htm");
       ?>      
       </td></tr><tr><td height="98%"> 
         <!-----导航:友情链接 开始------> 
@@ -286,5 +286,5 @@ if(!Safemode){MarqueeInit();flashImage("imgslider",8000,true);AsyncPost("","<?ph
 </body>
 </html> 
 <?php
-CloseDB();
+db_close();
 ?>

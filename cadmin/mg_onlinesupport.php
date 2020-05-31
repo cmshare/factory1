@@ -1,6 +1,6 @@
 <?php require('includes/dbconn.php');
 CheckLogin();
-OpenDB();
+db_open();
 $mode=@$_GET['mode'];
 if($mode=='sysupdate'){
    $ObjFilePath=@$_SERVER['DOCUMENT_ROOT'].WEB_ROOT.'include/qqservice.js';
@@ -186,4 +186,4 @@ function  ModifyUserInfo(onduty,myform){
 </script>
 </body>
 </html><?php
-CloseDB();?>
+db_close();?>

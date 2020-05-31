@@ -1,6 +1,6 @@
 <?php require("includes/dbconn.php");
  CheckLogin();
- OpenDB();
+ db_open();
  CheckMenu('导航菜单管理');
  if((@$mode=$_GET['mode'])){
    if($mode=='del'){
@@ -144,7 +144,7 @@ function MoveMenu(myForm){
     </tr></form><?php
     } 
   }
-  CloseDB();?>
+  db_close();?>
     </table>       
     </td>
 </tr>
