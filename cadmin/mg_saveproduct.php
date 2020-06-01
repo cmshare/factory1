@@ -121,7 +121,7 @@ db_open();
 CheckNameRepetition($productname,$productid);
 CheckBarcodeRepetition($barcode,$productid); 
 if($conn->exec($sql)){
-   echo '<script>parent.UpdateProductHTML('.$productid.');</script>';
+  echo '<script>parent.UpdateProductHTML(',$productid,');</script>';
   PageHalt('商品保存成功！');
 }
 //response.write "<script>alert(""商品保存成功！"");parent.location.reload();</script>"

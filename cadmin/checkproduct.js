@@ -408,7 +408,7 @@ function ChangeCustomField(newfield){
 function BatchDeleteProduct(myform){
   var selcount=Checkbox_SelectedCount("selectid[]");
   if(selcount==0) alert("没有选择操作对象！");
-  else if(confirm("确定要永久删除所选的"+selcount+"件商品吗？")){
+  else if(confirm("确定要永久删除所选的"+selcount+"件商品吗？\r\n注意：只能删除下架的商品！！！")){
     myform.action = "mg_products.php?mode=delete";
     myform.submit();
   } 

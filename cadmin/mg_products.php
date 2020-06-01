@@ -95,7 +95,8 @@ if($mode){
       $selectid=$_POST['selectid'];
       if($selectid && is_array($selectid)){
         $idlist=implode(',',$selectid);
-        if($conn->exec('update mg_product set recommend=-1 where id in ('.$idlist.') and recommend=0')) PageReturn('商品删除成功！');
+        $ret=$conn->exec('update mg_product set recommend=-1 where id in ('.$idlist.') and recommend=0');
+        PageReturn('成功删除'.$ret.'个商品！'); 
       }
     }
   }
@@ -338,7 +339,7 @@ TR.grayrow TD,TR.grayrow TD A{color:#BFBFBF;}
           $queryparam='kn='.$keyname.'&kv='.rawurlencode($keyvalue).'&cid='.$cid;
           echo "GeneratePageGuider(\"$queryparam\",$total_records,$page,$total_pages);";?>
      </script></td>
-                  <td align="right" width="20%" nowrap><input type="button"  onclick="BatchOnsale(this.form,true);" value="设定特价" /> &nbsp;<input type="button"  onclick="BatchOnsale(this.form,false);" value="取消特价"/> &nbsp;<input type="button"  onclick="BatchWithdrawProduct(this.form);" value="商品下架"/> &nbsp;<input type="button" onclick="BatchForwardProduct(this.form)" value="商品上架"></td>
+                  <td align="right" width="20%" nowrap><input type="button"  onclick="BatchOnsale(this.form,true);" value="设定特价" /> &nbsp;<input type="button"  onclick="BatchOnsale(this.form,false);" value="取消特价"/> &nbsp;<input type="button"  onclick="BatchWithdrawProduct(this.form);" value="商品下架"/> &nbsp;<input type="button" onclick="BatchForwardProduct(this.form)" value="商品上架">&nbsp;|&nbsp;<input type="button" onclick="BatchDeleteProduct(this.form)" value="删除商品"></td>
              </tr>
              </table>
             </td>

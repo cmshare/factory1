@@ -88,33 +88,5 @@ else if($mode=="1") include("guide_category.php");
 
 else if($mode=="2") include("guide_catsort.php");
 
-else if($mode=="3"){
-  define('TBL_CATEGORY_DST','wxhzp.cm_store_category');
-  define('TBL_CATEGORY_SRC','meray_db.mg_category');
-  $maxid_src=$conn->query('select max(id) from '.TBL_CATEGORY_SRC)->fetchColumn(0);
-  $maxid_dst=$conn->query('select max(id) from '.TBL_CATEGORY_DST)->fetchColumn(0);
-  
-  while($maxid_dst<$maxid_src){
-    $maxid_dst++;
-    $conn->exec('insert into '.TBL_CATEGORY_DST.' set id='.$maxid_dst.',pid=-1,cate_name=\'\',sort=0,pic=\'\',is_show=0,add_time=unix_timestamp()');
-  }
-  $conn->exec('update ('.TBL_CATEGORY_DST.' as a inner join '.TBL_CATEGORY_SRC.' as b on a.id=b.id) set a.pid=b.pid,a.cate_name=b.title,a.sort=b.sequence,a.is_show=(b.recommend>0)');
-  
-  function GetCategoryByPID($pid){
-     return  $GLOBALS['conn']->query('select id,cate_name,pic from '.TBL_CATEGORY_DST.' where pid='.$pid.' and is_show order by sort desc,id desc')->fetchAll();
-  }
-  
-  $rootCategory = GetCategoryByPID(0);
-  foreach ($rootCategory as $k => $cat2) {
-     $subcatId=$cat2['id'];
-     $subCategory=GetCategoryByPID($subcatId);
-     if($subcatId==1) foreach ($subCategory as $j => $cat3) {
-        $subCategory[$j]['children'] =GetCategoryByPID($cat3['id']);
-     }
-     $rootCategory[$k]['children'] =$subCategory; 
-  } 
-  
-  echo '{"status":200,"msg":"ok","data":',json_encode($rootCategory,JSON_UNESCAPED_UNICODE),'}';
-}
-/* end of $mode==3 */
+/* end of $mode==2 */
 db_close();?>

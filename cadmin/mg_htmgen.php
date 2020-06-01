@@ -3,9 +3,13 @@ define('WEB_ROOT','/');
 
 function HtmlUpdate($mode){
   switch($mode){
-    case 'product': $productid=$_POST['id']; 
-		    if($productid)PHP2HTML('product.php?id='.$productid,'products/'.$productid.'.htm');
-		    break;            	
+    case 'product': 
+         $productid=$_POST['id']; 
+         if($productid){
+           PHP2HTML('product.php?id='.$productid,'products/'.$productid.'.htm');
+           file_get_contents($GLOBALS['url_base'].'include/wxhzp_sync.php?mode=2&id='.$productid);
+         }  
+         break;              	
     case 'base':    PHP2HTML('main.php','index.htm'); 
 		    PHP2HTML('sort.php','wares.htm');//新品上架
 		    PHP2HTML('sort.php?cid=1','hotsell.htm');//销售排行
@@ -37,7 +41,7 @@ function HtmlUpdate($mode){
            PHP2HTML('include/htm_guide_sort.php?mode=0','include/category.js');
            PHP2HTML('include/htm_guide_sort.php?mode=1','include/guide_category.htm');
            PHP2HTML('include/htm_guide_sort.php?mode=2','include/guide_catsort.htm');
-           PHP2HTML('include/htm_guide_sort.php?mode=3','include/wx_sync_category.json');
+           PHP2HTML('include/wxhzp_sync.php?mode=1','include/wxhzp_category.json');
 		       break;	  
   }
 }
@@ -47,7 +51,7 @@ function PHP2HTML($url,$savefile){
   if($noerror || is_null($noerror)){
     echo 'Updating '.$url;
     $content=file_get_contents($url_base.$url);
-    if($content){
+    if($content && $savefile){
       $savepath=WEB_ROOT.$savefile;
       if(substr($savepath,0,1)=='/') $savepath=$_SERVER['DOCUMENT_ROOT'].$savepath;
       else $savepath=getcwd().'/'.$savepath;

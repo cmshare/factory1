@@ -160,7 +160,6 @@ function cids_data_generate(myform){
   return true;
 }
 
-
 function UpdateProductHTML(productid){
   AsyncPost('id='+productid,'mg_htmgen.php?mode=product');
 }
